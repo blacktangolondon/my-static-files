@@ -10,7 +10,7 @@ function loadThematicPortfolio() {
 }
 
 function attachPortfolioTableSorting() {
-  // Placeholder function—no table sorting implemented.
+  // Placeholder: Table sorting is not implemented.
 }
 
 // ===== Begin Full scripts.js Content =====
@@ -1288,7 +1288,7 @@ document.addEventListener('DOMContentLoaded', function(){
     overviewScript.type = "text/javascript";
     overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
     overviewScript.async = true;
-    overviewScript.innerHTML = `
+    overviewScript.textContent = `
       {
         "symbols": [
           [ "${symbol}|1D" ]
@@ -1484,6 +1484,9 @@ document.addEventListener('DOMContentLoaded', function(){
   document.getElementById("block3-trendscore").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
   document.getElementById("block4").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
   updateSymbolOverview("AMAZON");
+  updateBlock3("AMAZON");
+  updateBlock4("AMAZON");
+  
   const block3TabButtons = document.querySelectorAll("#block3-tabs button");
   block3TabButtons.forEach(btn => {
     btn.addEventListener("click", () => { showBlock3Tab(btn.dataset.tab); });
@@ -1512,16 +1515,17 @@ document.addEventListener('DOMContentLoaded', function(){
     else if (block1.webkitRequestFullscreen) { block1.webkitRequestFullscreen(); }
     else { console.error("Fullscreen API not supported"); }
   });
+  
   document.addEventListener("fullscreenchange", () => {
     const btn = document.getElementById("fullscreen-button");
     const block1 = document.getElementById("block1");
     if (document.fullscreenElement === null) {
       btn.innerHTML = '<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>';
-    }
-    else {
+    } else {
       btn.innerHTML = '<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>';
     }
   });
+  
   document.addEventListener("fullscreenchange", () => {
     const sidebarFS = document.getElementById("sidebar-fullscreen");
     if (sidebarFS) {
@@ -1537,10 +1541,12 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById("youtube-popup").style.display = "block";
     $("#youtube-popup").draggable({ handle: "#youtube-popup-header" });
   }
+  
   function updateYouTubePlayer() {
     var url = document.getElementById("youtube-url").value.trim();
     document.getElementById("youtube-iframe").src = url;
   }
+  
   document.getElementById("youtube-popup-close").addEventListener("click", function() {
     document.getElementById("youtube-popup").style.display = "none";
   });
