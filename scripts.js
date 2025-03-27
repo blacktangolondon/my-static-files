@@ -10,7 +10,7 @@ function loadThematicPortfolio() {
 }
 
 function attachPortfolioTableSorting() {
-  // Placeholder: Table sorting is not implemented.
+  // Placeholder: No table sorting implemented.
 }
 
 // ===== Begin Full scripts.js Content =====
