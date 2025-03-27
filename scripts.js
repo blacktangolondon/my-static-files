@@ -9,6 +9,10 @@ function loadThematicPortfolio() {
     "Thematic Portfolio Loaded.";
 }
 
+function attachPortfolioTableSorting() {
+  // Placeholder function—no table sorting implemented.
+}
+
 // ===== Begin Full scripts.js Content =====
 
 document.addEventListener('DOMContentLoaded', function(){
