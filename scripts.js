@@ -1,6 +1,6 @@
 // ===== Placeholder Function Definitions =====
 function updateBlock3(instrumentName) {
-  alert("updateBlock3 called with " + instrumentName); // Temporary alert to verify execution
+  // Removed alert to stop repeated pop-ups
   document.getElementById("block3-trendscore").innerHTML =
     "Default block3 content for " + instrumentName;
 }
