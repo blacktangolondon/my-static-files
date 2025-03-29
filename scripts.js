@@ -1,8 +1,41 @@
 // ===== Placeholder Function Definitions =====
 function updateBlock3(instrumentName) {
-  // Removed temporary alert – now displays default content.
+  // Displays default content for the TREND SCORE tab.
   document.getElementById("block3-trendscore").innerHTML =
     "Default block3 content for " + instrumentName;
+}
+
+function updateBlock3TradingView(instrumentName) {
+  // Loads the TradingView widget into block3's TradingView tab.
+  const info = stocksFullData[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
+  const tvContainer = document.getElementById("block3-tradingview");
+  tvContainer.innerHTML = ""; // Clear any previous content.
+  const widgetDiv = document.createElement("div");
+  widgetDiv.className = "tradingview-widget-container";
+  widgetDiv.innerHTML = `
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright">
+      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
+    </div>
+  `;
+  tvContainer.appendChild(widgetDiv);
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+  script.async = true;
+  script.textContent = `{
+    "interval": "1D",
+    "width": "100%",
+    "isTransparent": true,
+    "height": "100%",
+    "symbol": "${symbol}",
+    "showIntervalTabs": true,
+    "displayMode": "single",
+    "locale": "en",
+    "colorTheme": "dark"
+  }`;
+  widgetDiv.appendChild(script);
 }
 
 function loadThematicPortfolio() {
@@ -11,7 +44,7 @@ function loadThematicPortfolio() {
 }
 
 function attachPortfolioTableSorting() {
-  // Placeholder – table sorting is not implemented.
+  // Placeholder: No table sorting implemented.
 }
 
 // ===== Begin Full scripts.js Content =====
@@ -1459,17 +1492,17 @@ document.addEventListener('DOMContentLoaded', function(){
         } else if (etfFullData[instrumentName]) {
           updateChartETF(instrumentName);
           updateSymbolOverviewETF(instrumentName);
-          updateBlock3ETF(instrumentName);
+          updateBlock3(instrumentName);
           updateBlock4(instrumentName);
         } else if (futuresFullData[instrumentName]) {
           updateChartFutures(instrumentName);
           updateSymbolOverviewFutures(instrumentName);
-          updateBlock3Futures(instrumentName);
+          updateBlock3(instrumentName);
           updateBlock4(instrumentName);
         } else if (fxFullData[instrumentName]) {
           updateChartFX(instrumentName);
           updateSymbolOverviewFX(instrumentName);
-          updateBlock3FX(instrumentName);
+          updateBlock3(instrumentName);
           updateBlock4(instrumentName);
         } else {
           updateBlock3(instrumentName);
@@ -1503,6 +1536,7 @@ document.addEventListener('DOMContentLoaded', function(){
     } else {
       tvBtn.classList.add('active-tab');
       tvDiv.style.display = 'block';
+      updateBlock3TradingView(currentInstrument);
     }
   }
   
