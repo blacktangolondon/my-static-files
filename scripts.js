@@ -2117,7 +2117,6 @@ function updateBlock3Generic(
       document.getElementById("block3-content").style.height = "calc(100% - 30px)";
       tradingViewUpdater(instrumentName);
     }
-    showBlock3Tab("trendscore");
   }, 300);
 }
 
