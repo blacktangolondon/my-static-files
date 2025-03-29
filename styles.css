@@ -1,6 +1,13 @@
 /* General Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { display: flex; font-family: Arial, sans-serif; }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+body { 
+  display: flex; 
+  font-family: Arial, sans-serif; 
+}
 
 /* Loading message style */
 .loading-message {
@@ -36,8 +43,15 @@ body { display: flex; font-family: Arial, sans-serif; }
   position: relative;
   padding-bottom: 10px;
 }
-#collapse-btn { padding: 10px; text-align: center; cursor: pointer; background-color: #334455; }
-#collapse-btn:hover { background-color: #556677; }
+#collapse-btn { 
+  padding: 10px; 
+  text-align: center; 
+  cursor: pointer; 
+  background-color: #334455; 
+}
+#collapse-btn:hover { 
+  background-color: #556677; 
+}
 /* New search box styling – replaced the single input with a container */
 #sidebar-search-container {
   position: relative;
@@ -59,23 +73,48 @@ body { display: flex; font-family: Arial, sans-serif; }
   color: white;
   cursor: pointer;
 }
-#sidebar ul { list-style: none; padding: 10px; }
-#sidebar ul li { padding: 10px; cursor: pointer; }
-.sub-list li:nth-child(odd) { background-color: #001122; }
-.sub-list li:nth-child(even) { background-color: #002244; }
-#sidebar li.selected { color: #FFA500; }
-#sidebar ul li:not(.expandable):hover { background-color: #334455; }
-.expandable:hover { background-color: transparent; }
-.expandable > .toggle-btn:hover { background-color: #334455; }
-.sub-list li:not(.expandable):hover { background-color: #334455; }
+#sidebar ul {
+  list-style: none;
+  padding: 10px;
+}
+#sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+.sub-list li:nth-child(odd) { 
+  background-color: #001122; 
+}
+.sub-list li:nth-child(even) { 
+  background-color: #002244; 
+}
+#sidebar li.selected { 
+  color: #FFA500; 
+}
+#sidebar ul li:not(.expandable):hover { 
+  background-color: #334455; 
+}
+.expandable:hover { 
+  background-color: transparent; 
+}
+.expandable > .toggle-btn:hover { 
+  background-color: #334455; 
+}
+.sub-list li:not(.expandable):hover { 
+  background-color: #334455; 
+}
 .expandable > .toggle-btn {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.expandable > .sub-list { display: none; padding-left: 15px; }
-.expandable.expanded > .sub-list { display: block; }
+.expandable > .sub-list { 
+  display: none; 
+  padding-left: 15px; 
+}
+.expandable.expanded > .sub-list { 
+  display: block; 
+}
 
 /* Main Content Styling (Dashboard) */
 #main-content {
@@ -130,8 +169,13 @@ body { display: flex; font-family: Arial, sans-serif; }
   padding: 0;
   overflow: visible;
 }
-#block2 { padding: 10px; }
-#block3, #block4 { font-family: Arial, sans-serif; font-size: 14px; }
+#block2 {
+  padding: 10px;
+}
+#block3, #block4 {
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+}
 #block3 table, #block3 th, #block3 td {
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -152,8 +196,12 @@ body { display: flex; font-family: Arial, sans-serif; }
 #block3-trendscore th:nth-child(2), #block3-trendscore td:nth-child(2) {
   border-right: 1px solid #444444;
 }
-#block3-trendscore tr:nth-child(odd) { background-color: #001122; }
-#block3-trendscore tr:nth-child(even) { background-color: #002244; }
+#block3-trendscore tr:nth-child(odd) { 
+  background-color: #001122; 
+}
+#block3-trendscore tr:nth-child(even) { 
+  background-color: #002244; 
+}
 #block3-tabs {
   display: flex;
   background-color: #334455;
@@ -168,8 +216,13 @@ body { display: flex; font-family: Arial, sans-serif; }
   font-size: 10px;
   font-family: Arial, sans-serif;
 }
-#block3-tabs button:hover { background: #556677; }
-#block3-tabs button.active-tab { background: #778899; font-weight: bold; }
+#block3-tabs button:hover {
+  background: #556677;
+}
+#block3-tabs button.active-tab {
+  background: #778899;
+  font-weight: bold;
+}
 #block3-content {
   width: 100%;
   height: calc(100% - 30px);
@@ -180,8 +233,13 @@ body { display: flex; font-family: Arial, sans-serif; }
   height: 100%;
   display: none;
 }
-#block4 { position: relative; }
-#block4chart { width: 100%; height: 100%; }
+#block4 {
+  position: relative;
+}
+#block4chart {
+  width: 100%;
+  height: 100%;
+}
 
 /* External Full Screen Button */
 .external-fullscreen-btn {
@@ -197,7 +255,9 @@ body { display: flex; font-family: Arial, sans-serif; }
   z-index: 10;
   border-radius: 3px;
 }
-.external-fullscreen-btn:hover { background-color: #556677; }
+.external-fullscreen-btn:hover {
+  background-color: #556677;
+}
 .external-fullscreen-btn .arrow {
   display: inline-block;
   font-size: 10px;
@@ -239,8 +299,14 @@ body { display: flex; font-family: Arial, sans-serif; }
   font-size: 16px;
   cursor: pointer;
 }
-#youtube-popup input[type="text"] { width: 100%; margin-bottom: 5px; }
-#youtube-popup button { width: 100%; margin-bottom: 5px; }
+#youtube-popup input[type="text"] {
+  width: 100%;
+  margin-bottom: 5px;
+}
+#youtube-popup button {
+  width: 100%;
+  margin-bottom: 5px;
+}
 
 /* Portfolio Builder Page Styles */
 #portfolio-builder-page {
@@ -251,7 +317,9 @@ body { display: flex; font-family: Arial, sans-serif; }
   padding: 20px;
   position: relative;
 }
-#portfolio-builder-steps { margin-bottom: 10px; }
+#portfolio-builder-steps {
+  margin-bottom: 10px;
+}
 #portfolio-builder-instructions {
   text-align: center;
   font-size: 16px;
@@ -306,7 +374,9 @@ body { display: flex; font-family: Arial, sans-serif; }
   cursor: pointer;
   transition: background 0.3s ease;
 }
-#generate-portfolio-btn:hover { background: #556677; }
+#generate-portfolio-btn:hover {
+  background: #556677;
+}
 #portfolio-results {
   margin-top: 20px;
   clear: both;
@@ -340,7 +410,7 @@ body { display: flex; font-family: Arial, sans-serif; }
 #block3-trendscore table,
 #block3-trendscore th,
 #block3-trendscore td {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 /* Two-section layout for Portfolio Builder page */
@@ -401,14 +471,14 @@ body { display: flex; font-family: Arial, sans-serif; }
 .thematic-portfolio-section {
   border: 1px solid #112233;
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 30px;  /* Increased margin-bottom for better separation */
   padding: 20px;
 }
 .thematic-portfolio-section h2 {
   color: #FFA500;
   margin-bottom: 10px;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 22px;  /* Increased font size */
+  font-weight: bold;  /* Enhanced font weight */
   border-bottom: 1px solid #112233;
   padding-bottom: 5px;
 }
@@ -422,7 +492,7 @@ body { display: flex; font-family: Arial, sans-serif; }
 }
 .thematic-portfolio-table th, 
 .thematic-portfolio-table td {
-  padding: 14px;
+  padding: 14px;  /* Increased cell padding */
   text-align: center;
   border: 1px solid #112233;
   color: white;
@@ -435,8 +505,9 @@ body { display: flex; font-family: Arial, sans-serif; }
 .thematic-portfolio-table tr:nth-child(even) {
   background-color: rgba(255, 165, 0, 0.1);
 }
+/* Container for charts below each table */
 .portfolio-charts {
-  margin-top: 25px;
+  margin-top: 25px;  /* Increased margin between table and charts */
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -447,10 +518,10 @@ body { display: flex; font-family: Arial, sans-serif; }
   border-radius: 4px;
   padding: 10px;
   flex: 1 1 300px;
-  max-height: 300px;
+  max-height: 300px;  /* Limit height so pie charts don't cover entire page */
 }
 .portfolio-chart canvas {
-  max-height: 250px;
+  max-height: 250px;  /* Further control canvas height */
 }
 
 /* Thematic Portfolio Tab Navigation */
@@ -528,11 +599,15 @@ body { display: flex; font-family: Arial, sans-serif; }
     padding: 5px;
     gap: 5px;
   }
-  #block2 { padding: 5px; }
+  /* Reduce padding on blocks */
+  #block2 { 
+    padding: 5px; 
+  }
   .external-fullscreen-btn {
     padding: 2px 4px;
     font-size: 12px;
   }
+  /* Adjust tables for readability */
   table, th, td {
     font-size: 10px;
   }
