@@ -1708,7 +1708,6 @@ fetch(fxFullDataCSVUrl)
 
 /* CSV PARSING for STOCKS */
 const stocksFullDataCSVUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSx30p9-V05ZEnvt4CYA1K4Xv1XmuR2Yi1rjH3yHEbaxtRPdMXfp8TNjSYYBXQQkIOu8WSaQVxmqodY/pub?gid=1481817692&single=true&output=csv";
-let stocksCorrelationDataLoaded = false;
 fetch(stocksFullDataCSVUrl)
   .then(response => response.text())
   .then(csvText => {
