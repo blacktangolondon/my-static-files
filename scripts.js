@@ -1,6 +1,6 @@
 // ===== Placeholder Function Definitions =====
 function updateBlock3(instrumentName) {
-  // Removed alert to stop repeated pop-ups
+  // Removed temporary alert – now displays default content.
   document.getElementById("block3-trendscore").innerHTML =
     "Default block3 content for " + instrumentName;
 }
@@ -11,7 +11,7 @@ function loadThematicPortfolio() {
 }
 
 function attachPortfolioTableSorting() {
-  // Placeholder: No table sorting implemented.
+  // Placeholder – table sorting is not implemented.
 }
 
 // ===== Begin Full scripts.js Content =====
@@ -205,22 +205,18 @@ document.addEventListener('DOMContentLoaded', function(){
     var dataObj;
     var mapping;
     if (asset === "STOCKS") { 
-        dataObj = stocksFullData;
-        mapping = filterMappingStocks;
-    }
-    else if (asset === "ETFS") { 
-        dataObj = etfFullData;
-        mapping = filterMappingETFs;
-    }
-    else if (asset === "FUTURES") { 
-        dataObj = futuresFullData;
-        mapping = filterMappingFutures;
-    }
-    else if (asset === "FX") { 
-        dataObj = fxFullData;
-        mapping = filterMappingFX;
-    }
-    else {
+      dataObj = stocksFullData;
+      mapping = filterMappingStocks;
+    } else if (asset === "ETFS") { 
+      dataObj = etfFullData;
+      mapping = filterMappingETFs;
+    } else if (asset === "FUTURES") { 
+      dataObj = futuresFullData;
+      mapping = filterMappingFutures;
+    } else if (asset === "FX") { 
+      dataObj = fxFullData;
+      mapping = filterMappingFX;
+    } else {
       alert("Invalid asset class.");
       return;
     }
@@ -990,9 +986,9 @@ document.addEventListener('DOMContentLoaded', function(){
         let futName = lines[0][col].trim();
         if (!futName) continue;
         if (futName.replace(/\s/g, "").toUpperCase() === "FTSE100") {
-            futName = "FTSE 100";
+          futName = "FTSE 100";
         } else if (futName.replace(/\s/g, "").toUpperCase() === "CAC40") {
-            futName = "CAC 40";
+          futName = "CAC 40";
         }
         let prices = [];
         for (let r = 1; r <= 100; r++) {
