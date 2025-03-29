@@ -1981,6 +1981,26 @@ function updateChartFX(instrumentName) {
   updateChartGeneric(instrumentName, fxFullData);
 }
 
+ function showBlock3Tab(tabName) {
+    const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
+    const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
+    const trendDiv = document.getElementById('block3-trendscore');
+    const tvDiv = document.getElementById('block3-tradingview');
+
+    trendBtn.classList.remove('active-tab');
+    tvBtn.classList.remove('active-tab');
+    trendDiv.style.display = 'none';
+    tvDiv.style.display = 'none';
+
+    if (tabName === 'trendscore') {
+      trendBtn.classList.add('active-tab');
+      trendDiv.style.display = 'block';
+    } else {
+      tvBtn.classList.add('active-tab');
+      tvDiv.style.display = 'block';
+    }
+  }
+
 function updateSymbolOverviewGeneric(instrumentName, dataObj) {
   const info = dataObj[instrumentName];
   const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
@@ -2301,25 +2321,7 @@ document.addEventListener("DOMContentLoaded", function() {
       showBlock3Tab(btn.dataset.tab);
     });
   });
-  function showBlock3Tab(tabName) {
-    const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
-    const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
-    const trendDiv = document.getElementById('block3-trendscore');
-    const tvDiv = document.getElementById('block3-tradingview');
-
-    trendBtn.classList.remove('active-tab');
-    tvBtn.classList.remove('active-tab');
-    trendDiv.style.display = 'none';
-    tvDiv.style.display = 'none';
-
-    if (tabName === 'trendscore') {
-      trendBtn.classList.add('active-tab');
-      trendDiv.style.display = 'block';
-    } else {
-      tvBtn.classList.add('active-tab');
-      tvDiv.style.display = 'block';
-    }
-  }
+ 
 
   // 7) Fullscreen button logic
   document.getElementById("fullscreen-button").addEventListener("click", () => {
