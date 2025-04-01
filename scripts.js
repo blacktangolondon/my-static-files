@@ -2119,7 +2119,7 @@ function updateBlock3Generic(
     }
     trendScoreContainer.appendChild(table);
 
-    // If CAC 40 or FTSE MIB: hide tabs, 100% height, etc.
+    // If CAC 40 or FTSE MIB: hide tabs, set 100% height, and stretch table rows.
     if (instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
       document.getElementById("block3-tabs").style.display = "none";
       document.getElementById("block3-content").style.height = "100%";
@@ -2132,11 +2132,12 @@ function updateBlock3Generic(
         rows[i].style.height = (100 / numRows) + "%";
       }
     } else {
-      // Otherwise, show tabs and restore the usual layout
+      // Otherwise, show tabs and restore the usual layout.
       document.getElementById("block3-tabs").style.display = "flex";
       document.getElementById("block3-content").style.height = "calc(100% - 30px)";
       tradingViewUpdater(instrumentName);
     }
+    showBlock3Tab("trendscore");
   }, 300);
 }
 
@@ -2227,6 +2228,7 @@ function updateBlock3TradingViewFutures(instrumentName) {
 function updateBlock3TradingViewFX(instrumentName) {
   updateBlock3TradingViewGeneric(instrumentName, fxFullData);
 }
+
 
 /*************************************************************************
  * MAIN HANDLERS / EVENT LISTENERS INSIDE DOMContentLoaded
