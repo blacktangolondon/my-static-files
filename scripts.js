@@ -2119,7 +2119,7 @@ function updateBlock3Generic(
     }
     trendScoreContainer.appendChild(table);
 
-    // If CAC 40 or FTSE MIB: hide tabs, set 100% height, and stretch table rows.
+    // If CAC 40 or FTSE MIB: hide tabs, set full height, and stretch table rows.
     if (instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
       document.getElementById("block3-tabs").style.display = "none";
       document.getElementById("block3-content").style.height = "100%";
@@ -2228,6 +2228,7 @@ function updateBlock3TradingViewFutures(instrumentName) {
 function updateBlock3TradingViewFX(instrumentName) {
   updateBlock3TradingViewGeneric(instrumentName, fxFullData);
 }
+
 
 
 /*************************************************************************
