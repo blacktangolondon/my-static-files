@@ -615,6 +615,6 @@ html, body {
 
 
 #main-content {
-  background-color: #222 !important;
+  background-color: #222; /* temporary contrasting background */
 }
 
