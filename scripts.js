@@ -489,7 +489,6 @@ var portfolioFilters = [];
  *************************************************************************/
   
   <!-- Thematic Portfolio Script with Tab-Based Navigation -->
-  <script>
     // Helper: destroy chart on a given canvas if it already exists.
     function destroyChartIfExists(canvasId) {
       const existing = Chart.getChart(canvasId);
