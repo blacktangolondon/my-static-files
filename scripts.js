@@ -2065,3 +2065,435 @@ function showBlock3Tab(tabName) {
   trendBtn.classList.remove('active-tab');
   tvBtn.classList.remove('active-tab');
   trendDiv.style
+
+  function showBlock3Tab(tabName) {
+  const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
+  const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
+  const trendDiv = document.getElementById('block3-trendscore');
+  const tvDiv = document.getElementById('block3-tradingview');
+  trendBtn.classList.remove('active-tab');
+  tvBtn.classList.remove('active-tab');
+  trendDiv.style.display = 'none';
+  tvDiv.style.display = 'none';
+  if (tabName === 'trendscore') {
+    trendBtn.classList.add('active-tab');
+    trendDiv.style.display = 'block';
+  } else {
+    tvBtn.classList.add('active-tab');
+    tvDiv.style.display = 'block';
+  }
+}
+
+function updateSymbolOverviewGeneric(instrumentName, dataObj) {
+  const info = dataObj[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
+  const block2 = document.getElementById("block2");
+  const container = block2.querySelector("#symbol-info-container");
+  container.innerHTML = `<div class="tradingview-widget-container__widget"></div>`;
+  const overviewScript = document.createElement('script');
+  overviewScript.type = "text/javascript";
+  overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
+  overviewScript.async = true;
+  overviewScript.textContent = `{
+    "symbols": [
+      [ "${symbol}|1D" ]
+    ],
+    "chartOnly": false,
+    "width": "100%",
+    "height": "100%",
+    "locale": "en",
+    "colorTheme": "dark",
+    "autosize": true,
+    "showVolume": false,
+    "showMA": false,
+    "hideDateRanges": false,
+    "hideMarketStatus": false,
+    "hideSymbolLogo": false,
+    "scalePosition": "right",
+    "scaleMode": "Normal",
+    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
+    "fontSize": "10",
+    "noTimeScale": false,
+    "valuesTracking": "1",
+    "changeMode": "price-and-percent",
+    "chartType": "area",
+    "maLineColor": "#2962FF",
+    "maLineWidth": 1,
+    "maLength": 9,
+    "headerFontSize": "medium",
+    "backgroundColor": "rgba(19, 23, 34, 0)",
+    "widgetFontColor": "rgba(255, 152, 0, 1)",
+    "lineWidth": 2,
+    "lineType": 0,
+    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
+  }`;
+  container.appendChild(overviewScript);
+}
+
+function updateSymbolOverview(instrumentName) { updateSymbolOverviewGeneric(instrumentName, stocksFullData); }
+function updateSymbolOverviewETF(instrumentName) { updateSymbolOverviewGeneric(instrumentName, etfFullData); }
+function updateSymbolOverviewFutures(instrumentName) { updateSymbolOverviewGeneric(instrumentName, futuresFullData); }
+function updateSymbolOverviewFX(instrumentName) { updateSymbolOverviewGeneric(instrumentName, fxFullData); }
+
+function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
+  const trendScoreContainer = document.getElementById('block3-trendscore');
+  trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  setTimeout(() => {
+    const info = dataObj[instrumentName];
+    trendScoreContainer.innerHTML = '';
+    if (!info) {
+      trendScoreContainer.textContent = "No data available for " + instrumentName;
+      if (!(instrumentName === "CAC 40" || instrumentName === "FTSE MIB")) {
+        tradingViewUpdater(instrumentName);
+      }
+      showBlock3Tab("trendscore");
+      return;
+    }
+    const table = document.createElement('table');
+    for (let i = 0; i < rowCount; i++) {
+      const tr = document.createElement('tr');
+      
+      const td1 = document.createElement('td');
+      td1.textContent = leftLabelArr[i] || "";
+      tr.appendChild(td1);
+      
+      const td2 = document.createElement('td');
+      if (i === 3) {
+        let gapVal = info.summaryLeft[i];
+        td2.textContent = (gapVal === "-" || parseFloat(gapVal) === 0) ? "0%" : gapVal;
+      } else {
+        td2.textContent = info.summaryLeft[i] || "";
+      }
+      tr.appendChild(td2);
+      
+      const td3 = document.createElement('td');
+      td3.textContent = rightLabelArr[i] || "";
+      tr.appendChild(td3);
+      
+      const td4 = document.createElement('td');
+      td4.textContent = info.summaryRight[i] || "";
+      tr.appendChild(td4);
+      
+      table.appendChild(tr);
+    }
+    trendScoreContainer.appendChild(table);
+    if (instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
+      document.getElementById("block3-tabs").style.display = "none";
+      document.getElementById("block3-content").style.height = "100%";
+      document.getElementById("block3-tradingview").innerHTML = '';
+      table.style.height = "100%";
+      const rows = table.getElementsByTagName("tr");
+      const numRows = rows.length;
+      for (let i = 0; i < numRows; i++) { rows[i].style.height = (100 / numRows) + "%"; }
+    } else {
+      document.getElementById("block3-tabs").style.display = "flex";
+      document.getElementById("block3-content").style.height = "calc(100% - 30px)";
+      tradingViewUpdater(instrumentName);
+    }
+    showBlock3Tab("trendscore");
+  }, 300);
+}
+
+function updateBlock3(instrumentName) { updateBlock3Generic(instrumentName, stocksFullData, 9, leftLabels, rightLabels, updateBlock3TradingView); }
+function updateBlock3ETF(instrumentName) { updateBlock3Generic(instrumentName, etfFullData, 8, etfLeftLabels, etfRightLabels, updateBlock3TradingViewETF); }
+function updateBlock3Futures(instrumentName) { updateBlock3Generic(instrumentName, futuresFullData, 7, futuresLeftLabels, futuresRightLabels, updateBlock3TradingViewFutures); }
+function updateBlock3FX(instrumentName) { updateBlock3Generic(instrumentName, fxFullData, 7, fxLeftLabels, fxRightLabels, updateBlock3TradingViewFX); }
+
+function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
+  const info = dataObj[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
+  const tvContainer = document.getElementById('block3-tradingview');
+  tvContainer.innerHTML = '';
+  const widgetDiv = document.createElement('div');
+  widgetDiv.className = "tradingview-widget-container";
+  widgetDiv.innerHTML = `
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright">
+      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
+    </div>
+  `;
+  tvContainer.appendChild(widgetDiv);
+  const script = document.createElement('script');
+  script.type = "text/javascript";
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+  script.async = true;
+  script.textContent = `{
+    "interval": "1D",
+    "width": "100%",
+    "isTransparent": true,
+    "height": "100%",
+    "symbol": "${symbol}",
+    "showIntervalTabs": true,
+    "displayMode": "single",
+    "locale": "en",
+    "colorTheme": "dark"
+  }`;
+  widgetDiv.appendChild(script);
+}
+
+function updateBlock3TradingView(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, stocksFullData); }
+function updateBlock3TradingViewETF(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, etfFullData); }
+function updateBlock3TradingViewFutures(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, futuresFullData); }
+function updateBlock3TradingViewFX(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, fxFullData); }
+
+/*************************************************************************
+ * MAIN HANDLERS / EVENT LISTENERS
+ *************************************************************************/
+let currentInstrument = "AMAZON";
+document.addEventListener("DOMContentLoaded", function() {
+  console.log("DOM fully loaded – starting sidebar generation");
+  generateSidebarContent();
+  window.defaultDashboardHTML = document.getElementById("main-content").innerHTML;
+  document.getElementById("block3-trendscore").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  document.getElementById("block4").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  updateSymbolOverview("AMAZON");
+  
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.tagName === 'LI') {
+      if (!e.target.classList.contains('expandable')) {
+        if (e.target.id === "sidebar-fullscreen") return;
+        if (e.target.textContent.trim().toUpperCase() === "LIVE TV") {
+          openYouTubePopup();
+          return;
+        }
+        document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
+        e.target.classList.add('selected');
+
+        const instrumentName = e.target.textContent.trim();
+        if (instrumentName.toUpperCase() === "PORTFOLIO BUILDER") {
+          document.getElementById("main-content").style.display = "none";
+          document.getElementById("thematic-portfolio-template").style.display = "none";
+          document.getElementById("portfolio-builder-template").style.display = "block";
+          loadPortfolioBuilder();
+          return;
+        } else if (
+          instrumentName.toUpperCase() === "THEMATIC PORTFOLIO" ||
+          instrumentName.toUpperCase() === "PORTFOLIO IDEAS"
+        ) {
+          document.getElementById("main-content").style.display = "none";
+          document.getElementById("portfolio-builder-template").style.display = "none";
+          document.getElementById("thematic-portfolio-template").style.display = "block";
+          loadThematicPortfolio();
+          return;
+        } else {
+          document.getElementById("portfolio-builder-template").style.display = "none";
+          document.getElementById("thematic-portfolio-template").style.display = "none";
+          document.getElementById("main-content").style.display = "grid";
+        }
+        currentInstrument = instrumentName;
+        if (stocksFullData[instrumentName]) {
+          updateChart(instrumentName);
+          updateSymbolOverview(instrumentName);
+          updateBlock3(instrumentName);
+          updateBlock4(instrumentName);
+        } else if (etfFullData[instrumentName]) {
+          updateChartETF(instrumentName);
+          updateSymbolOverviewETF(instrumentName);
+          updateBlock3ETF(instrumentName);
+          updateBlock4(instrumentName);
+        } else if (futuresFullData[instrumentName]) {
+          updateChartFutures(instrumentName);
+          updateSymbolOverviewFutures(instrumentName);
+          updateBlock3Futures(instrumentName);
+          updateBlock4(instrumentName);
+        } else if (fxFullData[instrumentName]) {
+          updateChartFX(instrumentName);
+          updateSymbolOverviewFX(instrumentName);
+          updateBlock3FX(instrumentName);
+          updateBlock4(instrumentName);
+        } else {
+          // fallback
+          updateBlock3(instrumentName);
+        }
+      }
+    }
+  });
+  
+  const block3TabButtons = document.querySelectorAll("#block3-tabs button");
+  block3TabButtons.forEach(btn => {
+    btn.addEventListener("click", () => { showBlock3Tab(btn.dataset.tab); });
+  });
+  
+  document.getElementById("fullscreen-button").addEventListener("click", () => {
+    const block1 = document.getElementById("block1");
+    if (block1.requestFullscreen) { block1.requestFullscreen(); }
+    else if (block1.webkitRequestFullscreen) { block1.webkitRequestFullscreen(); }
+    else { console.error("Fullscreen API not supported"); }
+  });
+  
+  document.addEventListener("fullscreenchange", () => {
+    const btn = document.getElementById("fullscreen-button");
+    if (document.fullscreenElement === null) {
+      btn.innerHTML = `
+        <span class="arrow">&#8598;</span>
+        <span class="arrow">&#8599;</span><br>
+        <span class="arrow">&#8601;</span>
+        <span class="arrow">&#8600;</span>
+      `;
+    } else {
+      btn.innerHTML = `
+        <span class="arrow">&#8598;</span>
+        <span class="arrow">&#8599;</span><br>
+        <span class="arrow">&#8601;</span>
+        <span class="arrow">&#8600;</span>
+      `;
+    }
+    const sidebarFS = document.getElementById("sidebar-fullscreen");
+    if (sidebarFS) {
+      if (document.fullscreenElement) { sidebarFS.textContent = "EXIT FULLSCREEN PLATFORM"; }
+      else { sidebarFS.textContent = "FULL SCREEN PLATFORM"; }
+    }
+  });
+  
+  document.getElementById("youtube-popup-close").addEventListener("click", function() {
+    document.getElementById("youtube-popup").style.display = "none";
+  });
+  
+  $(function() {
+    let instrumentNames = [];
+    $("#sidebar-list .instrument-item").each(function() {
+      instrumentNames.push($(this).text().trim());
+    });
+    $("#sidebar-search").autocomplete({
+      source: instrumentNames,
+      minLength: 1,
+      select: function(event, ui) {
+        $("#sidebar-list .instrument-item").each(function() {
+          $(this).toggle($(this).text().trim() === ui.item.value);
+        });
+        $("#sidebar-list .instrument-item")
+          .filter(function() {
+            return $(this).text().trim() === ui.item.value;
+          })
+          .click();
+      }
+    });
+    $("#sidebar-search-clear").on("click", function() {
+      $("#sidebar-search").val("");
+      $("#sidebar-list .instrument-item").show();
+    });
+  });
+});
+
+/*************************************************************************
+ * SIDEBAR GENERATION
+ *************************************************************************/
+function generateSidebarContent() {
+  console.log("Sidebar generation started");
+  const sidebarList = document.getElementById('sidebar-list');
+  const skipCategories = ["SPREAD","CRYPTO","MEMBERS CHAT","SUPPORT"];
+
+  Object.keys(data).forEach(category => {
+    if (skipCategories.includes(category)) return;
+    let displayName = (category === "THEMATIC PORTFOLIO") ? "PORTFOLIO IDEAS" : category;
+    const items = data[category];
+
+    if (Array.isArray(items)) {
+      const categoryItem = document.createElement('li');
+      categoryItem.textContent = displayName;
+      sidebarList.appendChild(categoryItem);
+
+      if (items.length > 0) {
+        categoryItem.classList.add('expandable');
+        const toggleBtn = document.createElement('div');
+        toggleBtn.classList.add('toggle-btn');
+        toggleBtn.innerHTML = `${displayName} <span>+</span>`;
+        categoryItem.textContent = '';
+        categoryItem.appendChild(toggleBtn);
+
+        const subList = document.createElement('ul');
+        subList.classList.add('sub-list');
+
+        items.forEach(instrument => {
+          const listItem = document.createElement('li');
+          listItem.classList.add("instrument-item");
+          listItem.textContent = instrument;
+          subList.appendChild(listItem);
+        });
+        categoryItem.appendChild(subList);
+
+        toggleBtn.addEventListener('click', () => {
+          categoryItem.classList.toggle('expanded');
+          const span = toggleBtn.querySelector('span');
+          span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
+        });
+      }
+    } else {
+      const categoryItem = document.createElement('li');
+      categoryItem.classList.add('expandable');
+      const toggleBtn = document.createElement('div');
+      toggleBtn.classList.add('toggle-btn');
+      toggleBtn.innerHTML = `${displayName} <span>+</span>`;
+      categoryItem.appendChild(toggleBtn);
+
+      const subList = document.createElement('ul');
+      subList.classList.add('sub-list');
+
+      Object.keys(items).forEach(subCategory => {
+        const subCategoryItem = document.createElement('li');
+        subCategoryItem.classList.add('expandable');
+        const subToggleBtn = document.createElement('div');
+        subToggleBtn.classList.add('toggle-btn');
+        subToggleBtn.innerHTML = `${subCategory} <span>+</span>`;
+        subCategoryItem.appendChild(subToggleBtn);
+
+        const instrumentList = document.createElement('ul');
+        instrumentList.classList.add('sub-list');
+        items[subCategory].forEach(instrument => {
+          const instrumentItem = document.createElement('li');
+          instrumentItem.classList.add("instrument-item");
+          instrumentItem.textContent = instrument;
+          instrumentList.appendChild(instrumentItem);
+        });
+        subCategoryItem.appendChild(instrumentList);
+        subList.appendChild(subCategoryItem);
+
+        subToggleBtn.addEventListener('click', () => {
+          subCategoryItem.classList.toggle('expanded');
+          const span = subToggleBtn.querySelector('span');
+          span.textContent = subCategoryItem.classList.contains('expanded') ? '-' : '+';
+        });
+      });
+      categoryItem.appendChild(subList);
+      sidebarList.appendChild(categoryItem);
+
+      toggleBtn.addEventListener('click', () => {
+        categoryItem.classList.toggle('expanded');
+        const span = toggleBtn.querySelector('span');
+        span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
+      });
+    }
+  });
+
+  // Add Fullscreen item
+  const sidebarListEl = document.getElementById("sidebar-list");
+  const fullscreenPlatformItem = document.createElement("li");
+  fullscreenPlatformItem.id = "sidebar-fullscreen";
+  fullscreenPlatformItem.textContent = "FULL SCREEN PLATFORM";
+  fullscreenPlatformItem.style.cursor = "pointer";
+  fullscreenPlatformItem.style.display = "none";
+  sidebarListEl.appendChild(fullscreenPlatformItem);
+
+  fullscreenPlatformItem.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+}
+
+/*************************************************************************
+ * YOUTUBE POPUP FUNCTIONS
+ *************************************************************************/
+function openYouTubePopup() {
+  document.getElementById("youtube-popup").style.display = "block";
+  $("#youtube-popup").draggable({ handle: "#youtube-popup-header" });
+}
+
+function updateYouTubePlayer() {
+  var url = document.getElementById("youtube-url").value.trim();
+  document.getElementById("youtube-iframe").src = url;
+}
+
