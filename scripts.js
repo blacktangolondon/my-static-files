@@ -1,12 +1,11 @@
 /*************************************************************************
- * FULL SCRIPTS.JS - NEW VERSION v2
+ * FULL SCRIPTS.JS - NEW VERSION VS
  *************************************************************************/
 
 /*************************************************************************
  * GLOBAL DATA & HELPER FUNCTIONS
  *************************************************************************/
-// Here we merge the instruments from the OLD VERSION into the data object.
-// (STOCKS remain as in NEW VERSION; ETFs, FUTURES, FX – and even CRYPTO – are now fully populated.)
+// DATA object with complete instrument lists
 const data = {
   STOCKS: {
     US: [
@@ -25,36 +24,87 @@ const data = {
       "PORSCHE", "SAP", "VOLKSWAGEN", "ZALANDO"
     ]
   },
-  // Full ETF instruments as available in OLD VERSION – here are sample categories.
   ETFs: {
     "ARTIFICIAL INTELLIGENCE": [
       "L&G ARTIFICIAL INTELLIGENCE",
       "GLOBAL X ROBO & ARTIFICIAL",
       "WISDOMTREE ARTIFICIAL INTELLIGENCE USD"
     ],
-    "BROAD MARKET": [
-      "SPDR S&P 500 ETF TRUST", 
-      "VANGUARD TOTAL STOCK MARKET ETF",
-      "ISHARES CORE S&P TOTAL U.S. STOCK MARKET ETF"
+    "BATTERIES": [
+      "GLOBAL X LITHIUM & BATTERY",
+      "L&G BATTERY VALUE-CHAIN",
+      "WISDOMTREE BATTERY SOLUTIONS"
     ],
-    "SECTOR": [
-      "UTILITIES SELECT SECTOR SPDR FUND",
-      "TECHNOLOGY SELECT SECTOR SPDR FUND",
-      "HEALTH CARE SELECT SECTOR SPDR FUND"
+    "BIOTECH": [
+      "GLOBAL X GENOMICS & BIOTECHNOL",
+      "INVESCO NASDAQ BIOTECH",
+      "iShares NASDAQ US BIOTECH",
+      "WISDOMTREE BIOREVOLUTION"
+    ],
+    "BONDS": [
+      "ISHARES CORE EU GOVT BOND",
+      "ISHARES $ TREASURY 3-7YR",
+      "VANGUARD USD CORPORATE BOND"
+    ],
+    "COMMODITIES": [
+      "INVESCO BLOOMBERG COMMODITY",
+      "WISDOMTREE WHEAT",
+      "WISDOMTREE COFFEE",
+      "WISDOMTREE CORN",
+      "WISDOMTREE NATURAL GAS",
+      "WISDOMTREE SUGAR",
+      "WISDOMTREE COTTON",
+      "WISDOMTREE WTI CRUDE OIL",
+      "WISDOMTREE COPPER",
+      "WISDOMTREE NICKEL",
+      "WISDOMTREE ALUMINIUN"
+    ],
+    "ENERGY TRANSITION": [
+      "AMUNDI MSCI EUR ESG BRD CTB DR",
+      "L BNPP EASY LOW CARB EUROPE",
+      "L&G MSCI EUROPE CLIMATE PATHWAY",
+      "JPM CARBON TRAN GLB EQUITY USD"
+    ],
+    "METAVERSE": [
+      "ISHARES METAVERSE"
+    ],
+    "MONEY MARKET": [
+      "AMNDI FED FNDS US DOLLAR CASH",
+      "PIMCO US DOLLAR SHORT MATURITY",
+      "XTRACKERS MSCI EU SMALLCAP"
+    ],
+    "ROBOTICS": [
+      "ISHARES AUTOMAT & ROBOTICS",
+      "L&G GLOBAL ROBO AND AUTO",
+      "iShares AUTOMATION & ROBOTICS"
+    ],
+    "SEMICONDUCTORS": [
+      "VANECK SEMICONDUCTOR",
+      "ISHARES MSCI GLB SEMICONDUCTOR",
+      "AMUNDI MSCI SEMICONDUCTORS ESG SCREENED",
+      "HSBC NASDAQ GLOB SEMICONDUCTOR"
+    ],
+    "STOCK_MARKET": [
+      "ISHARES MSCI WORLD EUR HDG",
+      "ISHARES S&P 500 EUR HEDGED",
+      "AMUNDI NASDAQ-100 EUR",
+      "AMUNDI MSCI EMERGING MARKETS III",
+      "XTRACKERS MSCI EU SMALLCAP",
+      "ISHARES CORE MSCI EUROPE"
     ]
-    // ... add additional ETF categories as needed.
   },
-  // FUTURES instruments as in OLD VERSION (sample list)
   FUTURES: [
-    "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", 
-    "DOW JONES", "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER",
-    "WTI", "NATURAL GAS", "CORN", "SOYBEANS"
+    "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", "DOW JONES",
+    "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER", "WTI", "NATURAL GAS",
+    "CORN", "SOYBEANS"
   ],
-  // FX instruments sample list (you can expand this list as in your OLD version)
   FX: [
-    "EURUSD", "USDJPY", "GBPUSD", "AUDUSD", "USDCAD", "USDCHF", "NZDUSD"
+    "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD",
+    "EURAUD", "EURCAD", "EURJPY", "EURUSD",
+    "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD",
+    "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD",
+    "USDCAD", "USDCHF", "USDJPY"
   ],
-  // Crypto instruments (if applicable)
   CRYPTO: [
     "BTCUSD", "ETHUSD", "LTCUSD"
   ],
@@ -69,6 +119,7 @@ function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
+// Filter mappings for portfolio builder
 var filterMappingStocks = {
   "Score": { source: "left", index: 0 },
   "Gap to Peak": { source: "left", index: 3 },
@@ -725,10 +776,10 @@ function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distr
   });
 }
 function renderPortfolio2ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
-  // Similar implementation for FX chart 2
+  // Similar implementation for FX chart 2 (if needed)
 }
 function renderPortfolio3ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
-  // Similar implementation for FX chart 3
+  // Similar implementation for FX chart 3 (if needed)
 }
 
 /*************************************************************************
@@ -746,7 +797,7 @@ function loadThematicPortfolio() {
     setTimeout(loadThematicPortfolio, 1000);
     return;
   }
-  // Build STOCKS portfolios (portfolio1, portfolio2, portfolio3, portfolio4)
+  // Build STOCKS portfolios (example for portfolio1)
   var portfolio1Data = [];
   for (var instrument in stocksFullData) {
     var info = stocksFullData[instrument];
@@ -778,7 +829,7 @@ function loadThematicPortfolio() {
       <td>${item.keyArea}</td>
     </tr>`;
   });
-  // (Similarly process portfolio2Data, portfolio3Data, portfolio4Data and do the same for ETFs, FUTURES, and FX)
+  // (Similarly process portfolio2Data, portfolio3Data, portfolio4Data for STOCKS, and for ETFS, FUTURES, FX.)
   var finalHtml = `
     <div class="thematic-portfolio-nav">
       <nav>
@@ -813,7 +864,7 @@ function loadThematicPortfolio() {
             <div class="portfolio-chart"><canvas id="portfolio1_pie"></canvas></div>
           </div>
         </div>
-        <!-- Additional sections for STOCKS (portfolio2, portfolio3, portfolio4) would follow similarly -->
+        <!-- Additional sections for STOCKS would follow similarly -->
       </div>
       <!-- Similarly add tabs and content for ETFS, FUTURES, and FX -->
     </div>
@@ -1168,6 +1219,9 @@ function updateChartETF(instrumentName) { updateChartGeneric(instrumentName, etf
 function updateChartFutures(instrumentName) { updateChartGeneric(instrumentName, futuresFullData); }
 function updateChartFX(instrumentName) { updateChartGeneric(instrumentName, fxFullData); }
 
+/*************************************************************************
+ * BLOCK3: TRENDSCORE & TradingView TAB
+ *************************************************************************/
 function showBlock3Tab(tabName) {
   const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
   const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
@@ -1236,9 +1290,6 @@ function updateSymbolOverviewETF(instrumentName) { updateSymbolOverviewGeneric(i
 function updateSymbolOverviewFutures(instrumentName) { updateSymbolOverviewGeneric(instrumentName, futuresFullData); }
 function updateSymbolOverviewFX(instrumentName) { updateSymbolOverviewGeneric(instrumentName, fxFullData); }
 
-/*************************************************************************
- * BLOCK3: TRENDSCORE & TradingView TAB
- *************************************************************************/
 function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
   trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
@@ -1305,261 +1356,4 @@ function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
   widgetDiv.innerHTML = `
     <div class="tradingview-widget-container__widget"></div>
     <div class="tradingview-widget-copyright">
-      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
-    </div>
-  `;
-  tvContainer.appendChild(widgetDiv);
-  const script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-  script.async = true;
-  script.textContent = `{
-    "interval": "1D",
-    "width": "100%",
-    "isTransparent": true,
-    "height": "100%",
-    "symbol": "${symbol}",
-    "showIntervalTabs": true,
-    "displayMode": "single",
-    "locale": "en",
-    "colorTheme": "dark"
-  }`;
-  widgetDiv.appendChild(script);
-}
-function updateBlock3TradingView(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, stocksFullData); }
-function updateBlock3TradingViewETF(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, etfFullData); }
-function updateBlock3TradingViewFutures(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, futuresFullData); }
-function updateBlock3TradingViewFX(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, fxFullData); }
-
-/*************************************************************************
- * MAIN EVENT HANDLERS & INITIALIZATION
- *************************************************************************/
-let currentInstrument = "AMAZON";
-document.addEventListener("DOMContentLoaded", function() {
-  console.log("DOM fully loaded – starting sidebar generation");
-  generateSidebarContent();
-  window.defaultDashboardHTML = document.getElementById("main-content").innerHTML;
-  document.getElementById("block3-trendscore").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
-  document.getElementById("block4").innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
-  updateSymbolOverview("AMAZON");
-  
-  document.addEventListener('click', (e) => {
-    if (e.target && e.target.tagName === 'LI') {
-      if (!e.target.classList.contains('expandable')) {
-        if (e.target.id === "sidebar-fullscreen") return;
-        if (e.target.textContent.trim().toUpperCase() === "LIVE TV") { openYouTubePopup(); return; }
-        document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
-        e.target.classList.add('selected');
-        const instrumentName = e.target.textContent.trim();
-        if (instrumentName.toUpperCase() === "PORTFOLIO BUILDER") {
-          document.getElementById("main-content").style.display = "none";
-          document.getElementById("thematic-portfolio-template").style.display = "none";
-          document.getElementById("portfolio-builder-template").style.display = "block";
-          loadPortfolioBuilder();
-          return;
-        } else if (instrumentName.toUpperCase() === "THEMATIC PORTFOLIO" || instrumentName.toUpperCase() === "PORTFOLIO IDEAS") {
-          document.getElementById("main-content").style.display = "none";
-          document.getElementById("portfolio-builder-template").style.display = "none";
-          document.getElementById("thematic-portfolio-template").style.display = "block";
-          loadThematicPortfolio();
-          return;
-        } else {
-          document.getElementById("portfolio-builder-template").style.display = "none";
-          document.getElementById("thematic-portfolio-template").style.display = "none";
-          document.getElementById("main-content").style.display = "grid";
-        }
-        currentInstrument = instrumentName;
-        if (stocksFullData[instrumentName]) {
-          updateChart(instrumentName);
-          updateSymbolOverview(instrumentName);
-          updateBlock3(instrumentName);
-          updateBlock4(instrumentName);
-        } else if (etfFullData[instrumentName]) {
-          updateChartETF(instrumentName);
-          updateSymbolOverviewETF(instrumentName);
-          updateBlock3ETF(instrumentName);
-          updateBlock4(instrumentName);
-        } else if (futuresFullData[instrumentName]) {
-          updateChartFutures(instrumentName);
-          updateSymbolOverviewFutures(instrumentName);
-          updateBlock3Futures(instrumentName);
-          updateBlock4(instrumentName);
-        } else if (fxFullData[instrumentName]) {
-          updateChartFX(instrumentName);
-          updateSymbolOverviewFX(instrumentName);
-          updateBlock3FX(instrumentName);
-          updateBlock4(instrumentName);
-        } else {
-          updateBlock3(instrumentName);
-        }
-      }
-    }
-  });
-  
-  const block3TabButtons = document.querySelectorAll("#block3-tabs button");
-  block3TabButtons.forEach(btn => {
-    btn.addEventListener("click", () => { showBlock3Tab(btn.dataset.tab); });
-  });
-  
-  document.getElementById("fullscreen-button").addEventListener("click", () => {
-    const block1 = document.getElementById("block1");
-    if (block1.requestFullscreen) { block1.requestFullscreen(); }
-    else if (block1.webkitRequestFullscreen) { block1.webkitRequestFullscreen(); }
-    else { console.error("Fullscreen API not supported"); }
-  });
-  
-  document.addEventListener("fullscreenchange", () => {
-    const btn = document.getElementById("fullscreen-button");
-    if (document.fullscreenElement === null) {
-      btn.innerHTML = `
-        <span class="arrow">&#8598;</span>
-        <span class="arrow">&#8599;</span><br>
-        <span class="arrow">&#8601;</span>
-        <span class="arrow">&#8600;</span>
-      `;
-    } else {
-      btn.innerHTML = `
-        <span class="arrow">&#8598;</span>
-        <span class="arrow">&#8599;</span><br>
-        <span class="arrow">&#8601;</span>
-        <span class="arrow">&#8600;</span>
-      `;
-    }
-    const sidebarFS = document.getElementById("sidebar-fullscreen");
-    if (sidebarFS) {
-      if (document.fullscreenElement) { sidebarFS.textContent = "EXIT FULLSCREEN PLATFORM"; }
-      else { sidebarFS.textContent = "FULL SCREEN PLATFORM"; }
-    }
-  });
-  
-  document.getElementById("youtube-popup-close").addEventListener("click", function() {
-    document.getElementById("youtube-popup").style.display = "none";
-  });
-  
-  $(function() {
-    let instrumentNames = [];
-    $("#sidebar-list .instrument-item").each(function() {
-      instrumentNames.push($(this).text().trim());
-    });
-    $("#sidebar-search").autocomplete({
-      source: instrumentNames,
-      minLength: 1,
-      select: function(event, ui) {
-        $("#sidebar-list .instrument-item").each(function() {
-          $(this).toggle($(this).text().trim() === ui.item.value);
-        });
-        $("#sidebar-list .instrument-item").filter(function() {
-          return $(this).text().trim() === ui.item.value;
-        }).click();
-      }
-    });
-    $("#sidebar-search-clear").on("click", function() {
-      $("#sidebar-search").val("");
-      $("#sidebar-list .instrument-item").show();
-    });
-  });
-});
-
-/*************************************************************************
- * SIDEBAR GENERATION
- *************************************************************************/
-function generateSidebarContent() {
-  console.log("Sidebar generation started");
-  const sidebarList = document.getElementById('sidebar-list');
-  const skipCategories = ["SPREAD", "CRYPTO", "MEMBERS CHAT", "SUPPORT"];
-  Object.keys(data).forEach(category => {
-    if (skipCategories.includes(category)) return;
-    let displayName = (category === "THEMATIC PORTFOLIO") ? "PORTFOLIO IDEAS" : category;
-    const items = data[category];
-    if (Array.isArray(items)) {
-      const categoryItem = document.createElement('li');
-      categoryItem.textContent = displayName;
-      sidebarList.appendChild(categoryItem);
-      if (items.length > 0) {
-        categoryItem.classList.add('expandable');
-        const toggleBtn = document.createElement('div');
-        toggleBtn.classList.add('toggle-btn');
-        toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-        categoryItem.textContent = '';
-        categoryItem.appendChild(toggleBtn);
-        const subList = document.createElement('ul');
-        subList.classList.add('sub-list');
-        items.forEach(instrument => {
-          const listItem = document.createElement('li');
-          listItem.classList.add("instrument-item");
-          listItem.textContent = instrument;
-          subList.appendChild(listItem);
-        });
-        categoryItem.appendChild(subList);
-        toggleBtn.addEventListener('click', () => {
-          categoryItem.classList.toggle('expanded');
-          const span = toggleBtn.querySelector('span');
-          span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
-        });
-      }
-    } else {
-      const categoryItem = document.createElement('li');
-      categoryItem.classList.add('expandable');
-      const toggleBtn = document.createElement('div');
-      toggleBtn.classList.add('toggle-btn');
-      toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-      categoryItem.appendChild(toggleBtn);
-      const subList = document.createElement('ul');
-      subList.classList.add('sub-list');
-      Object.keys(items).forEach(subCategory => {
-        const subCategoryItem = document.createElement('li');
-        subCategoryItem.classList.add('expandable');
-        const subToggleBtn = document.createElement('div');
-        subToggleBtn.classList.add('toggle-btn');
-        subToggleBtn.innerHTML = `${subCategory} <span>+</span>`;
-        subCategoryItem.appendChild(subToggleBtn);
-        const instrumentList = document.createElement('ul');
-        instrumentList.classList.add('sub-list');
-        items[subCategory].forEach(instrument => {
-          const instrumentItem = document.createElement('li');
-          instrumentItem.classList.add("instrument-item");
-          instrumentItem.textContent = instrument;
-          instrumentList.appendChild(instrumentItem);
-        });
-        subCategoryItem.appendChild(instrumentList);
-        subList.appendChild(subCategoryItem);
-        subToggleBtn.addEventListener('click', () => {
-          subCategoryItem.classList.toggle('expanded');
-          const span = subToggleBtn.querySelector('span');
-          span.textContent = subCategoryItem.classList.contains('expanded') ? '-' : '+';
-        });
-      });
-      categoryItem.appendChild(subList);
-      sidebarList.appendChild(categoryItem);
-      toggleBtn.addEventListener('click', () => {
-        categoryItem.classList.toggle('expanded');
-        const span = toggleBtn.querySelector('span');
-        span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
-      });
-    }
-  });
-  const sidebarListEl = document.getElementById("sidebar-list");
-  const fullscreenPlatformItem = document.createElement("li");
-  fullscreenPlatformItem.id = "sidebar-fullscreen";
-  fullscreenPlatformItem.textContent = "FULL SCREEN PLATFORM";
-  fullscreenPlatformItem.style.cursor = "pointer";
-  fullscreenPlatformItem.style.display = "none";
-  sidebarListEl.appendChild(fullscreenPlatformItem);
-  fullscreenPlatformItem.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
-    else { document.exitFullscreen(); }
-  });
-}
-
-/*************************************************************************
- * YOUTUBE POPUP FUNCTIONS
- *************************************************************************/
-function openYouTubePopup() {
-  document.getElementById("youtube-popup").style.display = "block";
-  $("#youtube-popup").draggable({ handle: "#youtube-popup-header" });
-}
-function updateYouTubePlayer() {
-  var url = document.getElementById("youtube-url").value.trim();
-  document.getElementById("youtube-iframe").src = url;
-}
+      <a href="https://www.tradingview.com/" rel="
