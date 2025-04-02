@@ -1646,7 +1646,6 @@ var portfolioFilters = [];
       // FX - UPDATED TO USE computeFXBaseDistribution and new score condition; only the TREND FOLLOWING section is rendered.
       renderPortfolio1ChartsFX(fxPortfolio1Data, 'fx_portfolio1_bar', 'fx_portfolio1_pie', computeFXBaseDistribution);
     }
-  </script>
   
   <!-- Chart Rendering Functions with Improvements and New FX Functions -->
   <script>
