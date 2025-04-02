@@ -1,12 +1,17 @@
-/* General Reset */
-* { 
-  margin: 0; 
-  padding: 0; 
-  box-sizing: border-box; 
+/* Set html and body to full height and background */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #001122;
+  font-family: Arial, sans-serif;
 }
-body { 
-  display: flex; 
-  font-family: Arial, sans-serif; 
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Loading message style */
@@ -38,19 +43,18 @@ body {
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease;
-  font-family: Arial, sans-serif;
   font-size: 11px;
   position: relative;
   padding-bottom: 10px;
 }
-#collapse-btn { 
-  padding: 10px; 
-  text-align: center; 
-  cursor: pointer; 
-  background-color: #334455; 
+#collapse-btn {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #334455;
 }
-#collapse-btn:hover { 
-  background-color: #556677; 
+#collapse-btn:hover {
+  background-color: #556677;
 }
 /* New search box styling – replaced the single input with a container */
 #sidebar-search-container {
@@ -81,26 +85,26 @@ body {
   padding: 10px;
   cursor: pointer;
 }
-.sub-list li:nth-child(odd) { 
-  background-color: #001122; 
+.sub-list li:nth-child(odd) {
+  background-color: #001122;
 }
-.sub-list li:nth-child(even) { 
-  background-color: #002244; 
+.sub-list li:nth-child(even) {
+  background-color: #002244;
 }
-#sidebar li.selected { 
-  color: #FFA500; 
+#sidebar li.selected {
+  color: #FFA500;
 }
-#sidebar ul li:not(.expandable):hover { 
-  background-color: #334455; 
+#sidebar ul li:not(.expandable):hover {
+  background-color: #334455;
 }
-.expandable:hover { 
-  background-color: transparent; 
+.expandable:hover {
+  background-color: transparent;
 }
-.expandable > .toggle-btn:hover { 
-  background-color: #334455; 
+.expandable > .toggle-btn:hover {
+  background-color: #334455;
 }
-.sub-list li:not(.expandable):hover { 
-  background-color: #334455; 
+.sub-list li:not(.expandable):hover {
+  background-color: #334455;
 }
 .expandable > .toggle-btn {
   cursor: pointer;
@@ -108,12 +112,12 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-.expandable > .sub-list { 
-  display: none; 
-  padding-left: 15px; 
+.expandable > .sub-list {
+  display: none;
+  padding-left: 15px;
 }
-.expandable.expanded > .sub-list { 
-  display: block; 
+.expandable.expanded > .sub-list {
+  display: block;
 }
 
 /* Main Content Styling (Dashboard) */
@@ -154,10 +158,10 @@ body {
 }
 
 /* Wrap Block1 for full screen button */
-#block1-wrapper { 
-  position: relative; 
-  width: 100%; 
-  height: 100%; 
+#block1-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Dashboard Blocks */
@@ -173,11 +177,9 @@ body {
   padding: 10px;
 }
 #block3, #block4 {
-  font-family: Arial, sans-serif; 
-  font-size: 14px; 
+  font-size: 14px;
 }
 #block3 table, #block3 th, #block3 td {
-  font-family: Arial, sans-serif;
   font-size: 14px;
 }
 /* Block3 trendscore table */
@@ -196,11 +198,11 @@ body {
 #block3-trendscore th:nth-child(2), #block3-trendscore td:nth-child(2) {
   border-right: 1px solid #444444;
 }
-#block3-trendscore tr:nth-child(odd) { 
-  background-color: #001122; 
+#block3-trendscore tr:nth-child(odd) {
+  background-color: #001122;
 }
-#block3-trendscore tr:nth-child(even) { 
-  background-color: #002244; 
+#block3-trendscore tr:nth-child(even) {
+  background-color: #002244;
 }
 #block3-tabs {
   display: flex;
@@ -214,7 +216,6 @@ body {
   border: none;
   cursor: pointer;
   font-size: 10px;
-  font-family: Arial, sans-serif;
 }
 #block3-tabs button:hover {
   background: #556677;
@@ -344,7 +345,8 @@ body {
   justify-content: space-between;
   color: #ffffff;
 }
-.filter-step select, .filter-step input {
+.filter-step select,
+.filter-step input {
   margin-left: 10px;
   padding: 4px;
   font-size: 14px;
@@ -390,7 +392,8 @@ body {
   border-radius: 4px;
   overflow: hidden;
 }
-#portfolio-results th, #portfolio-results td {
+#portfolio-results th,
+#portfolio-results td {
   padding: 12px;
   text-align: center;
   border: 1px solid #112233;
@@ -399,7 +402,6 @@ body {
 }
 #portfolio-results th {
   background-color: #112233;
-  color: white;
   font-weight: bold;
 }
 #portfolio-results tr:nth-child(even) {
@@ -471,14 +473,14 @@ body {
 .thematic-portfolio-section {
   border: 1px solid #112233;
   border-radius: 8px;
-  margin-bottom: 30px;  /* Increased margin-bottom for better separation */
+  margin-bottom: 30px;
   padding: 20px;
 }
 .thematic-portfolio-section h2 {
   color: #FFA500;
   margin-bottom: 10px;
-  font-size: 22px;  /* Increased font size */
-  font-weight: bold;  /* Enhanced font weight */
+  font-size: 22px;
+  font-weight: bold;
   border-bottom: 1px solid #112233;
   padding-bottom: 5px;
 }
@@ -490,9 +492,9 @@ body {
   border-collapse: collapse;
   background-color: #001122;
 }
-.thematic-portfolio-table th, 
+.thematic-portfolio-table th,
 .thematic-portfolio-table td {
-  padding: 14px;  /* Increased cell padding */
+  padding: 14px;
   text-align: center;
   border: 1px solid #112233;
   color: white;
@@ -507,7 +509,7 @@ body {
 }
 /* Container for charts below each table */
 .portfolio-charts {
-  margin-top: 25px;  /* Increased margin between table and charts */
+  margin-top: 25px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -518,10 +520,10 @@ body {
   border-radius: 4px;
   padding: 10px;
   flex: 1 1 300px;
-  max-height: 300px;  /* Limit height so pie charts don't cover entire page */
+  max-height: 300px;
 }
 .portfolio-chart canvas {
-  max-height: 250px;  /* Further control canvas height */
+  max-height: 250px;
 }
 
 /* Thematic Portfolio Tab Navigation */
@@ -599,15 +601,13 @@ body {
     padding: 5px;
     gap: 5px;
   }
-  /* Reduce padding on blocks */
-  #block2 { 
-    padding: 5px; 
+  #block2 {
+    padding: 5px;
   }
   .external-fullscreen-btn {
     padding: 2px 4px;
     font-size: 12px;
   }
-  /* Adjust tables for readability */
   table, th, td {
     font-size: 10px;
   }
