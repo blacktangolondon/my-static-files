@@ -52,7 +52,9 @@ const data = {
   ],
   // FX instruments sample list (you can expand this list as in your OLD version)
   FX: [
-    "EURUSD", "USDJPY", "GBPUSD", "AUDUSD", "USDCAD", "USDCHF", "NZDUSD"
+    "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD", "EURAUD", "EURCAD", "EURJPY", "EURUSD", 
+    "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", 
+    "USDCAD", "USDCHF", "USDJPY"
   ],
   // Crypto instruments (if applicable)
   CRYPTO: [
