@@ -612,3 +612,9 @@ html, body {
     font-size: 10px;
   }
 }
+
+
+#main-content {
+  background-color: #222 !important;
+}
+
