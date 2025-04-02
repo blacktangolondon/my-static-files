@@ -1648,7 +1648,6 @@ var portfolioFilters = [];
     }
   
   <!-- Chart Rendering Functions with Improvements and New FX Functions -->
-  <script>
     // New FX chart rendering functions:
     function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
       barCanvasId = barCanvasId || "fx_portfolio1_bar";
