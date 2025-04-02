@@ -8,64 +8,120 @@
 // Here we merge the instruments from the OLD VERSION into the data object.
 // (STOCKS remain as in NEW VERSION; ETFs, FUTURES, FX – and even CRYPTO – are now fully populated.)
 const data = {
-  STOCKS: {
-    US: [
-      "AMAZON", "AMD", "AMERICAN AIRLINES", "APPLE", "AT&T", "BANK OF AMERICA", "COCA COLA",
-      "EXXON", "FORD", "GENERAL MOTORS", "GOOGLE", "INTEL", "META", "MICROSOFT",
-      "NVIDIA", "PFIZER", "TESLA", "WARNER BROS"
-    ],
-    ITALY: [
-      "FERRARI", "ENEL", "INTESA SAN PAOLO", "STELLANTIS", "ENI", "GENERALI", "ST MICRO",
-      "TENARIS", "MONCLER", "POSTE ITALIANE", "TERNA", "PRYSMIAN", "SNAM", "LEONARDO",
-      "MEDIOBANCA", "CAMPARI", "BPM", "FINECO BANK", "UNICREDIT"
-    ],
-    GERMANY: [
-      "ADIDAS", "AIRBUS", "ALLIANZ", "BASF", "BAYER", "BMW", "COMMERZBANK", "CONTINENTAL",
-      "DEUTSCHE BOERSE", "DEUTSCHE BANK", "DEUTSCHE POST", "HENKEL", "MERCEDES", "MERCK",
-      "PORSCHE", "SAP", "VOLKSWAGEN", "ZALANDO"
-    ]
-  },
-  // Full ETF instruments as available in OLD VERSION – here are sample categories.
-  ETFs: {
-    "ARTIFICIAL INTELLIGENCE": [
-      "L&G ARTIFICIAL INTELLIGENCE",
-      "GLOBAL X ROBO & ARTIFICIAL",
-      "WISDOMTREE ARTIFICIAL INTELLIGENCE USD"
-    ],
-    "BROAD MARKET": [
-      "SPDR S&P 500 ETF TRUST", 
-      "VANGUARD TOTAL STOCK MARKET ETF",
-      "ISHARES CORE S&P TOTAL U.S. STOCK MARKET ETF"
-    ],
-    "SECTOR": [
-      "UTILITIES SELECT SECTOR SPDR FUND",
-      "TECHNOLOGY SELECT SECTOR SPDR FUND",
-      "HEALTH CARE SELECT SECTOR SPDR FUND"
-    ]
-    // ... add additional ETF categories as needed.
-  },
-  // FUTURES instruments as in OLD VERSION (sample list)
-  FUTURES: [
-    "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", 
-    "DOW JONES", "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER",
-    "WTI", "NATURAL GAS", "CORN", "SOYBEANS"
-  ],
-  // FX instruments sample list (you can expand this list as in your OLD version)
-  FX: [
-    "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD", "EURAUD", "EURCAD", "EURJPY", "EURUSD", 
-    "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD", 
-    "USDCAD", "USDCHF", "USDJPY"
-  ],
-  // Crypto instruments (if applicable)
-  CRYPTO: [
-    "BTCUSD", "ETHUSD", "LTCUSD"
-  ],
-  "PORTFOLIO BUILDER": [],
-  "THEMATIC PORTFOLIO": [],
-  "LIVE TV": [],
-  "MEMBERS CHAT": [],
-  SUPPORT: []
-};
+      STOCKS: {
+        US: [
+          "AMAZON", "AMD", "AMERICAN AIRLINES", "APPLE", "AT&T", "BANK OF AMERICA", "COCA COLA",
+          "EXXON", "FORD", "GENERAL MOTORS", "GOOGLE", "INTEL", "META", "MICROSOFT",
+          "NVIDIA", "PFIZER", "TESLA", "WARNER BROS"
+        ],
+        ITALY: [
+          "FERRARI", "ENEL", "INTESA SAN PAOLO", "STELLANTIS", "ENI", "GENERALI", "ST MICRO",
+          "TENARIS", "MONCLER", "POSTE ITALIANE", "TERNA", "PRYSMIAN", "SNAM", "LEONARDO",
+          "MEDIOBANCA", "CAMPARI", "BPM", "FINECO BANK", "UNICREDIT"
+        ],
+        GERMANY: [
+          "ADIDAS", "AIRBUS", "ALLIANZ", "BASF", "BAYER", "BMW", "COMMERZBANK", "CONTINENTAL",
+          "DEUTSCHE BOERSE", "DEUTSCHE BANK", "DEUTSCHE POST", "HENKEL", "MERCEDES", "MERCK",
+          "PORSCHE", "SAP", "VOLKSWAGEN", "ZALANDO"
+        ]
+      },
+      ETFs: {
+        "ARTIFICIAL INTELLIGENCE": [
+          "L&G ARTIFICIAL INTELLIGENCE",
+          "GLOBAL X ROBO & ARTIFICIAL",
+          "WISDOMTREE ARTIFICIAL INTELLIGENCE USD"
+        ],
+        BATTERIES: [
+          "GLOBAL X LITHIUM & BATTERY",
+          "L&G BATTERY VALUE-CHAIN",
+          "WISDOMTREE BATTERY SOLUTIONS"
+        ],
+        BIOTECH: [
+          "GLOBAL X GENOMICS & BIOTECHNOL",
+          "INVESCO NASDAQ BIOTECH",
+          "iShares NASDAQ US BIOTECH",
+          "WISDOMTREE BIOREVOLUTION"
+        ],
+        BONDS: [
+          "ISHARES CORE EU GOVT BOND",
+          "ISHARES $ TREASURY 3-7YR",
+          "VANGUARD USD CORPORATE BOND"
+        ],
+        COMMODITIES: [
+          "INVESCO BLOOMBERG COMMODITY",
+          "WISDOMTREE WHEAT",
+          "WISDOMTREE COFFEE",
+          "WISDOMTREE CORN",
+          "WISDOMTREE NATURAL GAS",
+          "WISDOMTREE SUGAR",
+          "WISDOMTREE COTTON",
+          "WISDOMTREE WTI CRUDE OIL",
+          "WISDOMTREE COPPER",
+          "WISDOMTREE NICKEL",
+          "WISDOMTREE ALUMINIUN"
+        ],
+        "ENERGY TRANSITION": [
+          "AMUNDI MSCI EUR ESG BRD CTB DR",
+          "L BNPP EASY LOW CARB EUROPE",
+          "L&G MSCI EUROPE CLIMATE PATHWAY",
+          "JPM CARBON TRAN GLB EQUITY USD"
+        ],
+        METAVERSE: [
+          "ISHARES METAVERSE"
+        ],
+        "MONEY MARKET": [
+          "AMNDI FED FNDS US DOLLAR CASH",
+          "PIMCO US DOLLAR SHORT MATURITY",
+          "XTRACKERS MSCI EU SMALLCAP"
+        ],
+        ROBOTICS: [
+          "ISHARES AUTOMAT & ROBOTICS",
+          "L&G GLOBAL ROBO AND AUTO",
+          "iShares AUTOMATION & ROBOTICS"
+        ],
+        SEMICONDUCTORS: [
+          "VANECK SEMICONDUCTOR",
+          "ISHARES MSCI GLB SEMICONDUCTOR",
+          "AMUNDI MSCI SEMICONDUCTORS ESG SCREENED",
+          "HSBC NASDAQ GLOB SEMICONDUCTOR"
+        ],
+        STOCK_MARKET: [
+          "ISHARES MSCI WORLD EUR HDG",
+          "ISHARES S&P 500 EUR HEDGED",
+          "AMUNDI NASDAQ-100 EUR",
+          "AMUNDI MSCI EMERGING MARKETS III",
+          "XTRACKERS MSCI EU SMALLCAP",
+          "ISHARES CORE MSCI EUROPE"
+        ]
+      },
+      SPREAD: [
+        "FTSE100 / EU50", "FTSE100 / CAC40", "CAC40 / EU50", "DAX40 / EU50", "DOW30 / S&P500",
+        "DOW30 / NASDAQ100", "DOW30 / RUSSELL2000", "NASDAQ100 / S&P500", "NASDAQ100 / RUSSELL2000",
+        "S&P500 / RUSSELL2000", "GOLD / SILVER", "GOLD / PLATINUM", "PLATINUM / SILVER",
+        "WTI / BRENT", "CORN / WHEAT", "SOYBEANS / CORN", "BITCOIN / ETHEREUM"
+      ],
+      FUTURES: [
+        "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", "DOW JONES",
+        "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER", "WTI", "NATURAL GAS", "CORN", "SOYBEANS"
+      ],
+      FX: [
+        "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD", "EURAUD", "EURCAD", "EURJPY", "EURUSD",
+        "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD",
+        "USDCAD", "USDCHF", "USDJPY"
+      ],
+      CRYPTO: [
+        "XRP", "SOLANA", "BNB", "DOGE", "ADA", "TRX",
+        "CHAINLINK", "SUI", "AVALANCHE", "STELLAR LUMENS", "SHIBA INU", "LITECOIN",
+        "POLKADOT", "MANTRA", "UNISWAP", "DAI", "PEPE"
+      ],
+      "PORTFOLIO BUILDER": [],
+      "THEMATIC PORTFOLIO": [],
+      "LIVE TV": [],
+      "MEMBERS CHAT": [],
+      SUPPORT: []
+    };
+    
+
 
 function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
