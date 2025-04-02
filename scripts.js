@@ -487,44 +487,76 @@ var portfolioFilters = [];
 /*************************************************************************
  * THEMATIC PORTFOLIO FUNCTIONS & CHART RENDERING
  *************************************************************************/
-  
-  /****************************************************
- * THEME PORTFOLIO FUNCTIONS (Portfolio Ideas)
+
+/****************************************************
+ * THEMATIC PORTFOLIO (Portfolio Ideas) FUNCTIONS
  ****************************************************/
 
-// Helper: destroy chart if it already exists.
+/* Helper: Destroy chart if it already exists */
 function destroyChartIfExists(canvasId) {
   const existing = Chart.getChart(canvasId);
-  if (existing) { existing.destroy(); }
+  if (existing) {
+    existing.destroy();
+  }
 }
 
-// Compute sector distribution for ETFs.
+/* Distribution Functions */
+
+// Geographical distribution for Stocks (if needed)
+function computeGeoDistribution(portfolioData) {
+  var geo = { "US": 0, "ITALY": 0, "GERMANY": 0 };
+  portfolioData.forEach(stock => {
+    var inst = stock.instrument;
+    if (data && data.STOCKS) {
+      if (data.STOCKS.US.indexOf(inst) > -1) geo["US"]++;
+      else if (data.STOCKS.ITALY.indexOf(inst) > -1) geo["ITALY"]++;
+      else if (data.STOCKS.GERMANY.indexOf(inst) > -1) geo["GERMANY"]++;
+    }
+  });
+  for (var country in geo) {
+    if (geo[country] === 0) { delete geo[country]; }
+  }
+  var total = Object.values(geo).reduce((sum, v) => sum + v, 0);
+  var labels = [];
+  var percentages = [];
+  for (var country in geo) {
+    labels.push(country);
+    percentages.push(Math.round((geo[country] / total) * 100));
+  }
+  return { labels: labels, data: percentages };
+}
+
+// Sector distribution for ETFs
 function computeSectorDistribution(portfolioData) {
-  const sectorCount = {};
-  Object.keys(data.ETFs).forEach(sector => { sectorCount[sector] = 0; });
+  var sectorCount = {};
+  Object.keys(data.ETFs).forEach(sector => { 
+    sectorCount[sector] = 0; 
+  });
   portfolioData.forEach(item => {
-    const instrument = item.instrument;
-    for (const sector in data.ETFs) {
+    var instrument = item.instrument;
+    for (var sector in data.ETFs) {
       if (data.ETFs[sector].includes(instrument)) {
         sectorCount[sector]++;
         break;
       }
     }
   });
-  for (const sector in sectorCount) {
-    if (sectorCount[sector] === 0) { delete sectorCount[sector]; }
+  for (var sector in sectorCount) {
+    if (sectorCount[sector] === 0) { 
+      delete sectorCount[sector]; 
+    }
   }
-  const total = Object.values(sectorCount).reduce((sum, v) => sum + v, 0);
-  const labels = [];
-  const percentages = [];
-  for (const sector in sectorCount) {
-    labels.push(sector);
-    percentages.push(Math.round((sectorCount[sector] / total) * 100));
+  var total = Object.values(sectorCount).reduce((sum, v) => sum + v, 0);
+  var labels = [];
+  var percentages = [];
+  for (var s in sectorCount) {
+    labels.push(s);
+    percentages.push(Math.round((sectorCount[s] / total) * 100));
   }
-  return { labels, data: percentages };
+  return { labels: labels, data: percentages };
 }
 
-// FUTURES distribution function.
+// FUTURES distribution function
 function computeFuturesDistribution(portfolioData) {
   const categoryMapping = {
     "FTSE 100": "Indices",
@@ -558,7 +590,7 @@ function computeFuturesDistribution(portfolioData) {
   return { labels, data };
 }
 
-// FX distribution function: group by base currency (first three characters).
+// FX distribution function: group by base currency (first three characters)
 function computeFXBaseDistribution(portfolioData) {
   const baseCounts = {};
   portfolioData.forEach(item => {
@@ -574,15 +606,15 @@ function computeFXBaseDistribution(portfolioData) {
   return { labels, data };
 }
 
-/* --- Chart Rendering Functions --- */
-// (These functions assume that a global variable "orangeShades" is defined.)
+/* Chart Rendering Functions */
+
+var orangeShades = ['rgba(255, 165, 0, 0.8)', 'rgba(255, 140, 0, 0.8)', 'rgba(255, 120, 0, 0.8)'];
 
 function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
   barCanvasId = barCanvasId || "portfolio1_bar";
   pieCanvasId = pieCanvasId || "portfolio1_pie";
   destroyChartIfExists(barCanvasId);
   destroyChartIfExists(pieCanvasId);
-
   const ctxBar = document.getElementById(barCanvasId).getContext("2d");
   new Chart(ctxBar, {
     type: 'bar',
@@ -599,16 +631,18 @@ function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       maintainAspectRatio: false,
       scales: { 
         x: { ticks: { display: false } },
-        y: { ticks: { color: 'white', callback: value => value + '%' } }
+        y: { ticks: { color: 'white', callback: function(value) { return value + '%'; } } }
       },
-      plugins: { 
+      plugins: {
         legend: { labels: { boxWidth: 0, color: 'white' } },
         tooltip: {
           callbacks: {
-            label: context => {
+            label: function(context) {
               let label = context.dataset.label || '';
               if (label) label += ': ';
-              if (context.parsed.y != null) label += context.parsed.y + '%';
+              if (context.parsed.y !== null) {
+                label += context.parsed.y + '%';
+              }
               return label;
             }
           }
@@ -616,7 +650,7 @@ function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       }
     }
   });
-
+  
   const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
   destroyChartIfExists(pieCanvasId);
   const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
@@ -643,7 +677,6 @@ function renderPortfolio2Charts(portfolioData, barCanvasId, pieCanvasId, distrib
   pieCanvasId = pieCanvasId || "portfolio2_pie";
   destroyChartIfExists(barCanvasId);
   destroyChartIfExists(pieCanvasId);
-
   const ctxBar = document.getElementById(barCanvasId).getContext("2d");
   new Chart(ctxBar, {
     type: 'bar',
@@ -658,14 +691,14 @@ function renderPortfolio2Charts(portfolioData, barCanvasId, pieCanvasId, distrib
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
         y: { ticks: { color: 'white' } }
       },
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-
+  
   const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
   destroyChartIfExists(pieCanvasId);
   const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
@@ -692,7 +725,6 @@ function renderPortfolio3Charts(portfolioData, barCanvasId, pieCanvasId, distrib
   pieCanvasId = pieCanvasId || "portfolio3_pie";
   destroyChartIfExists(barCanvasId);
   destroyChartIfExists(pieCanvasId);
-
   const ctxBar = document.getElementById(barCanvasId).getContext("2d");
   new Chart(ctxBar, {
     type: 'bar',
@@ -707,14 +739,14 @@ function renderPortfolio3Charts(portfolioData, barCanvasId, pieCanvasId, distrib
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
         y: { ticks: { color: 'white' } }
       },
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-
+  
   const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
   destroyChartIfExists(pieCanvasId);
   const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
@@ -758,7 +790,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
         y: { ticks: { color: 'white', font: { size: 10 } } }
       },
@@ -780,7 +812,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
         y: { ticks: { color: 'white', font: { size: 10 } } }
       },
@@ -802,7 +834,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
         y: { ticks: { color: 'white', font: { size: 10 } } }
       },
@@ -811,10 +843,10 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
   });
 }
 
-/* --- Thematic Portfolio (Portfolio Ideas) Loader --- */
+/* THEME PORTFOLIO LOADER FUNCTION */
 function loadThematicPortfolio() {
   const container = document.getElementById("thematic-portfolio-template");
-
+  
   // Wait until all CSV data is loaded
   if (
     Object.keys(stocksFullData).length === 0 ||
@@ -859,16 +891,348 @@ function loadThematicPortfolio() {
       <td>${item.keyArea}</td>
     </tr>`;
   });
-
-  // (Build portfolio2Data, portfolio3Data, portfolio4Data similarly for STOCKS)
-  // For brevity, assume similar blocks create portfolio2Rows, portfolio3Rows, and portfolio4Rows
-
+  
+  // --- Build STOCKS Low Correlation Portfolios ---
+  let portfolio2Data = [];
+  for (const instrument in stocksFullData) {
+    const info = stocksFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const correlation = parseFloat(info.summaryRight[0]);
+    if (score === 100 && correlation < 0.1) {
+      portfolio2Data.push({
+        instrument: instrument,
+        score: score,
+        correlation: correlation,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (portfolio2Data.length > 15) {
+    portfolio2Data.sort((a, b) => a.gap - b.gap);
+    portfolio2Data = portfolio2Data.slice(0, 15);
+  }
+  portfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let portfolio2Rows = "";
+  portfolio2Data.forEach(item => {
+    portfolio2Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.correlation}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  // --- Build STOCKS Low Volatility Portfolios ---
+  let portfolio3Data = [];
+  for (const instrument in stocksFullData) {
+    const info = stocksFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const volatility = parseFloat(info.summaryRight[1]);
+    if (score === 100 && volatility < 1) {
+      portfolio3Data.push({
+        instrument: instrument,
+        score: score,
+        volatility: volatility,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (portfolio3Data.length > 15) {
+    portfolio3Data.sort((a, b) => a.gap - b.gap);
+    portfolio3Data = portfolio3Data.slice(0, 15);
+  }
+  portfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let portfolio3Rows = "";
+  portfolio3Data.forEach(item => {
+    portfolio3Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.volatility}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  // --- Build STOCKS Trend Following Plus Portfolios ---
+  let portfolio4Data = [];
+  for (const instrument in stocksFullData) {
+    const info = stocksFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const bullish = parseFloat(info.summaryRight[2]);
+    const bearish = parseFloat(info.summaryRight[3]);
+    const alphaStrength = parseFloat(info.summaryRight[4]);
+    if (score === 100 && bullish > 1 && bearish < 1 && alphaStrength > 1) {
+      portfolio4Data.push({
+        instrument: instrument,
+        score: score,
+        bullish: bullish,
+        bearish: bearish,
+        alphaStrength: alphaStrength,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (portfolio4Data.length > 15) {
+    portfolio4Data.sort((a, b) => a.gap - b.gap);
+    portfolio4Data = portfolio4Data.slice(0, 15);
+  }
+  portfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let portfolio4Rows = "";
+  portfolio4Data.forEach(item => {
+    portfolio4Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.bullish}</td>
+      <td>${item.bearish}</td>
+      <td>${item.alphaStrength}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
   // --- Build ETFS Portfolios ---
-  // (Similarly, create etfPortfolio1Rows, etfPortfolio2Rows, etfPortfolio3Rows, etfPortfolio4Rows)
-
+  let etfPortfolio1Data = [];
+  for (const instrument in etfFullData) {
+    const info = etfFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    if (score === 100) {
+      etfPortfolio1Data.push({
+        instrument: instrument,
+        score: score,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (etfPortfolio1Data.length > 15) {
+    etfPortfolio1Data.sort((a, b) => a.gap - b.gap);
+    etfPortfolio1Data = etfPortfolio1Data.slice(0, 15);
+  }
+  etfPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let etfPortfolio1Rows = "";
+  etfPortfolio1Data.forEach(item => {
+    etfPortfolio1Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  let etfPortfolio2Data = [];
+  for (const instrument in etfFullData) {
+    const info = etfFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const correlation = parseFloat(info.summaryRight[0]);
+    if (score === 100 && correlation < 0.1) {
+      etfPortfolio2Data.push({
+        instrument: instrument,
+        score: score,
+        correlation: correlation,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (etfPortfolio2Data.length > 15) {
+    etfPortfolio2Data.sort((a, b) => a.gap - b.gap);
+    etfPortfolio2Data = etfPortfolio2Data.slice(0, 15);
+  }
+  etfPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let etfPortfolio2Rows = "";
+  etfPortfolio2Data.forEach(item => {
+    etfPortfolio2Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.correlation}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  let etfPortfolio3Data = [];
+  for (const instrument in etfFullData) {
+    const info = etfFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const volatility = parseFloat(info.summaryRight[1]);
+    if (score === 100 && volatility < 1) {
+      etfPortfolio3Data.push({
+        instrument: instrument,
+        score: score,
+        volatility: volatility,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (etfPortfolio3Data.length > 15) {
+    etfPortfolio3Data.sort((a, b) => a.gap - b.gap);
+    etfPortfolio3Data = etfPortfolio3Data.slice(0, 15);
+  }
+  etfPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let etfPortfolio3Rows = "";
+  etfPortfolio3Data.forEach(item => {
+    etfPortfolio3Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.volatility}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  let etfPortfolio4Data = [];
+  for (const instrument in etfFullData) {
+    const info = etfFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    const bullish = parseFloat(info.summaryRight[2]);
+    const bearish = parseFloat(info.summaryRight[3]);
+    const alphaStrength = parseFloat(info.summaryRight[4]);
+    if (score === 100 && bullish > 1 && bearish < 1 && alphaStrength > 1) {
+      etfPortfolio4Data.push({
+        instrument: instrument,
+        score: score,
+        bullish: bullish,
+        bearish: bearish,
+        alphaStrength: alphaStrength,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4]
+      });
+    }
+  }
+  if (etfPortfolio4Data.length > 15) {
+    etfPortfolio4Data.sort((a, b) => a.gap - b.gap);
+    etfPortfolio4Data = etfPortfolio4Data.slice(0, 15);
+  }
+  etfPortfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let etfPortfolio4Rows = "";
+  etfPortfolio4Data.forEach(item => {
+    etfPortfolio4Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.bullish}</td>
+      <td>${item.bearish}</td>
+      <td>${item.alphaStrength}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
   // --- Build FUTURES Portfolios ---
-  // (Similarly, create futuresPortfolio1Rows, futuresPortfolio2Rows, futuresPortfolio3Rows)
-
+  let futuresPortfolio1Data = [];
+  for (const instrument in futuresFullData) {
+    const info = futuresFullData[instrument];
+    const score = parseFloat(info.summaryLeft[0]);
+    if (score === 100 || score === -100) {
+      futuresPortfolio1Data.push({
+        instrument: instrument,
+        score: score,
+        trend: info.summaryLeft[1],
+        approach: info.summaryLeft[2],
+        gap: parseGap(info.summaryLeft[3]),
+        keyArea: info.summaryLeft[4],
+        correlation: parseFloat(info.summaryRight[0]),
+        volatility: parseFloat(info.summaryRight[1])
+      });
+    }
+  }
+  if (futuresPortfolio1Data.length > 15) {
+    futuresPortfolio1Data.sort((a, b) => a.gap - b.gap);
+    futuresPortfolio1Data = futuresPortfolio1Data.slice(0, 15);
+  }
+  futuresPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let futuresPortfolio1Rows = "";
+  futuresPortfolio1Data.forEach(item => {
+    futuresPortfolio1Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  let futuresPortfolio2Data = [];
+  futuresPortfolio1Data.forEach(item => {
+    if (item.correlation < 0.1) {
+      futuresPortfolio2Data.push(item);
+    }
+  });
+  if (futuresPortfolio2Data.length > 15) {
+    futuresPortfolio2Data.sort((a, b) => a.gap - b.gap);
+    futuresPortfolio2Data = futuresPortfolio2Data.slice(0, 15);
+  }
+  futuresPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let futuresPortfolio2Rows = "";
+  futuresPortfolio2Data.forEach(item => {
+    futuresPortfolio2Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.correlation}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
+  let futuresPortfolio3Data = [];
+  futuresPortfolio1Data.forEach(item => {
+    if (item.volatility < 1) {
+      futuresPortfolio3Data.push(item);
+    }
+  });
+  if (futuresPortfolio3Data.length > 15) {
+    futuresPortfolio3Data.sort((a, b) => a.gap - b.gap);
+    futuresPortfolio3Data = futuresPortfolio3Data.slice(0, 15);
+  }
+  futuresPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
+  let futuresPortfolio3Rows = "";
+  futuresPortfolio3Data.forEach(item => {
+    futuresPortfolio3Rows += `<tr>
+      <td>${item.instrument}</td>
+      <td>${item.score}</td>
+      <td>${item.volatility}</td>
+      <td>${item.trend}</td>
+      <td>${item.approach}</td>
+      <td>${item.gap}%</td>
+      <td>${item.keyArea}</td>
+    </tr>`;
+  });
+  
   // --- Build FX Portfolios ---
   let fxPortfolio1Data = [];
   for (const instrument in fxFullData) {
@@ -904,7 +1268,7 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  // --- Build the final HTML with Tab Navigation ---
+  // --- Build the Final HTML with Tab Navigation ---
   let finalHtml = `
     <div class="thematic-portfolio-nav">
       <nav>
@@ -915,7 +1279,7 @@ function loadThematicPortfolio() {
       </nav>
     </div>
     <div id="thematic-portfolio-contents">
-      <!-- STOCKS Tab -->
+      <!-- STOCKS Tab Content -->
       <div class="portfolio-tab-content active" data-category="stocks">
         <div class="thematic-portfolio-section">
           <h2>TREND FOLLOWING</h2>
@@ -939,20 +1303,251 @@ function loadThematicPortfolio() {
             <div class="portfolio-chart"><canvas id="portfolio1_pie"></canvas></div>
           </div>
         </div>
-        <!-- (Additional STOCKS sections: Low Correlation, Low Volatility, Trend Following Plus) -->
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW S&P500 CORRELATION</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Correlation</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio2Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio2_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio2_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW VOLATILITY</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Volatility Ratio</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio3Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio3_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio3_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING PLUS</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>Bullish Alpha</th>
+                  <th>Bearish Alpha</th>
+                  <th>Alpha Strength</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio4Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio4_bullish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio4_bearish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio4_alpha"></canvas></div>
+          </div>
+        </div>
       </div>
       
-      <!-- ETFS Tab -->
+      <!-- ETFS Tab Content -->
       <div class="portfolio-tab-content" data-category="etfs">
-        <!-- (Insert similar ETFS sections with their respective tables and chart canvases) -->
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>ETF Name</th>
+                  <th>Score</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${etfPortfolio1Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="etf_portfolio1_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="etf_portfolio1_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW S&P500 CORRELATION</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>ETF Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Correlation</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${etfPortfolio2Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="etf_portfolio2_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="etf_portfolio2_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW VOLATILITY</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>ETF Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Volatility Ratio</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${etfPortfolio3Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="etf_portfolio3_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="etf_portfolio3_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING PLUS</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>ETF Name</th>
+                  <th>Score</th>
+                  <th>Bullish Alpha</th>
+                  <th>Bearish Alpha</th>
+                  <th>Alpha Strength</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${etfPortfolio4Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="etf_portfolio4_bullish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="etf_portfolio4_bearish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="etf_portfolio4_alpha"></canvas></div>
+          </div>
+        </div>
       </div>
       
-      <!-- FUTURES Tab -->
+      <!-- FUTURES Tab Content -->
       <div class="portfolio-tab-content" data-category="futures">
-        <!-- (Insert similar FUTURES sections with their respective tables and chart canvases) -->
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Future Name</th>
+                  <th>Score</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${futuresPortfolio1Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="futures_portfolio1_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="futures_portfolio1_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW S&P500 CORRELATION</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Future Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Correlation</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${futuresPortfolio2Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="futures_portfolio2_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="futures_portfolio2_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW VOLATILITY</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Future Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Volatility Ratio</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${futuresPortfolio3Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="futures_portfolio3_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="futures_portfolio3_pie"></canvas></div>
+          </div>
+        </div>
       </div>
       
-      <!-- FX Tab -->
+      <!-- FX Tab Content -->
       <div class="portfolio-tab-content" data-category="fx">
         <div class="thematic-portfolio-section">
           <h2>TREND FOLLOWING</h2>
@@ -982,7 +1577,7 @@ function loadThematicPortfolio() {
   
   container.innerHTML = finalHtml;
   
-  // Attach Tab Switching Listeners
+  // Attach event listeners for tab switching
   const tabs = container.querySelectorAll(".portfolio-tab");
   tabs.forEach(tab => {
     tab.addEventListener("click", function() {
@@ -997,22 +1592,28 @@ function loadThematicPortfolio() {
     });
   });
   
-  // Render Charts for Each Section
+  // Render Charts:
   // STOCKS Charts:
   renderPortfolio1Charts(portfolio1Data);
-  // (Call renderPortfolio2Charts, renderPortfolio3Charts, renderPortfolio4Charts for STOCKS as needed)
+  renderPortfolio2Charts(portfolio2Data);
+  renderPortfolio3Charts(portfolio3Data);
+  renderPortfolio4Charts(portfolio4Data);
   
   // ETFS Charts:
-  // renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
-  // (Similarly for other ETFS sections)
+  renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
+  renderPortfolio2Charts(etfPortfolio2Data, 'etf_portfolio2_bar', 'etf_portfolio2_pie', computeSectorDistribution);
+  renderPortfolio3Charts(etfPortfolio3Data, 'etf_portfolio3_bar', 'etf_portfolio3_pie', computeSectorDistribution);
+  renderPortfolio4Charts(etfPortfolio4Data, 'etf_portfolio4_bullish', 'etf_portfolio4_bearish', 'etf_portfolio4_alpha', computeSectorDistribution);
   
   // FUTURES Charts:
-  // renderPortfolio1Charts(futuresPortfolio1Data, 'futures_portfolio1_bar', 'futures_portfolio1_pie', computeFuturesDistribution);
-  // (Similarly for other FUTURES sections)
+  renderPortfolio1Charts(futuresPortfolio1Data, 'futures_portfolio1_bar', 'futures_portfolio1_pie', computeFuturesDistribution);
+  renderPortfolio2Charts(futuresPortfolio2Data, 'futures_portfolio2_bar', 'futures_portfolio2_pie', computeFuturesDistribution);
+  renderPortfolio3Charts(futuresPortfolio3Data, 'futures_portfolio3_bar', 'futures_portfolio3_pie', computeFuturesDistribution);
   
   // FX Charts:
   renderPortfolio1ChartsFX(fxPortfolio1Data, 'fx_portfolio1_bar', 'fx_portfolio1_pie', computeFXBaseDistribution);
 }
+
 
 
 
