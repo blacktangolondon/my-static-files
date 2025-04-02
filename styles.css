@@ -1,6 +1,6 @@
 /* Set html and body to full height and background */
 html, body {
-  height: 100%;
+  height: 100vh; /* use full viewport height */
   margin: 0;
   padding: 0;
   background-color: #001122;
@@ -38,8 +38,8 @@ html, body {
 #sidebar {
   background-color: #001122;
   color: white;
-  width: 13.33%;
-  min-width: 250px;
+  width: 250px;
+  /* fixed width for sidebar */
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease;
@@ -123,13 +123,14 @@ html, body {
 /* Main Content Styling (Dashboard) */
 #main-content {
   flex-grow: 1;
-  width: 80%;
-  /* Remove max-width to allow full use of available space */
+  /* Use calc() so that the main content takes the remaining horizontal space */
+  width: calc(100vw - 250px);
+  height: 100vh;
   background-color: #001122;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr;
   gap: 20px;
   /* Stretch each grid cell so blocks fill their available area */
   justify-items: stretch;
@@ -139,7 +140,7 @@ html, body {
 /* Portfolio Builder Template */
 #portfolio-builder-template {
   flex-grow: 1;
-  width: 80%;
+  width: 90%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -150,7 +151,7 @@ html, body {
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
   flex-grow: 1;
-  width: 80%;
+  width: 90%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
