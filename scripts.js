@@ -502,30 +502,6 @@ function destroyChartIfExists(canvasId) {
 
 /* Distribution Functions */
 
-// Geographical distribution for Stocks (if needed)
-function computeGeoDistribution(portfolioData) {
-  var geo = { "US": 0, "ITALY": 0, "GERMANY": 0 };
-  portfolioData.forEach(stock => {
-    var inst = stock.instrument;
-    if (data && data.STOCKS) {
-      if (data.STOCKS.US.indexOf(inst) > -1) geo["US"]++;
-      else if (data.STOCKS.ITALY.indexOf(inst) > -1) geo["ITALY"]++;
-      else if (data.STOCKS.GERMANY.indexOf(inst) > -1) geo["GERMANY"]++;
-    }
-  });
-  for (var country in geo) {
-    if (geo[country] === 0) { delete geo[country]; }
-  }
-  var total = Object.values(geo).reduce((sum, v) => sum + v, 0);
-  var labels = [];
-  var percentages = [];
-  for (var country in geo) {
-    labels.push(country);
-    percentages.push(Math.round((geo[country] / total) * 100));
-  }
-  return { labels: labels, data: percentages };
-}
-
 // Sector distribution for ETFs
 function computeSectorDistribution(portfolioData) {
   var sectorCount = {};
@@ -608,7 +584,7 @@ function computeFXBaseDistribution(portfolioData) {
 
 /* Chart Rendering Functions */
 
-var orangeShades = ['rgba(255, 165, 0, 0.8)', 'rgba(255, 140, 0, 0.8)', 'rgba(255, 120, 0, 0.8)'];
+var orangeShades = ['rgba(255,165,0,0.8)', 'rgba(255,140,0,0.8)', 'rgba(255,120,0,0.8)'];
 
 function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
   barCanvasId = barCanvasId || "portfolio1_bar";
@@ -623,15 +599,15 @@ function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       datasets: [{
         label: 'GAP TO PEAK',
         data: portfolioData.map(d => parseFloat(d.gap) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      scales: { 
+      scales: {
         x: { ticks: { display: false } },
-        y: { ticks: { color: 'white', callback: function(value) { return value + '%'; } } }
+        y: { ticks: { color: 'white', callback: (value) => value + '%' } }
       },
       plugins: {
         legend: { labels: { boxWidth: 0, color: 'white' } },
@@ -650,26 +626,27 @@ function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       }
     }
   });
-  
-  const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
-  destroyChartIfExists(pieCanvasId);
-  const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
-  new Chart(ctxPie, {
-    type: 'pie',
-    data: {
-      labels: distribution.labels,
-      datasets: [{
-        data: distribution.data,
-        backgroundColor: orangeShades.slice(0, distribution.labels.length),
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: 'white' } } }
-    }
-  });
+  if (distributionFunction) {
+    const distribution = distributionFunction(portfolioData);
+    destroyChartIfExists(pieCanvasId);
+    const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: distribution.labels,
+        datasets: [{
+          data: distribution.data,
+          backgroundColor: orangeShades.slice(0, distribution.labels.length),
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: 'white' } } }
+      }
+    });
+  }
 }
 
 function renderPortfolio2Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
@@ -685,7 +662,7 @@ function renderPortfolio2Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       datasets: [{
         label: 'S&P500 CORRELATION',
         data: portfolioData.map(d => parseFloat(d.correlation) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
@@ -698,26 +675,27 @@ function renderPortfolio2Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-  
-  const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
-  destroyChartIfExists(pieCanvasId);
-  const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
-  new Chart(ctxPie, {
-    type: 'pie',
-    data: {
-      labels: distribution.labels,
-      datasets: [{
-        data: distribution.data,
-        backgroundColor: orangeShades.slice(0, distribution.labels.length),
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: 'white' } } }
-    }
-  });
+  if (distributionFunction) {
+    const distribution = distributionFunction(portfolioData);
+    destroyChartIfExists(pieCanvasId);
+    const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: distribution.labels,
+        datasets: [{
+          data: distribution.data,
+          backgroundColor: orangeShades.slice(0, distribution.labels.length),
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: 'white' } } }
+      }
+    });
+  }
 }
 
 function renderPortfolio3Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
@@ -733,7 +711,7 @@ function renderPortfolio3Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       datasets: [{
         label: 'S&P500 VOLATILITY RATIO',
         data: portfolioData.map(d => parseFloat(d.volatility) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
@@ -746,36 +724,36 @@ function renderPortfolio3Charts(portfolioData, barCanvasId, pieCanvasId, distrib
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-  
-  const distribution = distributionFunction ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
-  destroyChartIfExists(pieCanvasId);
-  const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
-  new Chart(ctxPie, {
-    type: 'pie',
-    data: {
-      labels: distribution.labels,
-      datasets: [{
-        data: distribution.data,
-        backgroundColor: orangeShades.slice(0, distribution.labels.length),
-        borderWidth: 0
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { labels: { color: 'white' } } }
-    }
-  });
+  if (distributionFunction) {
+    const distribution = distributionFunction(portfolioData);
+    destroyChartIfExists(pieCanvasId);
+    const ctxPie = document.getElementById(pieCanvasId).getContext("2d");
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: distribution.labels,
+        datasets: [{
+          data: distribution.data,
+          backgroundColor: orangeShades.slice(0, distribution.labels.length),
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { labels: { color: 'white' } } }
+      }
+    });
+  }
 }
 
-function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId, alphaCanvasId, distributionFunction) {
+function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId, alphaCanvasId) {
   bullishCanvasId = bullishCanvasId || "portfolio4_bullish";
   bearishCanvasId = bearishCanvasId || "portfolio4_bearish";
   alphaCanvasId = alphaCanvasId || "portfolio4_alpha";
   destroyChartIfExists(bullishCanvasId);
   destroyChartIfExists(bearishCanvasId);
   destroyChartIfExists(alphaCanvasId);
-  
   const ctxBullish = document.getElementById(bullishCanvasId).getContext("2d");
   new Chart(ctxBullish, {
     type: 'bar',
@@ -784,7 +762,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
       datasets: [{
         label: 'BULLISH ALPHA',
         data: portfolioData.map(d => parseFloat(d.bullish) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
@@ -797,7 +775,6 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-  
   const ctxBearish = document.getElementById(bearishCanvasId).getContext("2d");
   new Chart(ctxBearish, {
     type: 'bar',
@@ -806,7 +783,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
       datasets: [{
         label: 'BEARISH ALPHA',
         data: portfolioData.map(d => parseFloat(d.bearish) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
@@ -819,7 +796,6 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-  
   const ctxAlpha = document.getElementById(alphaCanvasId).getContext("2d");
   new Chart(ctxAlpha, {
     type: 'bar',
@@ -828,7 +804,7 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
       datasets: [{
         label: 'ALPHA STRENGHT',
         data: portfolioData.map(d => parseFloat(d.alphaStrength) || 0),
-        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+        backgroundColor: 'rgba(75,192,192,0.7)'
       }]
     },
     options: {
@@ -843,10 +819,9 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
   });
 }
 
-/* THEME PORTFOLIO LOADER FUNCTION */
+/* THEMATIC PORTFOLIO LOADER FUNCTION */
 function loadThematicPortfolio() {
   const container = document.getElementById("thematic-portfolio-template");
-  
   // Wait until all CSV data is loaded
   if (
     Object.keys(stocksFullData).length === 0 ||
@@ -1598,18 +1573,15 @@ function loadThematicPortfolio() {
   renderPortfolio2Charts(portfolio2Data);
   renderPortfolio3Charts(portfolio3Data);
   renderPortfolio4Charts(portfolio4Data);
-  
   // ETFS Charts:
   renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
   renderPortfolio2Charts(etfPortfolio2Data, 'etf_portfolio2_bar', 'etf_portfolio2_pie', computeSectorDistribution);
   renderPortfolio3Charts(etfPortfolio3Data, 'etf_portfolio3_bar', 'etf_portfolio3_pie', computeSectorDistribution);
   renderPortfolio4Charts(etfPortfolio4Data, 'etf_portfolio4_bullish', 'etf_portfolio4_bearish', 'etf_portfolio4_alpha', computeSectorDistribution);
-  
   // FUTURES Charts:
   renderPortfolio1Charts(futuresPortfolio1Data, 'futures_portfolio1_bar', 'futures_portfolio1_pie', computeFuturesDistribution);
   renderPortfolio2Charts(futuresPortfolio2Data, 'futures_portfolio2_bar', 'futures_portfolio2_pie', computeFuturesDistribution);
   renderPortfolio3Charts(futuresPortfolio3Data, 'futures_portfolio3_bar', 'futures_portfolio3_pie', computeFuturesDistribution);
-  
   // FX Charts:
   renderPortfolio1ChartsFX(fxPortfolio1Data, 'fx_portfolio1_bar', 'fx_portfolio1_pie', computeFXBaseDistribution);
 }
