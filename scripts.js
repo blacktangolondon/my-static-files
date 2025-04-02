@@ -8,125 +8,126 @@
 // Here we merge the instruments from the OLD VERSION into the data object.
 // (STOCKS remain as in NEW VERSION; ETFs, FUTURES, FX – and even CRYPTO – are now fully populated.)
 const data = {
-      STOCKS: {
-        US: [
-          "AMAZON", "AMD", "AMERICAN AIRLINES", "APPLE", "AT&T", "BANK OF AMERICA", "COCA COLA",
-          "EXXON", "FORD", "GENERAL MOTORS", "GOOGLE", "INTEL", "META", "MICROSOFT",
-          "NVIDIA", "PFIZER", "TESLA", "WARNER BROS"
-        ],
-        ITALY: [
-          "FERRARI", "ENEL", "INTESA SAN PAOLO", "STELLANTIS", "ENI", "GENERALI", "ST MICRO",
-          "TENARIS", "MONCLER", "POSTE ITALIANE", "TERNA", "PRYSMIAN", "SNAM", "LEONARDO",
-          "MEDIOBANCA", "CAMPARI", "BPM", "FINECO BANK", "UNICREDIT"
-        ],
-        GERMANY: [
-          "ADIDAS", "AIRBUS", "ALLIANZ", "BASF", "BAYER", "BMW", "COMMERZBANK", "CONTINENTAL",
-          "DEUTSCHE BOERSE", "DEUTSCHE BANK", "DEUTSCHE POST", "HENKEL", "MERCEDES", "MERCK",
-          "PORSCHE", "SAP", "VOLKSWAGEN", "ZALANDO"
-        ]
-      },
-      ETFs: {
-        "ARTIFICIAL INTELLIGENCE": [
-          "L&G ARTIFICIAL INTELLIGENCE",
-          "GLOBAL X ROBO & ARTIFICIAL",
-          "WISDOMTREE ARTIFICIAL INTELLIGENCE USD"
-        ],
-        BATTERIES: [
-          "GLOBAL X LITHIUM & BATTERY",
-          "L&G BATTERY VALUE-CHAIN",
-          "WISDOMTREE BATTERY SOLUTIONS"
-        ],
-        BIOTECH: [
-          "GLOBAL X GENOMICS & BIOTECHNOL",
-          "INVESCO NASDAQ BIOTECH",
-          "iShares NASDAQ US BIOTECH",
-          "WISDOMTREE BIOREVOLUTION"
-        ],
-        BONDS: [
-          "ISHARES CORE EU GOVT BOND",
-          "ISHARES $ TREASURY 3-7YR",
-          "VANGUARD USD CORPORATE BOND"
-        ],
-        COMMODITIES: [
-          "INVESCO BLOOMBERG COMMODITY",
-          "WISDOMTREE WHEAT",
-          "WISDOMTREE COFFEE",
-          "WISDOMTREE CORN",
-          "WISDOMTREE NATURAL GAS",
-          "WISDOMTREE SUGAR",
-          "WISDOMTREE COTTON",
-          "WISDOMTREE WTI CRUDE OIL",
-          "WISDOMTREE COPPER",
-          "WISDOMTREE NICKEL",
-          "WISDOMTREE ALUMINIUN"
-        ],
-        "ENERGY TRANSITION": [
-          "AMUNDI MSCI EUR ESG BRD CTB DR",
-          "L BNPP EASY LOW CARB EUROPE",
-          "L&G MSCI EUROPE CLIMATE PATHWAY",
-          "JPM CARBON TRAN GLB EQUITY USD"
-        ],
-        METAVERSE: [
-          "ISHARES METAVERSE"
-        ],
-        "MONEY MARKET": [
-          "AMNDI FED FNDS US DOLLAR CASH",
-          "PIMCO US DOLLAR SHORT MATURITY",
-          "XTRACKERS MSCI EU SMALLCAP"
-        ],
-        ROBOTICS: [
-          "ISHARES AUTOMAT & ROBOTICS",
-          "L&G GLOBAL ROBO AND AUTO",
-          "iShares AUTOMATION & ROBOTICS"
-        ],
-        SEMICONDUCTORS: [
-          "VANECK SEMICONDUCTOR",
-          "ISHARES MSCI GLB SEMICONDUCTOR",
-          "AMUNDI MSCI SEMICONDUCTORS ESG SCREENED",
-          "HSBC NASDAQ GLOB SEMICONDUCTOR"
-        ],
-        STOCK_MARKET: [
-          "ISHARES MSCI WORLD EUR HDG",
-          "ISHARES S&P 500 EUR HEDGED",
-          "AMUNDI NASDAQ-100 EUR",
-          "AMUNDI MSCI EMERGING MARKETS III",
-          "XTRACKERS MSCI EU SMALLCAP",
-          "ISHARES CORE MSCI EUROPE"
-        ]
-      },
-      SPREAD: [
-        "FTSE100 / EU50", "FTSE100 / CAC40", "CAC40 / EU50", "DAX40 / EU50", "DOW30 / S&P500",
-        "DOW30 / NASDAQ100", "DOW30 / RUSSELL2000", "NASDAQ100 / S&P500", "NASDAQ100 / RUSSELL2000",
-        "S&P500 / RUSSELL2000", "GOLD / SILVER", "GOLD / PLATINUM", "PLATINUM / SILVER",
-        "WTI / BRENT", "CORN / WHEAT", "SOYBEANS / CORN", "BITCOIN / ETHEREUM"
-      ],
-      FUTURES: [
-        "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", "DOW JONES",
-        "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER", "WTI", "NATURAL GAS", "CORN", "SOYBEANS"
-      ],
-      FX: [
-        "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD", "EURAUD", "EURCAD", "EURJPY", "EURUSD",
-        "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD",
-        "USDCAD", "USDCHF", "USDJPY"
-      ],
-      CRYPTO: [
-        "XRP", "SOLANA", "BNB", "DOGE", "ADA", "TRX",
-        "CHAINLINK", "SUI", "AVALANCHE", "STELLAR LUMENS", "SHIBA INU", "LITECOIN",
-        "POLKADOT", "MANTRA", "UNISWAP", "DAI", "PEPE"
-      ],
-      "PORTFOLIO BUILDER": [],
-      "THEMATIC PORTFOLIO": [],
-      "LIVE TV": [],
-      "MEMBERS CHAT": [],
-      SUPPORT: []
-    };
-    
-
+  STOCKS: {
+    US: [
+      "AMAZON", "AMD", "AMERICAN AIRLINES", "APPLE", "AT&T", "BANK OF AMERICA", "COCA COLA",
+      "EXXON", "FORD", "GENERAL MOTORS", "GOOGLE", "INTEL", "META", "MICROSOFT",
+      "NVIDIA", "PFIZER", "TESLA", "WARNER BROS"
+    ],
+    ITALY: [
+      "FERRARI", "ENEL", "INTESA SAN PAOLO", "STELLANTIS", "ENI", "GENERALI", "ST MICRO",
+      "TENARIS", "MONCLER", "POSTE ITALIANE", "TERNA", "PRYSMIAN", "SNAM", "LEONARDO",
+      "MEDIOBANCA", "CAMPARI", "BPM", "FINECO BANK", "UNICREDIT"
+    ],
+    GERMANY: [
+      "ADIDAS", "AIRBUS", "ALLIANZ", "BASF", "BAYER", "BMW", "COMMERZBANK", "CONTINENTAL",
+      "DEUTSCHE BOERSE", "DEUTSCHE BANK", "DEUTSCHE POST", "HENKEL", "MERCEDES", "MERCK",
+      "PORSCHE", "SAP", "VOLKSWAGEN", "ZALANDO"
+    ]
+  },
+  ETFs: {
+    "ARTIFICIAL INTELLIGENCE": [
+      "L&G ARTIFICIAL INTELLIGENCE",
+      "GLOBAL X ROBO & ARTIFICIAL",
+      "WISDOMTREE ARTIFICIAL INTELLIGENCE USD"
+    ],
+    BATTERIES: [
+      "GLOBAL X LITHIUM & BATTERY",
+      "L&G BATTERY VALUE-CHAIN",
+      "WISDOMTREE BATTERY SOLUTIONS"
+    ],
+    BIOTECH: [
+      "GLOBAL X GENOMICS & BIOTECHNOL",
+      "INVESCO NASDAQ BIOTECH",
+      "iShares NASDAQ US BIOTECH",
+      "WISDOMTREE BIOREVOLUTION"
+    ],
+    BONDS: [
+      "ISHARES CORE EU GOVT BOND",
+      "ISHARES $ TREASURY 3-7YR",
+      "VANGUARD USD CORPORATE BOND"
+    ],
+    COMMODITIES: [
+      "INVESCO BLOOMBERG COMMODITY",
+      "WISDOMTREE WHEAT",
+      "WISDOMTREE COFFEE",
+      "WISDOMTREE CORN",
+      "WISDOMTREE NATURAL GAS",
+      "WISDOMTREE SUGAR",
+      "WISDOMTREE COTTON",
+      "WISDOMTREE WTI CRUDE OIL",
+      "WISDOMTREE COPPER",
+      "WISDOMTREE NICKEL",
+      "WISDOMTREE ALUMINIUN"
+    ],
+    "ENERGY TRANSITION": [
+      "AMUNDI MSCI EUR ESG BRD CTB DR",
+      "L BNPP EASY LOW CARB EUROPE",
+      "L&G MSCI EUROPE CLIMATE PATHWAY",
+      "JPM CARBON TRAN GLB EQUITY USD"
+    ],
+    METAVERSE: [
+      "ISHARES METAVERSE"
+    ],
+    "MONEY MARKET": [
+      "AMNDI FED FNDS US DOLLAR CASH",
+      "PIMCO US DOLLAR SHORT MATURITY",
+      "XTRACKERS MSCI EU SMALLCAP"
+    ],
+    ROBOTICS: [
+      "ISHARES AUTOMAT & ROBOTICS",
+      "L&G GLOBAL ROBO AND AUTO",
+      "iShares AUTOMATION & ROBOTICS"
+    ],
+    SEMICONDUCTORS: [
+      "VANECK SEMICONDUCTOR",
+      "ISHARES MSCI GLB SEMICONDUCTOR",
+      "AMUNDI MSCI SEMICONDUCTORS ESG SCREENED",
+      "HSBC NASDAQ GLOB SEMICONDUCTOR"
+    ],
+    STOCK_MARKET: [
+      "ISHARES MSCI WORLD EUR HDG",
+      "ISHARES S&P 500 EUR HEDGED",
+      "AMUNDI NASDAQ-100 EUR",
+      "AMUNDI MSCI EMERGING MARKETS III",
+      "XTRACKERS MSCI EU SMALLCAP",
+      "ISHARES CORE MSCI EUROPE"
+    ]
+  },
+  SPREAD: [
+    "FTSE100 / EU50", "FTSE100 / CAC40", "CAC40 / EU50", "DAX40 / EU50", "DOW30 / S&P500",
+    "DOW30 / NASDAQ100", "DOW30 / RUSSELL2000", "NASDAQ100 / S&P500", "NASDAQ100 / RUSSELL2000",
+    "S&P500 / RUSSELL2000", "GOLD / SILVER", "GOLD / PLATINUM", "PLATINUM / SILVER",
+    "WTI / BRENT", "CORN / WHEAT", "SOYBEANS / CORN", "BITCOIN / ETHEREUM"
+  ],
+  FUTURES: [
+    "FTSE 100", "CAC 40", "DAX40", "FTSE MIB", "EUROSTOXX50", "S&P500", "DOW JONES",
+    "NASDAQ100", "RUSSELL2000", "GOLD", "SILVER", "COPPER", "WTI", "NATURAL GAS", "CORN", "SOYBEANS"
+  ],
+  FX: [
+    "AUDCAD", "AUDJPY", "AUDNZD", "AUDUSD", "EURAUD", "EURCAD", "EURJPY", "EURUSD",
+    "GBPAUD", "GBPCAD", "GBPJPY", "GBPUSD", "NZDCAD", "NZDCHF", "NZDJPY", "NZDUSD",
+    "USDCAD", "USDCHF", "USDJPY"
+  ],
+  CRYPTO: [
+    "XRP", "SOLANA", "BNB", "DOGE", "ADA", "TRX",
+    "CHAINLINK", "SUI", "AVALANCHE", "STELLAR LUMENS", "SHIBA INU", "LITECOIN",
+    "POLKADOT", "MANTRA", "UNISWAP", "DAI", "PEPE"
+  ],
+  "PORTFOLIO BUILDER": [],
+  "THEMATIC PORTFOLIO": [],
+  "LIVE TV": [],
+  "MEMBERS CHAT": [],
+  SUPPORT: []
+};
 
 function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
+/*************************************************************************
+ * PORTFOLIO BUILDER FUNCTIONS
+ *************************************************************************/
 var filterMappingStocks = {
   "Score": { source: "left", index: 0 },
   "Gap to Peak": { source: "left", index: 3 },
@@ -157,332 +158,279 @@ var filterMappingFX = {
 };
 var portfolioFilters = [];
 
-/*************************************************************************
- * PORTFOLIO BUILDER FUNCTIONS
- *************************************************************************/
-// Helper function to parse gap value.
-    // If the gap value is "-" or not a valid number, return 0.
-    function parseGap(val) {
-      return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
-    }
-
-    // IMPLEMENTATION OF SEPARATE MAPPINGS FOR PORTFOLIO BUILDER
-
-    // Separate mapping objects for each asset class:
-    var filterMappingStocks = {
-      "Score": { source: "left", index: 0 },
-      "Gap to Peak": { source: "left", index: 3 },
-      "S&P500 Correlation": { source: "right", index: 0 },
-      "S&P500 Volatility Ratio": { source: "right", index: 1 },
-      "Bullish Alpha": { source: "right", index: 2 },
-      "Bearish Alpha": { source: "right", index: 3 },
-      "Alpha Strength": { source: "right", index: 4 }
-    };
-    // For ETFs we assume same mapping as stocks:
-    var filterMappingETFs = Object.assign({}, filterMappingStocks);
-    
-    var filterMappingFutures = {
-      "Score": { source: "left", index: 0 },
-      "Gap to Peak": { source: "left", index: 3 },
-      "S&P500 Correlation": { source: "right", index: 0 },
-      "S&P500 Volatility Ratio": { source: "right", index: 1 },
-      "Alpha Strength": { source: "right", index: 2 }
-    };
-    
-    var filterMappingFX = {
-      "Score": { source: "left", index: 0 },
-      "Gap to Peak": { source: "left", index: 2 },
-      "AVERAGE DAILY VOLATILITY": { source: "right", index: 0 },
-      "FX Volatility Ratio": { source: "right", index: 1 },
-      "30 DAYS PROJECTION": { source: "right", index: 2 },
-      "LONG TERM - MACRO": { source: "right", index: 3 },
-      "MEDIUM TERM - MATH": { source: "right", index: 4 },
-      "MEDIUM TERM - STATS": { source: "right", index: 5 },
-      "SHORT TERM - TECH": { source: "right", index: 6 }
-    };
-
-    // Portfolio Builder functions below now select allowed filters and mapping based on the asset class.
-    
-    function loadPortfolioBuilder() {
-      portfolioFilters = [];
-      var builderContainer = document.getElementById("portfolio-builder-template");
-      builderContainer.innerHTML = `
-        <div id="portfolio-builder-page">
-          <div id="portfolio-builder-container">
-            <div id="portfolio_builder1">
-              <div id="portfolio-builder-steps">
-                <p id="portfolio-builder-instructions">
-                  <button id="add-filter-btn">+</button> Add your filters and build your portfolio
-                </p>
-              </div>
-              <div id="portfolio-builder-actions">
-                <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
-              </div>
-            </div>
-            <div id="portfolio_builder2">
-              <div id="portfolio-results"></div>
-            </div>
+function loadPortfolioBuilder() {
+  portfolioFilters = [];
+  var builderContainer = document.getElementById("portfolio-builder-template");
+  builderContainer.innerHTML = `
+    <div id="portfolio-builder-page">
+      <div id="portfolio-builder-container">
+        <div id="portfolio_builder1">
+          <div id="portfolio-builder-steps">
+            <p id="portfolio-builder-instructions">
+              <button id="add-filter-btn">+</button> Add your filters and build your portfolio
+            </p>
+          </div>
+          <div id="portfolio-builder-actions">
+            <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
           </div>
         </div>
-      `;
-      document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
-      document.getElementById("generate-portfolio-btn").addEventListener("click", generatePortfolioNew);
-    }
-    
-    // Update openFilterSelector to choose allowed filters based on asset class
-    function openFilterSelector() {
-      var availableFilters = [];
-      // Determine asset type from the first filter
-      var assetType = (portfolioFilters.length > 0) ? portfolioFilters[0].value : null;
-      var allFilters;
-      if (assetType === "FUTURES") {
-        allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Alpha Strength"];
-      } else if (assetType === "FX") {
-        allFilters = ["Score", "Gap to Peak", "AVERAGE DAILY VOLATILITY", "FX Volatility Ratio", "30 DAYS PROJECTION", "LONG TERM - MACRO", "MEDIUM TERM - MATH", "MEDIUM TERM - STATS", "SHORT TERM - TECH"];
-      } else {
-        // STOCKS and ETFS use default filters
-        allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"];
-      }
-      
-      if (portfolioFilters.length === 0) {
-        availableFilters.push("Asset Class");
-      } else {
-        availableFilters = allFilters.filter(f => portfolioFilters.findIndex(item => item.filterName === f) === -1);
-      }
-      var selectorDiv = document.createElement("div");
-      selectorDiv.className = "filter-selector";
-      var selectEl = document.createElement("select");
-      availableFilters.forEach(filterName => {
+        <div id="portfolio_builder2">
+          <div id="portfolio-results"></div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
+  document.getElementById("generate-portfolio-btn").addEventListener("click", generatePortfolioNew);
+}
+
+function openFilterSelector() {
+  var availableFilters = [];
+  var assetType = (portfolioFilters.length > 0) ? portfolioFilters[0].value : null;
+  var allFilters;
+  if (assetType === "FUTURES") {
+    allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Alpha Strength"];
+  } else if (assetType === "FX") {
+    allFilters = ["Score", "Gap to Peak", "AVERAGE DAILY VOLATILITY", "FX Volatility Ratio", "30 DAYS PROJECTION", "LONG TERM - MACRO", "MEDIUM TERM - MATH", "MEDIUM TERM - STATS", "SHORT TERM - TECH"];
+  } else {
+    allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"];
+  }
+  
+  if (portfolioFilters.length === 0) {
+    availableFilters.push("Asset Class");
+  } else {
+    availableFilters = allFilters.filter(f => portfolioFilters.findIndex(item => item.filterName === f) === -1);
+  }
+  var selectorDiv = document.createElement("div");
+  selectorDiv.className = "filter-selector";
+  var selectEl = document.createElement("select");
+  availableFilters.forEach(filterName => {
+    var opt = document.createElement("option");
+    opt.value = filterName;
+    opt.textContent = filterName;
+    selectEl.appendChild(opt);
+  });
+  selectorDiv.appendChild(selectEl);
+  var inputContainer = document.createElement("span");
+  selectorDiv.appendChild(inputContainer);
+  function updateInputFields() {
+    inputContainer.innerHTML = "";
+    var selectedFilter = selectEl.value;
+    if (selectedFilter === "Asset Class") {
+      var assetSelect = document.createElement("select");
+      ["STOCKS", "ETFS", "FUTURES", "FX"].forEach(asset => {
         var opt = document.createElement("option");
-        opt.value = filterName;
-        opt.textContent = filterName;
-        selectEl.appendChild(opt);
+        opt.value = asset;
+        opt.textContent = asset;
+        assetSelect.appendChild(opt);
       });
-      selectorDiv.appendChild(selectEl);
-      var inputContainer = document.createElement("span");
-      selectorDiv.appendChild(inputContainer);
-      function updateInputFields() {
-        inputContainer.innerHTML = "";
-        var selectedFilter = selectEl.value;
-        if (selectedFilter === "Asset Class") {
-          var assetSelect = document.createElement("select");
-          ["STOCKS", "ETFS", "FUTURES", "FX"].forEach(asset => {
-            var opt = document.createElement("option");
-            opt.value = asset;
-            opt.textContent = asset;
-            assetSelect.appendChild(opt);
-          });
-          inputContainer.appendChild(assetSelect);
-        } else {
-          var opSelect = document.createElement("select");
-          // Updated operators: now use "≥" and "≤"
-          ["≥", "≤"].forEach(op => {
-            var opt = document.createElement("option");
-            opt.value = op;
-            opt.textContent = op;
-            opSelect.appendChild(opt);
-          });
-          var numInput = document.createElement("input");
-          numInput.type = "number";
-          numInput.placeholder = "Numeric value";
-          inputContainer.appendChild(opSelect);
-          inputContainer.appendChild(numInput);
-        }
-      }
-      selectEl.addEventListener("change", updateInputFields);
-      updateInputFields();
-      var addBtn = document.createElement("button");
-      addBtn.textContent = "Add Filter";
-      addBtn.style.marginLeft = "10px";
-      addBtn.addEventListener("click", function() {
-        var newFilter = { filterName: selectEl.value };
-        if (selectEl.value === "Asset Class") {
-          newFilter.value = inputContainer.querySelector("select").value;
-        } else {
-          newFilter.operator = inputContainer.querySelector("select").value;
-          newFilter.value = inputContainer.querySelector("input").value;
-        }
-        portfolioFilters.push(newFilter);
-        updatePortfolioSteps();
-        selectorDiv.parentNode.removeChild(selectorDiv);
+      inputContainer.appendChild(assetSelect);
+    } else {
+      var opSelect = document.createElement("select");
+      ["≥", "≤"].forEach(op => {
+        var opt = document.createElement("option");
+        opt.value = op;
+        opt.textContent = op;
+        opSelect.appendChild(opt);
       });
-      selectorDiv.appendChild(addBtn);
-      document.getElementById("portfolio_builder1").appendChild(selectorDiv);
+      var numInput = document.createElement("input");
+      numInput.type = "number";
+      numInput.placeholder = "Numeric value";
+      inputContainer.appendChild(opSelect);
+      inputContainer.appendChild(numInput);
     }
-    
-    function updatePortfolioSteps() {
-      var stepsContainer = document.getElementById("portfolio-builder-steps");
-      stepsContainer.innerHTML = "";
-      portfolioFilters.forEach(function(step, index) {
-        var stepDiv = document.createElement("div");
-        stepDiv.className = "filter-step";
-        var desc = step.filterName;
-        if (step.filterName === "Asset Class") {
-          desc += ": " + step.value;
-        } else {
-          desc += " " + step.operator + " " + step.value;
-        }
-        var descSpan = document.createElement("span");
-        descSpan.textContent = desc;
-        stepDiv.appendChild(descSpan);
-        var removeBtn = document.createElement("button");
-        removeBtn.className = "remove-filter-btn";
-        removeBtn.textContent = "✕";
-        removeBtn.addEventListener("click", function() {
-          portfolioFilters.splice(index, 1);
-          updatePortfolioSteps();
-        });
-        stepDiv.appendChild(removeBtn);
-        stepsContainer.appendChild(stepDiv);
-      });
-      var instr = document.createElement("p");
-      instr.id = "portfolio-builder-instructions";
-      instr.style.textAlign = "center";
-      instr.style.fontSize = "16px";
-      instr.style.color = "#cccccc";
-      instr.innerHTML = '<button id="add-filter-btn">+</button> Add another filter';
-      stepsContainer.appendChild(instr);
-      document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
+  }
+  selectEl.addEventListener("change", updateInputFields);
+  updateInputFields();
+  var addBtn = document.createElement("button");
+  addBtn.textContent = "Add Filter";
+  addBtn.style.marginLeft = "10px";
+  addBtn.addEventListener("click", function() {
+    var newFilter = { filterName: selectEl.value };
+    if (selectEl.value === "Asset Class") {
+      newFilter.value = inputContainer.querySelector("select").value;
+    } else {
+      newFilter.operator = inputContainer.querySelector("select").value;
+      newFilter.value = inputContainer.querySelector("input").value;
     }
-    
-    function generatePortfolioNew() {
-      if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== "Asset Class") {
-        alert("Please add the Asset Class filter as your first filter.");
-        return;
-      }
-      var asset = portfolioFilters[0].value;
-      var dataObj;
-      var mapping;
-      if (asset === "STOCKS") { 
-          dataObj = stocksFullData;
-          mapping = filterMappingStocks;
-      }
-      else if (asset === "ETFS") { 
-          dataObj = etfFullData;
-          mapping = filterMappingETFs;
-      }
-      else if (asset === "FUTURES") { 
-          dataObj = futuresFullData;
-          mapping = filterMappingFutures;
-      }
-      else if (asset === "FX") { 
-          dataObj = fxFullData;
-          mapping = filterMappingFX;
-      }
-      else {
-        alert("Invalid asset class.");
-        return;
-      }
-      var results = [];
-      for (var instrument in dataObj) {
-        var info = dataObj[instrument];
-        var include = true;
-        for (var i = 1; i < portfolioFilters.length; i++) {
-          var filt = portfolioFilters[i];
-          var map = mapping[filt.filterName];
-          if (!map) continue;
-          var val = (map.source === "left") 
-                      ? parseFloat(info.summaryLeft[map.index]) 
-                      : parseFloat(info.summaryRight[map.index]);
-          // Updated condition: if operator is "≥", use >=; if "≤", use <=.
-          var condition = (filt.operator === "≥") 
-                          ? (val >= parseFloat(filt.value)) 
-                          : (val <= parseFloat(filt.value));
-          include = include && condition;
+    portfolioFilters.push(newFilter);
+    updatePortfolioSteps();
+    selectorDiv.parentNode.removeChild(selectorDiv);
+  });
+  selectorDiv.appendChild(addBtn);
+  document.getElementById("portfolio_builder1").appendChild(selectorDiv);
+}
+
+function updatePortfolioSteps() {
+  var stepsContainer = document.getElementById("portfolio-builder-steps");
+  stepsContainer.innerHTML = "";
+  portfolioFilters.forEach(function(step, index) {
+    var stepDiv = document.createElement("div");
+    stepDiv.className = "filter-step";
+    var desc = step.filterName;
+    if (step.filterName === "Asset Class") {
+      desc += ": " + step.value;
+    } else {
+      desc += " " + step.operator + " " + step.value;
+    }
+    var descSpan = document.createElement("span");
+    descSpan.textContent = desc;
+    stepDiv.appendChild(descSpan);
+    var removeBtn = document.createElement("button");
+    removeBtn.className = "remove-filter-btn";
+    removeBtn.textContent = "✕";
+    removeBtn.addEventListener("click", function() {
+      portfolioFilters.splice(index, 1);
+      updatePortfolioSteps();
+    });
+    stepDiv.appendChild(removeBtn);
+    stepsContainer.appendChild(stepDiv);
+  });
+  var instr = document.createElement("p");
+  instr.id = "portfolio-builder-instructions";
+  instr.style.textAlign = "center";
+  instr.style.fontSize = "16px";
+  instr.style.color = "#cccccc";
+  instr.innerHTML = '<button id="add-filter-btn">+</button> Add another filter';
+  stepsContainer.appendChild(instr);
+  document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
+}
+
+function generatePortfolioNew() {
+  if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== "Asset Class") {
+    alert("Please add the Asset Class filter as your first filter.");
+    return;
+  }
+  var asset = portfolioFilters[0].value;
+  var dataObj;
+  var mapping;
+  if (asset === "STOCKS") {
+    dataObj = stocksFullData;
+    mapping = filterMappingStocks;
+  } else if (asset === "ETFS") {
+    dataObj = etfFullData;
+    mapping = filterMappingETFs;
+  } else if (asset === "FUTURES") {
+    dataObj = futuresFullData;
+    mapping = filterMappingFutures;
+  } else if (asset === "FX") {
+    dataObj = fxFullData;
+    mapping = filterMappingFX;
+  } else {
+    alert("Invalid asset class.");
+    return;
+  }
+  var results = [];
+  for (var instrument in dataObj) {
+    var info = dataObj[instrument];
+    var include = true;
+    for (var i = 1; i < portfolioFilters.length; i++) {
+      var filt = portfolioFilters[i];
+      var map = mapping[filt.filterName];
+      if (!map) continue;
+      var val = (map.source === "left")
+        ? parseFloat(info.summaryLeft[map.index])
+        : parseFloat(info.summaryRight[map.index]);
+      var condition = (filt.operator === "≥")
+        ? (val >= parseFloat(filt.value))
+        : (val <= parseFloat(filt.value));
+      include = include && condition;
+    }
+    if (include) {
+      if (asset === "FX") {
+        var score = parseFloat(info.summaryLeft[0]);
+        if (score >= 75 || score <= -75) {
+          results.push({
+            instrument: instrument,
+            score: score,
+            trend: info.summaryLeft[1],
+            approach: info.summaryLeft[3],
+            gap: parseGap(info.summaryLeft[2]),
+            keyArea: info.summaryLeft[4],
+            fxVolatilityRatio: parseFloat(info.summaryRight[1]),
+            avgDailyVolatility: parseFloat(info.summaryRight[0])
+          });
         }
-        if (include) {
-          if (asset === "FX") {
-            var score = parseFloat(info.summaryLeft[0]);
-            if (score >= 75 || score <= -75) {
-              results.push({
-                instrument: instrument,
-                score: score,
-                trend: info.summaryLeft[1],
-                approach: info.summaryLeft[3],
-                gap: parseGap(info.summaryLeft[2]),
-                keyArea: info.summaryLeft[4],
-                fxVolatilityRatio: parseFloat(info.summaryRight[1]),
-                avgDailyVolatility: parseFloat(info.summaryRight[0])
-              });
-            }
-          } else {
-            var score = parseFloat(info.summaryLeft[0]);
-            if (asset === "FUTURES") {
-              if (score === 100 || score === -100) {
-                results.push({
-                  instrument: instrument,
-                  score: score,
-                  trend: info.summaryLeft[1],
-                  approach: info.summaryLeft[2],
-                  gap: parseGap(info.summaryLeft[3]),
-                  keyArea: info.summaryLeft[4],
-                  correlation: parseFloat(info.summaryRight[0]),
-                  volatility: parseFloat(info.summaryRight[1])
-                });
-              }
-            } else {
-              results.push({
-                instrument: instrument,
-                score: score,
-                gap: parseGap(info.summaryLeft[3]),
-                correlation: parseFloat(info.summaryRight[0]),
-                volatility: parseFloat(info.summaryRight[1]),
-                bullish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 2 ]) || 0,
-                bearish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 3 ]) || 0,
-                alphaStrength: parseFloat(info.summaryRight[ asset==="FUTURES" ? 2 : 4 ]) || 0,
-                trend: info.summaryLeft[1],
-                approach: info.summaryLeft[2],
-                keyArea: info.summaryLeft[4]
-              });
-            }
+      } else {
+        var score = parseFloat(info.summaryLeft[0]);
+        if (asset === "FUTURES") {
+          if (score === 100 || score === -100) {
+            results.push({
+              instrument: instrument,
+              score: score,
+              trend: info.summaryLeft[1],
+              approach: info.summaryLeft[2],
+              gap: parseGap(info.summaryLeft[3]),
+              keyArea: info.summaryLeft[4],
+              correlation: parseFloat(info.summaryRight[0]),
+              volatility: parseFloat(info.summaryRight[1])
+            });
+          }
+        } else {
+          results.push({
+            instrument: instrument,
+            score: score,
+            gap: parseGap(info.summaryLeft[3]),
+            correlation: parseFloat(info.summaryRight[0]),
+            volatility: parseFloat(info.summaryRight[1]),
+            bullish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 2 ]) || 0,
+            bearish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 3 ]) || 0,
+            alphaStrength: parseFloat(info.summaryRight[ asset==="FUTURES" ? 2 : 4 ]) || 0,
+            trend: info.summaryLeft[1],
+            approach: info.summaryLeft[2],
+            keyArea: info.summaryLeft[4]
+          });
+        }
+      }
+    }
+  }
+  var userFilters = portfolioFilters.slice(1);
+  var html = "";
+  if (results.length === 0) {
+    html = "<p>No instrument meet this criteria.</p>";
+  } else {
+    html += "<table id='portfolio-table'><thead><tr>";
+    html += "<th>Instrument</th>";
+    userFilters.forEach(filter => {
+      html += `<th>${filter.filterName}</th>`;
+    });
+    html += "</tr></thead><tbody>";
+    results.forEach(function(r) {
+      html += `<tr>`;
+      html += `<td>${r.instrument}</td>`;
+      userFilters.forEach(function(filter) {
+        var map = mapping[filter.filterName];
+        var field = "";
+        if (map) {
+          if (map.source === "left") {
+            field = (filter.filterName === "Score") ? r.score : r.gap;
+          } else if (map.source === "right") {
+            if (filter.filterName === "S&P500 Correlation") field = r.correlation;
+            else if (filter.filterName === "S&P500 Volatility Ratio") field = r.volatility;
+            else if (filter.filterName === "Bullish Alpha") field = r.bullish;
+            else if (filter.filterName === "Bearish Alpha") field = r.bearish;
+            else if (filter.filterName === "Alpha Strength") field = r.alphaStrength;
+            else if (filter.filterName === "AVERAGE DAILY VOLATILITY") field = r.avgDailyVolatility;
+            else if (filter.filterName === "FX Volatility Ratio") field = r.fxVolatilityRatio;
+            else if (filter.filterName === "30 DAYS PROJECTION") field = r.projection30;
+            else if (filter.filterName === "LONG TERM - MACRO") field = r.longTermMacro;
+            else if (filter.filterName === "MEDIUM TERM - MATH") field = r.mediumMath;
+            else if (filter.filterName === "MEDIUM TERM - STATS") field = r.mediumStats;
+            else if (filter.filterName === "SHORT TERM - TECH") field = r.shortTech;
           }
         }
-      }
-      var userFilters = portfolioFilters.slice(1);
-      var html = "";
-      if (results.length === 0) {
-        html = "<p>No instrument meet this criteria.</p>";
-      } else {
-        html += "<table id='portfolio-table'><thead><tr>";
-        html += "<th>Instrument</th>";
-        userFilters.forEach(filter => {
-          html += `<th>${filter.filterName}</th>`;
-        });
-        html += "</tr></thead><tbody>";
-        results.forEach(function(r) {
-          html += `<tr>`;
-          html += `<td>${r.instrument}</td>`;
-          userFilters.forEach(function(filter) {
-            var map = mapping[filter.filterName];
-            var field = "";
-            if (map) {
-              if (map.source === "left") {
-                field = (filter.filterName === "Score") ? r.score : r.gap;
-              } else if (map.source === "right") {
-                if (filter.filterName === "S&P500 Correlation") field = r.correlation;
-                else if (filter.filterName === "S&P500 Volatility Ratio") field = r.volatility;
-                else if (filter.filterName === "Bullish Alpha") field = r.bullish;
-                else if (filter.filterName === "Bearish Alpha") field = r.bearish;
-                else if (filter.filterName === "Alpha Strength") field = r.alphaStrength;
-                else if (filter.filterName === "AVERAGE DAILY VOLATILITY") field = r.avgDailyVolatility;
-                else if (filter.filterName === "FX Volatility Ratio") field = r.fxVolatilityRatio;
-                else if (filter.filterName === "30 DAYS PROJECTION") field = r.projection30;
-                else if (filter.filterName === "LONG TERM - MACRO") field = r.longTermMacro;
-                else if (filter.filterName === "MEDIUM TERM - MATH") field = r.mediumMath;
-                else if (filter.filterName === "MEDIUM TERM - STATS") field = r.mediumStats;
-                else if (filter.filterName === "SHORT TERM - TECH") field = r.shortTech;
-              }
-            }
-            html += `<td>${field}</td>`;
-          });
-          html += `</tr>`;
-        });
-        html += "</tbody></table>";
-      }
-      document.getElementById("portfolio-results").innerHTML = html;
-      attachPortfolioTableSorting();
-    }
-
+        html += `<td>${field}</td>`;
+      });
+      html += `</tr>`;
+    });
+    html += "</tbody></table>";
+  }
+  document.getElementById("portfolio-results").innerHTML = html;
+  // Note: attachPortfolioTableSorting() should be defined if table sorting is desired.
+  if (typeof attachPortfolioTableSorting === "function") {
+    attachPortfolioTableSorting();
+  }
+}
 
 /*************************************************************************
  * THEMATIC PORTFOLIO FUNCTIONS & CHART RENDERING
@@ -491,23 +439,18 @@ var portfolioFilters = [];
 /****************************************************
  * THEMATIC PORTFOLIO (Portfolio Ideas) FUNCTIONS
  ****************************************************/
-
-/* Helper: Destroy chart if it already exists */
+// Helper: destroy chart on a given canvas if it already exists.
 function destroyChartIfExists(canvasId) {
   const existing = Chart.getChart(canvasId);
-  if (existing) {
-    existing.destroy();
-  }
+  if (existing) { existing.destroy(); }
 }
 
-/* Distribution Functions */
+// Distribution Functions
 
 // Sector distribution for ETFs
 function computeSectorDistribution(portfolioData) {
   var sectorCount = {};
-  Object.keys(data.ETFs).forEach(sector => { 
-    sectorCount[sector] = 0; 
-  });
+  Object.keys(data.ETFs).forEach(sector => { sectorCount[sector] = 0; });
   portfolioData.forEach(item => {
     var instrument = item.instrument;
     for (var sector in data.ETFs) {
@@ -518,9 +461,7 @@ function computeSectorDistribution(portfolioData) {
     }
   });
   for (var sector in sectorCount) {
-    if (sectorCount[sector] === 0) { 
-      delete sectorCount[sector]; 
-    }
+    if (sectorCount[sector] === 0) { delete sectorCount[sector]; }
   }
   var total = Object.values(sectorCount).reduce((sum, v) => sum + v, 0);
   var labels = [];
@@ -552,7 +493,6 @@ function computeFuturesDistribution(portfolioData) {
     "CORN": "Agricultural",
     "SOYBEANS": "Agricultural"
   };
-
   const counts = {};
   portfolioData.forEach(item => {
     const category = categoryMapping[item.instrument];
@@ -562,8 +502,8 @@ function computeFuturesDistribution(portfolioData) {
   });
   const total = Object.values(counts).reduce((sum, v) => sum + v, 0);
   const labels = Object.keys(counts);
-  const data = labels.map(label => Math.round((counts[label] / total) * 100));
-  return { labels, data };
+  const dataArr = labels.map(label => Math.round((counts[label] / total) * 100));
+  return { labels, data: dataArr };
 }
 
 // FX distribution function: group by base currency (first three characters)
@@ -578,12 +518,11 @@ function computeFXBaseDistribution(portfolioData) {
   });
   const total = Object.values(baseCounts).reduce((sum, v) => sum + v, 0);
   const labels = Object.keys(baseCounts);
-  const data = labels.map(label => Math.round((baseCounts[label] / total) * 100));
-  return { labels, data };
+  const dataArr = labels.map(label => Math.round((baseCounts[label] / total) * 100));
+  return { labels, data: dataArr };
 }
 
-/* Chart Rendering Functions */
-
+// Chart Rendering Functions
 var orangeShades = ['rgba(255,165,0,0.8)', 'rgba(255,140,0,0.8)', 'rgba(255,120,0,0.8)'];
 
 function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
@@ -819,9 +758,60 @@ function renderPortfolio4Charts(portfolioData, bullishCanvasId, bearishCanvasId,
   });
 }
 
-/* THEMATIC PORTFOLIO LOADER FUNCTION */
+/*************************************************************************
+ * FX Chart Rendering Functions
+ *************************************************************************/
+function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
+  barCanvasId = barCanvasId || "fx_portfolio1_bar";
+  pieCanvasId = pieCanvasId || "fx_portfolio1_pie";
+  destroyChartIfExists(barCanvasId);
+  destroyChartIfExists(pieCanvasId);
+  var ctxBar = document.getElementById(barCanvasId).getContext("2d");
+  new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: portfolioData.map(d => d.instrument),
+      datasets: [{
+        label: 'GAP TO PEAK',
+        data: portfolioData.map(d => parseFloat(d.gap) || 0)
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: { ticks: { display: false } },
+        y: { ticks: { color: 'white', callback: value => value + '%' } }
+      },
+      plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
+    }
+  });
+  var distribution = (distributionFunction) ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
+  var ctxPie = document.getElementById(pieCanvasId).getContext("2d");
+  new Chart(ctxPie, {
+    type: 'pie',
+    data: {
+      labels: distribution.labels,
+      datasets: [{
+        data: distribution.data,
+        backgroundColor: orangeShades.slice(0, distribution.labels.length),
+        borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: 'white' } } }
+    }
+  });
+}
+// Functions renderPortfolio2ChartsFX and renderPortfolio3ChartsFX can be implemented similarly if needed.
+
+/*************************************************************************
+ * LOAD THEMATIC PORTFOLIO (Portfolio Ideas)
+ *************************************************************************/
 function loadThematicPortfolio() {
-  const container = document.getElementById("thematic-portfolio-template");
+  var container = document.getElementById("thematic-portfolio-template");
   // Wait until all CSV data is loaded
   if (
     Object.keys(stocksFullData).length === 0 ||
@@ -835,10 +825,10 @@ function loadThematicPortfolio() {
   }
   
   // --- Build STOCKS Portfolios ---
-  let portfolio1Data = [];
-  for (const instrument in stocksFullData) {
-    const info = stocksFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
+  var portfolio1Data = [];
+  for (var instrument in stocksFullData) {
+    var info = stocksFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
     if (score === 100) {
       portfolio1Data.push({
         instrument: instrument,
@@ -855,8 +845,8 @@ function loadThematicPortfolio() {
     portfolio1Data = portfolio1Data.slice(0, 15);
   }
   portfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let portfolio1Rows = "";
-  portfolio1Data.forEach(item => {
+  var portfolio1Rows = "";
+  portfolio1Data.forEach(function(item) {
     portfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -867,12 +857,11 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  // --- Build STOCKS Low Correlation Portfolios ---
-  let portfolio2Data = [];
-  for (const instrument in stocksFullData) {
-    const info = stocksFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const correlation = parseFloat(info.summaryRight[0]);
+  var portfolio2Data = [];
+  for (var instrument in stocksFullData) {
+    var info = stocksFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var correlation = parseFloat(info.summaryRight[0]);
     if (score === 100 && correlation < 0.1) {
       portfolio2Data.push({
         instrument: instrument,
@@ -890,8 +879,8 @@ function loadThematicPortfolio() {
     portfolio2Data = portfolio2Data.slice(0, 15);
   }
   portfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let portfolio2Rows = "";
-  portfolio2Data.forEach(item => {
+  var portfolio2Rows = "";
+  portfolio2Data.forEach(function(item) {
     portfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -903,12 +892,11 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  // --- Build STOCKS Low Volatility Portfolios ---
-  let portfolio3Data = [];
-  for (const instrument in stocksFullData) {
-    const info = stocksFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const volatility = parseFloat(info.summaryRight[1]);
+  var portfolio3Data = [];
+  for (var instrument in stocksFullData) {
+    var info = stocksFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var volatility = parseFloat(info.summaryRight[1]);
     if (score === 100 && volatility < 1) {
       portfolio3Data.push({
         instrument: instrument,
@@ -926,8 +914,8 @@ function loadThematicPortfolio() {
     portfolio3Data = portfolio3Data.slice(0, 15);
   }
   portfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let portfolio3Rows = "";
-  portfolio3Data.forEach(item => {
+  var portfolio3Rows = "";
+  portfolio3Data.forEach(function(item) {
     portfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -939,14 +927,13 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  // --- Build STOCKS Trend Following Plus Portfolios ---
-  let portfolio4Data = [];
-  for (const instrument in stocksFullData) {
-    const info = stocksFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const bullish = parseFloat(info.summaryRight[2]);
-    const bearish = parseFloat(info.summaryRight[3]);
-    const alphaStrength = parseFloat(info.summaryRight[4]);
+  var portfolio4Data = [];
+  for (var instrument in stocksFullData) {
+    var info = stocksFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var bullish = parseFloat(info.summaryRight[2]);
+    var bearish = parseFloat(info.summaryRight[3]);
+    var alphaStrength = parseFloat(info.summaryRight[4]);
     if (score === 100 && bullish > 1 && bearish < 1 && alphaStrength > 1) {
       portfolio4Data.push({
         instrument: instrument,
@@ -966,8 +953,8 @@ function loadThematicPortfolio() {
     portfolio4Data = portfolio4Data.slice(0, 15);
   }
   portfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let portfolio4Rows = "";
-  portfolio4Data.forEach(item => {
+  var portfolio4Rows = "";
+  portfolio4Data.forEach(function(item) {
     portfolio4Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -981,11 +968,11 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  // --- Build ETFS Portfolios ---
-  let etfPortfolio1Data = [];
-  for (const instrument in etfFullData) {
-    const info = etfFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
+  // --- Build ETFS Portfolios (mirroring stocks but using etfFullData) ---
+  var etfPortfolio1Data = [];
+  for (var instrument in etfFullData) {
+    var info = etfFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
     if (score === 100) {
       etfPortfolio1Data.push({
         instrument: instrument,
@@ -1002,8 +989,8 @@ function loadThematicPortfolio() {
     etfPortfolio1Data = etfPortfolio1Data.slice(0, 15);
   }
   etfPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let etfPortfolio1Rows = "";
-  etfPortfolio1Data.forEach(item => {
+  var etfPortfolio1Rows = "";
+  etfPortfolio1Data.forEach(function(item) {
     etfPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1014,11 +1001,11 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  let etfPortfolio2Data = [];
-  for (const instrument in etfFullData) {
-    const info = etfFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const correlation = parseFloat(info.summaryRight[0]);
+  var etfPortfolio2Data = [];
+  for (var instrument in etfFullData) {
+    var info = etfFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var correlation = parseFloat(info.summaryRight[0]);
     if (score === 100 && correlation < 0.1) {
       etfPortfolio2Data.push({
         instrument: instrument,
@@ -1036,8 +1023,8 @@ function loadThematicPortfolio() {
     etfPortfolio2Data = etfPortfolio2Data.slice(0, 15);
   }
   etfPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let etfPortfolio2Rows = "";
-  etfPortfolio2Data.forEach(item => {
+  var etfPortfolio2Rows = "";
+  etfPortfolio2Data.forEach(function(item) {
     etfPortfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1049,11 +1036,11 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  let etfPortfolio3Data = [];
-  for (const instrument in etfFullData) {
-    const info = etfFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const volatility = parseFloat(info.summaryRight[1]);
+  var etfPortfolio3Data = [];
+  for (var instrument in etfFullData) {
+    var info = etfFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var volatility = parseFloat(info.summaryRight[1]);
     if (score === 100 && volatility < 1) {
       etfPortfolio3Data.push({
         instrument: instrument,
@@ -1071,8 +1058,8 @@ function loadThematicPortfolio() {
     etfPortfolio3Data = etfPortfolio3Data.slice(0, 15);
   }
   etfPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let etfPortfolio3Rows = "";
-  etfPortfolio3Data.forEach(item => {
+  var etfPortfolio3Rows = "";
+  etfPortfolio3Data.forEach(function(item) {
     etfPortfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1084,13 +1071,13 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  let etfPortfolio4Data = [];
-  for (const instrument in etfFullData) {
-    const info = etfFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
-    const bullish = parseFloat(info.summaryRight[2]);
-    const bearish = parseFloat(info.summaryRight[3]);
-    const alphaStrength = parseFloat(info.summaryRight[4]);
+  var etfPortfolio4Data = [];
+  for (var instrument in etfFullData) {
+    var info = etfFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
+    var bullish = parseFloat(info.summaryRight[2]);
+    var bearish = parseFloat(info.summaryRight[3]);
+    var alphaStrength = parseFloat(info.summaryRight[4]);
     if (score === 100 && bullish > 1 && bearish < 1 && alphaStrength > 1) {
       etfPortfolio4Data.push({
         instrument: instrument,
@@ -1110,8 +1097,8 @@ function loadThematicPortfolio() {
     etfPortfolio4Data = etfPortfolio4Data.slice(0, 15);
   }
   etfPortfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let etfPortfolio4Rows = "";
-  etfPortfolio4Data.forEach(item => {
+  var etfPortfolio4Rows = "";
+  etfPortfolio4Data.forEach(function(item) {
     etfPortfolio4Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1126,10 +1113,10 @@ function loadThematicPortfolio() {
   });
   
   // --- Build FUTURES Portfolios ---
-  let futuresPortfolio1Data = [];
-  for (const instrument in futuresFullData) {
-    const info = futuresFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
+  var futuresPortfolio1Data = [];
+  for (var instrument in futuresFullData) {
+    var info = futuresFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
     if (score === 100 || score === -100) {
       futuresPortfolio1Data.push({
         instrument: instrument,
@@ -1148,8 +1135,8 @@ function loadThematicPortfolio() {
     futuresPortfolio1Data = futuresPortfolio1Data.slice(0, 15);
   }
   futuresPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let futuresPortfolio1Rows = "";
-  futuresPortfolio1Data.forEach(item => {
+  var futuresPortfolio1Rows = "";
+  futuresPortfolio1Data.forEach(function(item) {
     futuresPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1160,19 +1147,17 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  let futuresPortfolio2Data = [];
-  futuresPortfolio1Data.forEach(item => {
-    if (item.correlation < 0.1) {
-      futuresPortfolio2Data.push(item);
-    }
+  var futuresPortfolio2Data = [];
+  futuresPortfolio1Data.forEach(function(item) {
+    if (item.correlation < 0.1) { futuresPortfolio2Data.push(item); }
   });
   if (futuresPortfolio2Data.length > 15) {
     futuresPortfolio2Data.sort((a, b) => a.gap - b.gap);
     futuresPortfolio2Data = futuresPortfolio2Data.slice(0, 15);
   }
   futuresPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let futuresPortfolio2Rows = "";
-  futuresPortfolio2Data.forEach(item => {
+  var futuresPortfolio2Rows = "";
+  futuresPortfolio2Data.forEach(function(item) {
     futuresPortfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1184,19 +1169,17 @@ function loadThematicPortfolio() {
     </tr>`;
   });
   
-  let futuresPortfolio3Data = [];
-  futuresPortfolio1Data.forEach(item => {
-    if (item.volatility < 1) {
-      futuresPortfolio3Data.push(item);
-    }
+  var futuresPortfolio3Data = [];
+  futuresPortfolio1Data.forEach(function(item) {
+    if (item.volatility < 1) { futuresPortfolio3Data.push(item); }
   });
   if (futuresPortfolio3Data.length > 15) {
     futuresPortfolio3Data.sort((a, b) => a.gap - b.gap);
     futuresPortfolio3Data = futuresPortfolio3Data.slice(0, 15);
   }
   futuresPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let futuresPortfolio3Rows = "";
-  futuresPortfolio3Data.forEach(item => {
+  var futuresPortfolio3Rows = "";
+  futuresPortfolio3Data.forEach(function(item) {
     futuresPortfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1209,10 +1192,10 @@ function loadThematicPortfolio() {
   });
   
   // --- Build FX Portfolios ---
-  let fxPortfolio1Data = [];
-  for (const instrument in fxFullData) {
-    const info = fxFullData[instrument];
-    const score = parseFloat(info.summaryLeft[0]);
+  var fxPortfolio1Data = [];
+  for (var instrument in fxFullData) {
+    var info = fxFullData[instrument];
+    var score = parseFloat(info.summaryLeft[0]);
     if (score >= 75 || score <= -75) {
       fxPortfolio1Data.push({
         instrument: instrument,
@@ -1231,8 +1214,8 @@ function loadThematicPortfolio() {
     fxPortfolio1Data = fxPortfolio1Data.slice(0, 15);
   }
   fxPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  let fxPortfolio1Rows = "";
-  fxPortfolio1Data.forEach(item => {
+  var fxPortfolio1Rows = "";
+  fxPortfolio1Data.forEach(function(item) {
     fxPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
@@ -1244,7 +1227,7 @@ function loadThematicPortfolio() {
   });
   
   // --- Build the Final HTML with Tab Navigation ---
-  let finalHtml = `
+  var finalHtml = `
     <div class="thematic-portfolio-nav">
       <nav>
         <button class="portfolio-tab active-tab" data-target="stocks">STOCKS</button>
@@ -1568,179 +1551,22 @@ function loadThematicPortfolio() {
   });
   
   // Render Charts:
-  // STOCKS Charts:
+  // STOCKS
   renderPortfolio1Charts(portfolio1Data);
   renderPortfolio2Charts(portfolio2Data);
   renderPortfolio3Charts(portfolio3Data);
   renderPortfolio4Charts(portfolio4Data);
-  // ETFS Charts:
+  // ETFS (using computeSectorDistribution)
   renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
   renderPortfolio2Charts(etfPortfolio2Data, 'etf_portfolio2_bar', 'etf_portfolio2_pie', computeSectorDistribution);
   renderPortfolio3Charts(etfPortfolio3Data, 'etf_portfolio3_bar', 'etf_portfolio3_pie', computeSectorDistribution);
   renderPortfolio4Charts(etfPortfolio4Data, 'etf_portfolio4_bullish', 'etf_portfolio4_bearish', 'etf_portfolio4_alpha', computeSectorDistribution);
-  // FUTURES Charts:
+  // FUTURES
   renderPortfolio1Charts(futuresPortfolio1Data, 'futures_portfolio1_bar', 'futures_portfolio1_pie', computeFuturesDistribution);
   renderPortfolio2Charts(futuresPortfolio2Data, 'futures_portfolio2_bar', 'futures_portfolio2_pie', computeFuturesDistribution);
   renderPortfolio3Charts(futuresPortfolio3Data, 'futures_portfolio3_bar', 'futures_portfolio3_pie', computeFuturesDistribution);
-  // FX Charts:
+  // FX - only TREND FOLLOWING section is rendered here
   renderPortfolio1ChartsFX(fxPortfolio1Data, 'fx_portfolio1_bar', 'fx_portfolio1_pie', computeFXBaseDistribution);
-}
-
-
-
-
-/*************************************************************************
- * FX Chart Rendering Functions
- *************************************************************************/
-function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
-  barCanvasId = barCanvasId || "fx_portfolio1_bar";
-  pieCanvasId = pieCanvasId || "fx_portfolio1_pie";
-  destroyChartIfExists(barCanvasId);
-  destroyChartIfExists(pieCanvasId);
-  var ctxBar = document.getElementById(barCanvasId).getContext("2d");
-  new Chart(ctxBar, {
-    type: 'bar',
-    data: {
-      labels: portfolioData.map(d => d.instrument),
-      datasets: [{
-        label: 'GAP TO PEAK',
-        data: portfolioData.map(d => parseFloat(d.gap) || 0)
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: { 
-        x: { ticks: { display: false } },
-        y: { ticks: { color: 'white', callback: value => value + '%' } }
-      },
-      plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
-    }
-  });
-  var distribution = (distributionFunction) ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
-  var ctxPie = document.getElementById(pieCanvasId).getContext("2d");
-  new Chart(ctxPie, {
-    type: 'pie',
-    data: {
-      labels: distribution.labels,
-      datasets: [{
-        data: distribution.data,
-        backgroundColor: orangeShades.slice(0, distribution.labels.length),
-        borderWidth: 0
-      }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: 'white' } } } }
-  });
-}
-function renderPortfolio2ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
-  // Similar implementation for FX chart 2
-}
-function renderPortfolio3ChartsFX(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
-  // Similar implementation for FX chart 3
-}
-
-/*************************************************************************
- * LOAD THEMATIC PORTFOLIO
- *************************************************************************/
-function loadThematicPortfolio() {
-  var container = document.getElementById("thematic-portfolio-template");
-  if (
-    Object.keys(stocksFullData).length === 0 ||
-    Object.keys(etfFullData).length === 0 ||
-    Object.keys(futuresFullData).length === 0 ||
-    Object.keys(fxFullData).length === 0
-  ) {
-    container.innerHTML = '<div class="loading-message"><span>LOADING DATA...</span></div>';
-    setTimeout(loadThematicPortfolio, 1000);
-    return;
-  }
-  // Build STOCKS portfolios (portfolio1, portfolio2, portfolio3, portfolio4)
-  var portfolio1Data = [];
-  for (var instrument in stocksFullData) {
-    var info = stocksFullData[instrument];
-    var score = parseFloat(info.summaryLeft[0]);
-    if (score === 100) {
-      portfolio1Data.push({
-        instrument: instrument,
-        score: score,
-        trend: info.summaryLeft[1],
-        approach: info.summaryLeft[2],
-        gap: parseGap(info.summaryLeft[3]),
-        keyArea: info.summaryLeft[4]
-      });
-    }
-  }
-  if (portfolio1Data.length > 15) {
-    portfolio1Data.sort((a, b) => a.gap - b.gap);
-    portfolio1Data = portfolio1Data.slice(0, 15);
-  }
-  portfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
-  var portfolio1Rows = "";
-  portfolio1Data.forEach(item => {
-    portfolio1Rows += `<tr>
-      <td>${item.instrument}</td>
-      <td>${item.score}</td>
-      <td>${item.trend}</td>
-      <td>${item.approach}</td>
-      <td>${item.gap}%</td>
-      <td>${item.keyArea}</td>
-    </tr>`;
-  });
-  // (Similarly process portfolio2Data, portfolio3Data, portfolio4Data and do the same for ETFs, FUTURES, and FX)
-  var finalHtml = `
-    <div class="thematic-portfolio-nav">
-      <nav>
-        <button class="portfolio-tab active-tab" data-target="stocks">STOCKS</button>
-        <button class="portfolio-tab" data-target="etfs">ETFS</button>
-        <button class="portfolio-tab" data-target="futures">FUTURES</button>
-        <button class="portfolio-tab" data-target="fx">FX</button>
-      </nav>
-    </div>
-    <div id="thematic-portfolio-contents">
-      <!-- STOCKS Tab -->
-      <div class="portfolio-tab-content active" data-category="stocks">
-        <div class="thematic-portfolio-section">
-          <h2>TREND FOLLOWING</h2>
-          <div class="thematic-portfolio-table-container">
-            <table class="thematic-portfolio-table">
-              <thead>
-                <tr>
-                  <th>Stock Name</th>
-                  <th>Score</th>
-                  <th>Trend</th>
-                  <th>Approach</th>
-                  <th>Gap to Peak</th>
-                  <th>Key Area</th>
-                </tr>
-              </thead>
-              <tbody>${portfolio1Rows}</tbody>
-            </table>
-          </div>
-          <div class="portfolio-charts">
-            <div class="portfolio-chart"><canvas id="portfolio1_bar"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio1_pie"></canvas></div>
-          </div>
-        </div>
-        <!-- Additional sections for STOCKS (portfolio2, portfolio3, portfolio4) would follow similarly -->
-      </div>
-      <!-- Similarly add tabs and content for ETFS, FUTURES, and FX -->
-    </div>
-  `;
-  container.innerHTML = finalHtml;
-  var tabs = container.querySelectorAll(".portfolio-tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
-      tabs.forEach(t => t.classList.remove("active-tab"));
-      container.querySelectorAll(".portfolio-tab-content").forEach(content => content.classList.remove("active"));
-      tab.classList.add("active-tab");
-      var target = tab.getAttribute("data-target");
-      var activeContent = container.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
-      if (activeContent) activeContent.classList.add("active");
-    });
-  });
-  // Render charts for each section
-  renderPortfolio1Charts(portfolio1Data);
-  // ... call the other render functions accordingly.
 }
 
 /*************************************************************************
@@ -1900,14 +1726,14 @@ fetch(stocksFullDataCSVUrl)
 /*************************************************************************
  * LABEL ARRAYS
  *************************************************************************/
-const leftLabels = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"];
-const rightLabels = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","PE RATIO","EARNINGS PER SHARE","1 YEAR HIGH","1 YEAR LOW"];
-const etfLeftLabels = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"];
-const etfRightLabels = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","ISSUER - TICKER"];
-const futuresLeftLabels = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","LIMIT","POTENTIAL EXTENSION"];
-const futuresRightLabels = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","30 DAYS PROJECTION","MATH","STATS","TECH"];
-const fxLeftLabels = ["SCORE","TREND","GAP TO PEAK / TO VALLEY","APPROACH","KEY AREA","LIMIT","POTENTIAL EXTENSION"];
-const fxRightLabels = ["AVERAGE DAILY VOLATILITY","FX VOLATILITY RATIO","30 DAYS PROJECTION","LONG TERM - MACRO","MEDIUM TERM - MATH","MEDIUM TERM - STATS","SHORT TERM - TECH"];
+const leftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "MICRO", "MATH", "STATS", "TECH"];
+const rightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "BULLISH ALPHA", "BEARISH ALPHA", "ALPHA STRENGHT", "PE RATIO", "EARNINGS PER SHARE", "1 YEAR HIGH", "1 YEAR LOW"];
+const etfLeftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "MATH", "STATS", "TECH"];
+const etfRightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "BULLISH ALPHA", "BEARISH ALPHA", "ALPHA STRENGHT", "1 YEAR HIGH", "1 YEAR LOW", "ISSUER - TICKER"];
+const futuresLeftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "LIMIT", "POTENTIAL EXTENSION"];
+const futuresRightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "ALPHA STRENGHT", "30 DAYS PROJECTION", "MATH", "STATS", "TECH"];
+const fxLeftLabels = ["SCORE", "TREND", "GAP TO PEAK / TO VALLEY", "APPROACH", "KEY AREA", "LIMIT", "POTENTIAL EXTENSION"];
+const fxRightLabels = ["AVERAGE DAILY VOLATILITY", "FX VOLATILITY RATIO", "30 DAYS PROJECTION", "LONG TERM - MACRO", "MEDIUM TERM - MATH", "MEDIUM TERM - STATS", "SHORT TERM - TECH"];
 
 /*************************************************************************
  * CORRELATION LOGIC
@@ -1948,8 +1774,8 @@ function drawMostCorrelatedChart(top10) {
       datasets: [{
         label: 'CORRELATION',
         data: dataArr,
-        backgroundColor: 'rgba(255, 165, 0, 0.7)',
-        borderColor: 'rgba(255, 165, 0, 1)',
+        backgroundColor: 'rgba(255,165,0,0.7)',
+        borderColor: 'rgba(255,165,0,1)',
         borderWidth: 1
       }]
     },
@@ -2029,9 +1855,9 @@ function updateBlock4(instrumentName) {
   const block4 = document.getElementById("block4");
   block4.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
   let defaultCategory = "stocks";
-  if (etfPrices[instrumentName]) defaultCategory = "etfs";
-  if (futuresPrices[instrumentName]) defaultCategory = "futures";
-  if (fxPrices[instrumentName]) defaultCategory = "fx";
+  if (etfPrices[instrumentName] && etfPrices[instrumentName].length > 0) { defaultCategory = "etfs"; }
+  if (futuresPrices[instrumentName] && futuresPrices[instrumentName].length > 0) { defaultCategory = "futures"; }
+  if (fxPrices[instrumentName] && fxPrices[instrumentName].length > 0) { defaultCategory = "fx"; }
   setTimeout(() => {
     block4.innerHTML = "";
     showTabCorrelation(instrumentName, defaultCategory);
@@ -2239,10 +2065,11 @@ function updateBlock3TradingViewETF(instrumentName) { updateBlock3TradingViewGen
 function updateBlock3TradingViewFutures(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, futuresFullData); }
 function updateBlock3TradingViewFX(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, fxFullData); }
 
+let currentInstrument = "AMAZON";
+
 /*************************************************************************
  * MAIN EVENT HANDLERS & INITIALIZATION
  *************************************************************************/
-let currentInstrument = "AMAZON";
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOM fully loaded – starting sidebar generation");
   generateSidebarContent();
@@ -2319,19 +2146,15 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("fullscreenchange", () => {
     const btn = document.getElementById("fullscreen-button");
     if (document.fullscreenElement === null) {
-      btn.innerHTML = `
-        <span class="arrow">&#8598;</span>
-        <span class="arrow">&#8599;</span><br>
-        <span class="arrow">&#8601;</span>
-        <span class="arrow">&#8600;</span>
-      `;
+      btn.innerHTML = `<span class="arrow">&#8598;</span>
+                       <span class="arrow">&#8599;</span><br>
+                       <span class="arrow">&#8601;</span>
+                       <span class="arrow">&#8600;</span>`;
     } else {
-      btn.innerHTML = `
-        <span class="arrow">&#8598;</span>
-        <span class="arrow">&#8599;</span><br>
-        <span class="arrow">&#8601;</span>
-        <span class="arrow">&#8600;</span>
-      `;
+      btn.innerHTML = `<span class="arrow">&#8598;</span>
+                       <span class="arrow">&#8599;</span><br>
+                       <span class="arrow">&#8601;</span>
+                       <span class="arrow">&#8600;</span>`;
     }
     const sidebarFS = document.getElementById("sidebar-fullscreen");
     if (sidebarFS) {
