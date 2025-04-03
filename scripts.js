@@ -158,296 +158,216 @@ var filterMappingFX = {
 };
 var portfolioFilters = [];
 
-function loadPortfolioBuilder() {
-  portfolioFilters = [];
-  var builderContainer = document.getElementById("portfolio-builder-template");
-  builderContainer.innerHTML = `
-    <div id="portfolio-builder-page">
-      <div id="portfolio-builder-container">
-        <div id="portfolio_builder1">
-          <div id="portfolio-builder-steps">
-            <p id="portfolio-builder-instructions">
-              <button id="add-filter-btn">+</button> Add your filters and build your portfolio
-            </p>
-          </div>
-          <div id="portfolio-builder-actions">
-            <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
-          </div>
-        </div>
-        <div id="portfolio_builder2">
-          <div id="portfolio-results"></div>
-        </div>
-      </div>
-    </div>
-  `;
-  document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
-  document.getElementById("generate-portfolio-btn").addEventListener("click", generatePortfolioNew);
+/*************************************************************************
+ * SYMBOL OVERVIEW UPDATER
+ *************************************************************************/
+function updateSymbolOverviewGeneric(instrumentName, dataObj) {
+  const info = dataObj[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMAZON";
+  const block2 = document.getElementById("block2");
+  if (!block2) return;
+  // Ensure there is a container with id "symbol-info-container" inside block2.
+  let container = block2.querySelector("#symbol-info-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "symbol-info-container";
+    block2.appendChild(container);
+  }
+  container.innerHTML = `<div class="tradingview-widget-container__widget"></div>`;
+  const overviewScript = document.createElement('script');
+  overviewScript.type = "text/javascript";
+  overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
+  overviewScript.async = true;
+  overviewScript.textContent = `{
+    "symbols": [
+      [ "${symbol}|1D" ]
+    ],
+    "chartOnly": false,
+    "width": "100%",
+    "height": "100%",
+    "locale": "en",
+    "colorTheme": "dark",
+    "autosize": true,
+    "showVolume": false,
+    "showMA": false,
+    "hideDateRanges": false,
+    "hideMarketStatus": false,
+    "hideSymbolLogo": false,
+    "scalePosition": "right",
+    "scaleMode": "Normal",
+    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
+    "fontSize": "10",
+    "noTimeScale": false,
+    "valuesTracking": "1",
+    "changeMode": "price-and-percent",
+    "chartType": "area",
+    "maLineColor": "#2962FF",
+    "maLineWidth": 1,
+    "maLength": 9,
+    "headerFontSize": "medium",
+    "backgroundColor": "rgba(19, 23, 34, 0)",
+    "widgetFontColor": "rgba(255, 152, 0, 1)",
+    "lineWidth": 2,
+    "lineType": 0,
+    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
+  }`;
+  container.appendChild(overviewScript);
 }
 
-function openFilterSelector() {
-  var availableFilters = [];
-  var assetType = (portfolioFilters.length > 0) ? portfolioFilters[0].value : null;
-  var allFilters;
-  if (assetType === "FUTURES") {
-    allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Alpha Strength"];
-  } else if (assetType === "FX") {
-    allFilters = ["Score", "Gap to Peak", "AVERAGE DAILY VOLATILITY", "FX Volatility Ratio", "30 DAYS PROJECTION", "LONG TERM - MACRO", "MEDIUM TERM - MATH", "MEDIUM TERM - STATS", "SHORT TERM - TECH"];
-  } else {
-    allFilters = ["Score", "Gap to Peak", "S&P500 Correlation", "S&P500 Volatility Ratio", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"];
-  }
-  
-  if (portfolioFilters.length === 0) {
-    availableFilters.push("Asset Class");
-  } else {
-    availableFilters = allFilters.filter(f => portfolioFilters.findIndex(item => item.filterName === f) === -1);
-  }
-  var selectorDiv = document.createElement("div");
-  selectorDiv.className = "filter-selector";
-  var selectEl = document.createElement("select");
-  availableFilters.forEach(filterName => {
-    var opt = document.createElement("option");
-    opt.value = filterName;
-    opt.textContent = filterName;
-    selectEl.appendChild(opt);
-  });
-  selectorDiv.appendChild(selectEl);
-  var inputContainer = document.createElement("span");
-  selectorDiv.appendChild(inputContainer);
-  function updateInputFields() {
-    inputContainer.innerHTML = "";
-    var selectedFilter = selectEl.value;
-    if (selectedFilter === "Asset Class") {
-      var assetSelect = document.createElement("select");
-      ["STOCKS", "ETFS", "FUTURES", "FX"].forEach(asset => {
-        var opt = document.createElement("option");
-        opt.value = asset;
-        opt.textContent = asset;
-        assetSelect.appendChild(opt);
-      });
-      inputContainer.appendChild(assetSelect);
-    } else {
-      var opSelect = document.createElement("select");
-      ["≥", "≤"].forEach(op => {
-        var opt = document.createElement("option");
-        opt.value = op;
-        opt.textContent = op;
-        opSelect.appendChild(opt);
-      });
-      var numInput = document.createElement("input");
-      numInput.type = "number";
-      numInput.placeholder = "Numeric value";
-      inputContainer.appendChild(opSelect);
-      inputContainer.appendChild(numInput);
-    }
-  }
-  selectEl.addEventListener("change", updateInputFields);
-  updateInputFields();
-  var addBtn = document.createElement("button");
-  addBtn.textContent = "Add Filter";
-  addBtn.style.marginLeft = "10px";
-  addBtn.addEventListener("click", function() {
-    var newFilter = { filterName: selectEl.value };
-    if (selectEl.value === "Asset Class") {
-      newFilter.value = inputContainer.querySelector("select").value;
-    } else {
-      newFilter.operator = inputContainer.querySelector("select").value;
-      newFilter.value = inputContainer.querySelector("input").value;
-    }
-    portfolioFilters.push(newFilter);
-    updatePortfolioSteps();
-    selectorDiv.parentNode.removeChild(selectorDiv);
-  });
-  selectorDiv.appendChild(addBtn);
-  document.getElementById("portfolio_builder1").appendChild(selectorDiv);
+function updateSymbolOverview(instrumentName) {
+  updateSymbolOverviewGeneric(instrumentName, stocksFullData);
 }
-
-function updatePortfolioSteps() {
-  var stepsContainer = document.getElementById("portfolio-builder-steps");
-  stepsContainer.innerHTML = "";
-  portfolioFilters.forEach(function(step, index) {
-    var stepDiv = document.createElement("div");
-    stepDiv.className = "filter-step";
-    var desc = step.filterName;
-    if (step.filterName === "Asset Class") {
-      desc += ": " + step.value;
-    } else {
-      desc += " " + step.operator + " " + step.value;
-    }
-    var descSpan = document.createElement("span");
-    descSpan.textContent = desc;
-    stepDiv.appendChild(descSpan);
-    var removeBtn = document.createElement("button");
-    removeBtn.className = "remove-filter-btn";
-    removeBtn.textContent = "✕";
-    removeBtn.addEventListener("click", function() {
-      portfolioFilters.splice(index, 1);
-      updatePortfolioSteps();
-    });
-    stepDiv.appendChild(removeBtn);
-    stepsContainer.appendChild(stepDiv);
-  });
-  var instr = document.createElement("p");
-  instr.id = "portfolio-builder-instructions";
-  instr.style.textAlign = "center";
-  instr.style.fontSize = "16px";
-  instr.style.color = "#cccccc";
-  instr.innerHTML = '<button id="add-filter-btn">+</button> Add another filter';
-  stepsContainer.appendChild(instr);
-  document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
+function updateSymbolOverviewETF(instrumentName) {
+  updateSymbolOverviewGeneric(instrumentName, etfFullData);
 }
-
-function generatePortfolioNew() {
-  if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== "Asset Class") {
-    alert("Please add the Asset Class filter as your first filter.");
-    return;
-  }
-  var asset = portfolioFilters[0].value;
-  var dataObj;
-  var mapping;
-  if (asset === "STOCKS") {
-    dataObj = stocksFullData;
-    mapping = filterMappingStocks;
-  } else if (asset === "ETFS") {
-    dataObj = etfFullData;
-    mapping = filterMappingETFs;
-  } else if (asset === "FUTURES") {
-    dataObj = futuresFullData;
-    mapping = filterMappingFutures;
-  } else if (asset === "FX") {
-    dataObj = fxFullData;
-    mapping = filterMappingFX;
-  } else {
-    alert("Invalid asset class.");
-    return;
-  }
-  var results = [];
-  for (var instrument in dataObj) {
-    var info = dataObj[instrument];
-    var include = true;
-    for (var i = 1; i < portfolioFilters.length; i++) {
-      var filt = portfolioFilters[i];
-      var map = mapping[filt.filterName];
-      if (!map) continue;
-      var val = (map.source === "left")
-        ? parseFloat(info.summaryLeft[map.index])
-        : parseFloat(info.summaryRight[map.index]);
-      var condition = (filt.operator === "≥")
-        ? (val >= parseFloat(filt.value))
-        : (val <= parseFloat(filt.value));
-      include = include && condition;
-    }
-    if (include) {
-      if (asset === "FX") {
-        var score = parseFloat(info.summaryLeft[0]);
-        if (score >= 75 || score <= -75) {
-          results.push({
-            instrument: instrument,
-            score: score,
-            trend: info.summaryLeft[1],
-            approach: info.summaryLeft[3],
-            gap: parseGap(info.summaryLeft[2]),
-            keyArea: info.summaryLeft[4],
-            fxVolatilityRatio: parseFloat(info.summaryRight[1]),
-            avgDailyVolatility: parseFloat(info.summaryRight[0])
-          });
-        }
-      } else {
-        var score = parseFloat(info.summaryLeft[0]);
-        if (asset === "FUTURES") {
-          if (score === 100 || score === -100) {
-            results.push({
-              instrument: instrument,
-              score: score,
-              trend: info.summaryLeft[1],
-              approach: info.summaryLeft[2],
-              gap: parseGap(info.summaryLeft[3]),
-              keyArea: info.summaryLeft[4],
-              correlation: parseFloat(info.summaryRight[0]),
-              volatility: parseFloat(info.summaryRight[1])
-            });
-          }
-        } else {
-          results.push({
-            instrument: instrument,
-            score: score,
-            gap: parseGap(info.summaryLeft[3]),
-            correlation: parseFloat(info.summaryRight[0]),
-            volatility: parseFloat(info.summaryRight[1]),
-            bullish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 2 ]) || 0,
-            bearish: parseFloat(info.summaryRight[ asset==="FUTURES" ? 0 : 3 ]) || 0,
-            alphaStrength: parseFloat(info.summaryRight[ asset==="FUTURES" ? 2 : 4 ]) || 0,
-            trend: info.summaryLeft[1],
-            approach: info.summaryLeft[2],
-            keyArea: info.summaryLeft[4]
-          });
-        }
-      }
-    }
-  }
-  var userFilters = portfolioFilters.slice(1);
-  var html = "";
-  if (results.length === 0) {
-    html = "<p>No instrument meet this criteria.</p>";
-  } else {
-    html += "<table id='portfolio-table'><thead><tr>";
-    html += "<th>Instrument</th>";
-    userFilters.forEach(filter => {
-      html += `<th>${filter.filterName}</th>`;
-    });
-    html += "</tr></thead><tbody>";
-    results.forEach(function(r) {
-      html += `<tr>`;
-      html += `<td>${r.instrument}</td>`;
-      userFilters.forEach(function(filter) {
-        var map = mapping[filter.filterName];
-        var field = "";
-        if (map) {
-          if (map.source === "left") {
-            field = (filter.filterName === "Score") ? r.score : r.gap;
-          } else if (map.source === "right") {
-            if (filter.filterName === "S&P500 Correlation") field = r.correlation;
-            else if (filter.filterName === "S&P500 Volatility Ratio") field = r.volatility;
-            else if (filter.filterName === "Bullish Alpha") field = r.bullish;
-            else if (filter.filterName === "Bearish Alpha") field = r.bearish;
-            else if (filter.filterName === "Alpha Strength") field = r.alphaStrength;
-            else if (filter.filterName === "AVERAGE DAILY VOLATILITY") field = r.avgDailyVolatility;
-            else if (filter.filterName === "FX Volatility Ratio") field = r.fxVolatilityRatio;
-            else if (filter.filterName === "30 DAYS PROJECTION") field = r.projection30;
-            else if (filter.filterName === "LONG TERM - MACRO") field = r.longTermMacro;
-            else if (filter.filterName === "MEDIUM TERM - MATH") field = r.mediumMath;
-            else if (filter.filterName === "MEDIUM TERM - STATS") field = r.mediumStats;
-            else if (filter.filterName === "SHORT TERM - TECH") field = r.shortTech;
-          }
-        }
-        html += `<td>${field}</td>`;
-      });
-      html += `</tr>`;
-    });
-    html += "</tbody></table>";
-  }
-  document.getElementById("portfolio-results").innerHTML = html;
-  // Note: attachPortfolioTableSorting() should be defined if table sorting is desired.
-  if (typeof attachPortfolioTableSorting === "function") {
-    attachPortfolioTableSorting();
-  }
+function updateSymbolOverviewFutures(instrumentName) {
+  updateSymbolOverviewGeneric(instrumentName, futuresFullData);
+}
+function updateSymbolOverviewFX(instrumentName) {
+  updateSymbolOverviewGeneric(instrumentName, fxFullData);
 }
 
 /*************************************************************************
- * THEMATIC PORTFOLIO FUNCTIONS & CHART RENDERING
+ * BLOCK3: TRENDSCORE & TradingView TAB
  *************************************************************************/
-
-/****************************************************
- * THEMATIC PORTFOLIO (Portfolio Ideas) FUNCTIONS
- ****************************************************/
-// Helper: destroy chart on a given canvas if it already exists.
-function destroyChartIfExists(canvasId) {
-  const existing = Chart.getChart(canvasId);
-  if (existing) { existing.destroy(); }
+// Updated function: now if dataObj equals futuresFullData (i.e. FUTURES instruments), the TradingView tab is removed.
+function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
+  const trendScoreContainer = document.getElementById('block3-trendscore');
+  trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  setTimeout(() => {
+    const info = dataObj[instrumentName];
+    trendScoreContainer.innerHTML = '';
+    if (!info) {
+      trendScoreContainer.textContent = "No data available for " + instrumentName;
+      if (!(instrumentName === "CAC 40" || instrumentName === "FTSE MIB")) { tradingViewUpdater(instrumentName); }
+      showBlock3Tab("trendscore");
+      return;
+    }
+    const table = document.createElement('table');
+    for (let i = 0; i < rowCount; i++) {
+      const tr = document.createElement('tr');
+      const td1 = document.createElement('td');
+      td1.textContent = leftLabelArr[i] || "";
+      tr.appendChild(td1);
+      const td2 = document.createElement('td');
+      if (i === 3) {
+        let gapVal = info.summaryLeft[i];
+        td2.textContent = (gapVal === "-" || parseFloat(gapVal) === 0) ? "0%" : gapVal;
+      } else {
+        td2.textContent = info.summaryLeft[i] || "";
+      }
+      tr.appendChild(td2);
+      const td3 = document.createElement('td');
+      td3.textContent = rightLabelArr[i] || "";
+      tr.appendChild(td3);
+      const td4 = document.createElement('td');
+      td4.textContent = info.summaryRight[i] || "";
+      tr.appendChild(td4);
+      table.appendChild(tr);
+    }
+    trendScoreContainer.appendChild(table);
+    // If dataObj is for FUTURES (or instrument is CAC 40 or FTSE MIB), remove the TradingView tab.
+    if (dataObj === futuresFullData || instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
+      document.getElementById("block3-tabs").style.display = "none";
+      document.getElementById("block3-content").style.height = "100%";
+      document.getElementById("block3-tradingview").innerHTML = '';
+      table.style.height = "100%";
+      const rows = table.getElementsByTagName("tr");
+      const numRows = rows.length;
+      for (let i = 0; i < numRows; i++) { rows[i].style.height = (100 / numRows) + "%"; }
+    } else {
+      document.getElementById("block3-tabs").style.display = "flex";
+      document.getElementById("block3-content").style.height = "calc(100% - 30px)";
+      tradingViewUpdater(instrumentName);
+    }
+    showBlock3Tab("trendscore");
+  }, 300);
 }
 
-// Distribution Functions
+function updateBlock3(instrumentName) { updateBlock3Generic(instrumentName, stocksFullData, 9, leftLabels, rightLabels, updateBlock3TradingView); }
+function updateBlock3ETF(instrumentName) { updateBlock3Generic(instrumentName, etfFullData, 8, etfLeftLabels, etfRightLabels, updateBlock3TradingViewETF); }
+function updateBlock3Futures(instrumentName) { updateBlock3Generic(instrumentName, futuresFullData, 7, futuresLeftLabels, futuresRightLabels, updateBlock3TradingViewFutures); }
+function updateBlock3FX(instrumentName) { updateBlock3Generic(instrumentName, fxFullData, 7, fxLeftLabels, fxRightLabels, updateBlock3TradingViewFX); }
 
-// Sector distribution for ETFs
+function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
+  const info = dataObj[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMAZON";
+  const tvContainer = document.getElementById('block3-tradingview');
+  tvContainer.innerHTML = '';
+  const widgetDiv = document.createElement('div');
+  widgetDiv.className = "tradingview-widget-container";
+  widgetDiv.innerHTML = `
+    <div class="tradingview-widget-container__widget"></div>
+    <div class="tradingview-widget-copyright">
+      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
+    </div>
+  `;
+  tvContainer.appendChild(widgetDiv);
+  const script = document.createElement('script');
+  script.type = "text/javascript";
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+  script.async = true;
+  script.textContent = `{
+    "interval": "1D",
+    "width": "100%",
+    "isTransparent": true,
+    "height": "100%",
+    "symbol": "${symbol}",
+    "showIntervalTabs": true,
+    "displayMode": "single",
+    "locale": "en",
+    "colorTheme": "dark"
+  }`;
+  widgetDiv.appendChild(script);
+}
+
+function updateBlock3TradingView(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, stocksFullData); }
+function updateBlock3TradingViewETF(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, etfFullData); }
+function updateBlock3TradingViewFutures(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, futuresFullData); }
+function updateBlock3TradingViewFX(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, fxFullData); }
+
+/*************************************************************************
+ * CHART UPDATERS
+ *************************************************************************/
+function updateChartGeneric(instrumentName, dataObj) {
+  const info = dataObj[instrumentName];
+  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMAZON";
+  const block1 = document.getElementById("block1");
+  const container = block1.querySelector(".tradingview-widget-container");
+  container.innerHTML = `
+    <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
+  `;
+  var script = document.createElement('script');
+  script.type = "text/javascript";
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+  script.async = true;
+  script.textContent = `{
+    "autosize": true,
+    "symbol": "${symbol}",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+    "withdateranges": true,
+    "hide_side_toolbar": false,
+    "allow_symbol_change": false,
+    "backgroundColor": "#001122",
+    "details": true,
+    "calendar": false,
+    "support_host": "https://www.tradingview.com"
+  }`;
+  container.appendChild(script);
+}
+function updateChart(instrumentName) { updateChartGeneric(instrumentName, stocksFullData); }
+function updateChartETF(instrumentName) { updateChartGeneric(instrumentName, etfFullData); }
+function updateChartFutures(instrumentName) { updateChartGeneric(instrumentName, futuresFullData); }
+function updateChartFX(instrumentName) { updateChartGeneric(instrumentName, fxFullData); }
+
+/*************************************************************************
+ * DISTRIBUTION FUNCTIONS & CHART RENDERING
+ *************************************************************************/
+// Distribution function for ETFs (sector distribution)
 function computeSectorDistribution(portfolioData) {
   var sectorCount = {};
   Object.keys(data.ETFs).forEach(sector => { sectorCount[sector] = 0; });
@@ -473,7 +393,7 @@ function computeSectorDistribution(portfolioData) {
   return { labels: labels, data: percentages };
 }
 
-// FUTURES distribution function
+// Distribution function for FUTURES
 function computeFuturesDistribution(portfolioData) {
   const categoryMapping = {
     "FTSE 100": "Indices",
@@ -506,7 +426,7 @@ function computeFuturesDistribution(portfolioData) {
   return { labels, data: dataArr };
 }
 
-// FX distribution function: group by base currency (first three characters)
+// Distribution function for FX (base currency)
 function computeFXBaseDistribution(portfolioData) {
   const baseCounts = {};
   portfolioData.forEach(item => {
@@ -522,8 +442,41 @@ function computeFXBaseDistribution(portfolioData) {
   return { labels, data: dataArr };
 }
 
-// Chart Rendering Functions
+// NEW: Distribution function for STOCKS (by country)
+function computeCountryDistribution(portfolioData) {
+  const countryMapping = {
+    "US": data.STOCKS.US,
+    "ITALY": data.STOCKS.ITALY,
+    "GERMANY": data.STOCKS.GERMANY
+  };
+  const counts = { "US": 0, "ITALY": 0, "GERMANY": 0 };
+  portfolioData.forEach(item => {
+    for (const country in countryMapping) {
+      if (countryMapping[country].includes(item.instrument)) {
+        counts[country]++;
+        break;
+      }
+    }
+  });
+  const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
+  const labels = [];
+  const dataArr = [];
+  for (const country in counts) {
+    if (counts[country] > 0) {
+      labels.push(country);
+      dataArr.push(Math.round((counts[country] / total) * 100));
+    }
+  }
+  return { labels: labels, data: dataArr };
+}
+
+// Chart rendering functions for bar and pie charts
 var orangeShades = ['rgba(255,165,0,0.8)', 'rgba(255,140,0,0.8)', 'rgba(255,120,0,0.8)'];
+
+function destroyChartIfExists(canvasId) {
+  const existing = Chart.getChart(canvasId);
+  if (existing) { existing.destroy(); }
+}
 
 function renderPortfolio1Charts(portfolioData, barCanvasId, pieCanvasId, distributionFunction) {
   barCanvasId = barCanvasId || "portfolio1_bar";
@@ -786,15 +739,15 @@ function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distr
       plugins: { legend: { labels: { boxWidth: 0, color: 'white' } } }
     }
   });
-  var distribution = (distributionFunction) ? distributionFunction(portfolioData) : computeGeoDistribution(portfolioData);
+  var distribution = (distributionFunction) ? distributionFunction(portfolioData) : {};
   var ctxPie = document.getElementById(pieCanvasId).getContext("2d");
   new Chart(ctxPie, {
     type: 'pie',
     data: {
-      labels: distribution.labels,
+      labels: distribution.labels || [],
       datasets: [{
-        data: distribution.data,
-        backgroundColor: orangeShades.slice(0, distribution.labels.length),
+        data: distribution.data || [],
+        backgroundColor: orangeShades.slice(0, (distribution.labels ? distribution.labels.length : 0)),
         borderWidth: 0
       }]
     },
@@ -805,42 +758,11 @@ function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distr
     }
   });
 }
-// Functions renderPortfolio2ChartsFX and renderPortfolio3ChartsFX can be implemented similarly if needed.
-
-/*************************************************************************
- * LOAD THEMATIC PORTFOLIO (Portfolio Ideas) country distribution for stocks
- *************************************************************************/
-
-function computeCountryDistribution(portfolioData) {
-  const countryMapping = {
-    "US": data.STOCKS.US,
-    "ITALY": data.STOCKS.ITALY,
-    "GERMANY": data.STOCKS.GERMANY
-  };
-  const counts = { "US": 0, "ITALY": 0, "GERMANY": 0 };
-  portfolioData.forEach(item => {
-    for (const country in countryMapping) {
-      if (countryMapping[country].includes(item.instrument)) {
-        counts[country]++;
-        break;
-      }
-    }
-  });
-  const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
-  const labels = [];
-  const dataArr = [];
-  for (const country in counts) {
-    if (counts[country] > 0) {
-      labels.push(country);
-      dataArr.push(Math.round((counts[country] / total) * 100));
-    }
-  }
-  return { labels: labels, data: dataArr };
-}
 
 /*************************************************************************
  * LOAD THEMATIC PORTFOLIO (Portfolio Ideas)
  *************************************************************************/
+// This is the single, consolidated definition for loadThematicPortfolio.
 function loadThematicPortfolio() {
   var container = document.getElementById("thematic-portfolio-template");
   // Wait until all CSV data is loaded
@@ -998,145 +920,6 @@ function loadThematicPortfolio() {
       <td>${item.keyArea}</td>
     </tr>`;
   });
-  
-  // --- (ETC. for ETFs, FUTURES, FX; unchanged) ---
-
-  // --- Build the Final HTML with Tab Navigation ---
-  var finalHtml = `
-    <div class="thematic-portfolio-nav">
-      <nav>
-        <button class="portfolio-tab active-tab" data-target="stocks">STOCKS</button>
-        <button class="portfolio-tab" data-target="etfs">ETFS</button>
-        <button class="portfolio-tab" data-target="futures">FUTURES</button>
-        <button class="portfolio-tab" data-target="fx">FX</button>
-      </nav>
-    </div>
-    <div id="thematic-portfolio-contents">
-      <!-- STOCKS Tab Content -->
-      <div class="portfolio-tab-content active" data-category="stocks">
-        <div class="thematic-portfolio-section">
-          <h2>TREND FOLLOWING</h2>
-          <div class="thematic-portfolio-table-container">
-            <table class="thematic-portfolio-table">
-              <thead>
-                <tr>
-                  <th>Stock Name</th>
-                  <th>Score</th>
-                  <th>Trend</th>
-                  <th>Approach</th>
-                  <th>Gap to Peak</th>
-                  <th>Key Area</th>
-                </tr>
-              </thead>
-              <tbody>${portfolio1Rows}</tbody>
-            </table>
-          </div>
-          <div class="portfolio-charts">
-            <div class="portfolio-chart"><canvas id="portfolio1_bar"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio1_pie"></canvas></div>
-          </div>
-        </div>
-        <div class="thematic-portfolio-section">
-          <h2>TREND FOLLOWING LOW S&P500 CORRELATION</h2>
-          <div class="thematic-portfolio-table-container">
-            <table class="thematic-portfolio-table">
-              <thead>
-                <tr>
-                  <th>Stock Name</th>
-                  <th>Score</th>
-                  <th>S&P500 Correlation</th>
-                  <th>Trend</th>
-                  <th>Approach</th>
-                  <th>Gap to Peak</th>
-                  <th>Key Area</th>
-                </tr>
-              </thead>
-              <tbody>${portfolio2Rows}</tbody>
-            </table>
-          </div>
-          <div class="portfolio-charts">
-            <div class="portfolio-chart"><canvas id="portfolio2_bar"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio2_pie"></canvas></div>
-          </div>
-        </div>
-        <div class="thematic-portfolio-section">
-          <h2>TREND FOLLOWING LOW VOLATILITY</h2>
-          <div class="thematic-portfolio-table-container">
-            <table class="thematic-portfolio-table">
-              <thead>
-                <tr>
-                  <th>Stock Name</th>
-                  <th>Score</th>
-                  <th>S&P500 Volatility Ratio</th>
-                  <th>Trend</th>
-                  <th>Approach</th>
-                  <th>Gap to Peak</th>
-                  <th>Key Area</th>
-                </tr>
-              </thead>
-              <tbody>${portfolio3Rows}</tbody>
-            </table>
-          </div>
-          <div class="portfolio-charts">
-            <div class="portfolio-chart"><canvas id="portfolio3_bar"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio3_pie"></canvas></div>
-          </div>
-        </div>
-        <div class="thematic-portfolio-section">
-          <h2>TREND FOLLOWING PLUS</h2>
-          <div class="thematic-portfolio-table-container">
-            <table class="thematic-portfolio-table">
-              <thead>
-                <tr>
-                  <th>Stock Name</th>
-                  <th>Score</th>
-                  <th>Bullish Alpha</th>
-                  <th>Bearish Alpha</th>
-                  <th>Alpha Strength</th>
-                  <th>Trend</th>
-                  <th>Approach</th>
-                  <th>Gap to Peak</th>
-                  <th>Key Area</th>
-                </tr>
-              </thead>
-              <tbody>${portfolio4Rows}</tbody>
-            </table>
-          </div>
-          <div class="portfolio-charts">
-            <div class="portfolio-chart"><canvas id="portfolio4_bullish"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio4_bearish"></canvas></div>
-            <div class="portfolio-chart"><canvas id="portfolio4_alpha"></canvas></div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- (Other tabs for ETFS, FUTURES, FX remain unchanged) -->
-    </div>
-  `;
-  
-  container.innerHTML = finalHtml;
-  
-  // Attach event listeners for tab switching
-  const tabs = container.querySelectorAll(".portfolio-tab");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", function() {
-      tabs.forEach(t => t.classList.remove("active-tab"));
-      container.querySelectorAll(".portfolio-tab-content").forEach(content => content.classList.remove("active"));
-      tab.classList.add("active-tab");
-      const target = tab.getAttribute("data-target");
-      const activeContent = container.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
-      if (activeContent) {
-        activeContent.classList.add("active");
-      }
-    });
-  });
-  
-  // Render Charts:
-  // STOCKS - now passing the distribution function for country distribution
-  renderPortfolio1Charts(portfolio1Data, 'portfolio1_bar', 'portfolio1_pie', computeCountryDistribution);
-  renderPortfolio2Charts(portfolio2Data, 'portfolio2_bar', 'portfolio2_pie', computeCountryDistribution);
-  renderPortfolio3Charts(portfolio3Data, 'portfolio3_bar', 'portfolio3_pie', computeCountryDistribution);
-  renderPortfolio4Charts(portfolio4Data);
   
   // --- Build ETFS Portfolios (mirroring stocks but using etfFullData) ---
   var etfPortfolio1Data = [];
@@ -1721,20 +1504,23 @@ function loadThematicPortfolio() {
   });
   
   // Render Charts:
-  // STOCKS
-  renderPortfolio1Charts(portfolio1Data);
-  renderPortfolio2Charts(portfolio2Data);
-  renderPortfolio3Charts(portfolio3Data);
+  // STOCKS - passing the country distribution function
+  renderPortfolio1Charts(portfolio1Data, 'portfolio1_bar', 'portfolio1_pie', computeCountryDistribution);
+  renderPortfolio2Charts(portfolio2Data, 'portfolio2_bar', 'portfolio2_pie', computeCountryDistribution);
+  renderPortfolio3Charts(portfolio3Data, 'portfolio3_bar', 'portfolio3_pie', computeCountryDistribution);
   renderPortfolio4Charts(portfolio4Data);
-  // ETFS (using computeSectorDistribution)
+  
+  // ETFS
   renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
   renderPortfolio2Charts(etfPortfolio2Data, 'etf_portfolio2_bar', 'etf_portfolio2_pie', computeSectorDistribution);
   renderPortfolio3Charts(etfPortfolio3Data, 'etf_portfolio3_bar', 'etf_portfolio3_pie', computeSectorDistribution);
   renderPortfolio4Charts(etfPortfolio4Data, 'etf_portfolio4_bullish', 'etf_portfolio4_bearish', 'etf_portfolio4_alpha', computeSectorDistribution);
+  
   // FUTURES
   renderPortfolio1Charts(futuresPortfolio1Data, 'futures_portfolio1_bar', 'futures_portfolio1_pie', computeFuturesDistribution);
   renderPortfolio2Charts(futuresPortfolio2Data, 'futures_portfolio2_bar', 'futures_portfolio2_pie', computeFuturesDistribution);
   renderPortfolio3Charts(futuresPortfolio3Data, 'futures_portfolio3_bar', 'futures_portfolio3_pie', computeFuturesDistribution);
+  
   // FX - only TREND FOLLOWING section is rendered here
   renderPortfolio1ChartsFX(fxPortfolio1Data, 'fx_portfolio1_bar', 'fx_portfolio1_pie', computeFXBaseDistribution);
 }
@@ -2035,235 +1821,9 @@ function updateBlock4(instrumentName) {
 }
 
 /*************************************************************************
- * CHART UPDATERS
- *************************************************************************/
-function updateChartGeneric(instrumentName, dataObj) {
-  const info = dataObj[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block1 = document.getElementById("block1");
-  const container = block1.querySelector(".tradingview-widget-container");
-  container.innerHTML = `
-    <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-  `;
-  var script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-  script.async = true;
-  script.textContent = `{
-    "autosize": true,
-    "symbol": "${symbol}",
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "withdateranges": true,
-    "hide_side_toolbar": false,
-    "allow_symbol_change": false,
-    "backgroundColor": "#001122",
-    "details": true,
-    "calendar": false,
-    "support_host": "https://www.tradingview.com"
-  }`;
-  container.appendChild(script);
-}
-function updateChart(instrumentName) { updateChartGeneric(instrumentName, stocksFullData); }
-function updateChartETF(instrumentName) { updateChartGeneric(instrumentName, etfFullData); }
-function updateChartFutures(instrumentName) { updateChartGeneric(instrumentName, futuresFullData); }
-function updateChartFX(instrumentName) { updateChartGeneric(instrumentName, fxFullData); }
-
-function showBlock3Tab(tabName) {
-  const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
-  const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
-  const trendDiv = document.getElementById('block3-trendscore');
-  const tvDiv = document.getElementById('block3-tradingview');
-  trendBtn.classList.remove('active-tab');
-  tvBtn.classList.remove('active-tab');
-  trendDiv.style.display = 'none';
-  tvDiv.style.display = 'none';
-  if (tabName === 'trendscore') {
-    trendBtn.classList.add('active-tab');
-    trendDiv.style.display = 'block';
-  } else {
-    tvBtn.classList.add('active-tab');
-    tvDiv.style.display = 'block';
-  }
-}
-
-
-/*************************************************************************
- * SYMBOL OVERVIEW UPDATER
- *************************************************************************/
-function updateSymbolOverviewGeneric(instrumentName, dataObj) {
-  const info = dataObj[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block2 = document.getElementById("block2");
-  if (!block2) return;
-  // Ensure there is a container with id "symbol-info-container" inside block2.
-  let container = block2.querySelector("#symbol-info-container");
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "symbol-info-container";
-    block2.appendChild(container);
-  }
-  container.innerHTML = `<div class="tradingview-widget-container__widget"></div>`;
-  const overviewScript = document.createElement('script');
-  overviewScript.type = "text/javascript";
-  overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
-  overviewScript.async = true;
-  overviewScript.textContent = `{
-    "symbols": [
-      [ "${symbol}|1D" ]
-    ],
-    "chartOnly": false,
-    "width": "100%",
-    "height": "100%",
-    "locale": "en",
-    "colorTheme": "dark",
-    "autosize": true,
-    "showVolume": false,
-    "showMA": false,
-    "hideDateRanges": false,
-    "hideMarketStatus": false,
-    "hideSymbolLogo": false,
-    "scalePosition": "right",
-    "scaleMode": "Normal",
-    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
-    "fontSize": "10",
-    "noTimeScale": false,
-    "valuesTracking": "1",
-    "changeMode": "price-and-percent",
-    "chartType": "area",
-    "maLineColor": "#2962FF",
-    "maLineWidth": 1,
-    "maLength": 9,
-    "headerFontSize": "medium",
-    "backgroundColor": "rgba(19, 23, 34, 0)",
-    "widgetFontColor": "rgba(255, 152, 0, 1)",
-    "lineWidth": 2,
-    "lineType": 0,
-    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
-  }`;
-  container.appendChild(overviewScript);
-}
-
-function updateSymbolOverview(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, stocksFullData);
-}
-function updateSymbolOverviewETF(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, etfFullData);
-}
-function updateSymbolOverviewFutures(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, futuresFullData);
-}
-function updateSymbolOverviewFX(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, fxFullData);
-}
-
-
-
-/*************************************************************************
- * BLOCK3: TRENDSCORE & TradingView TAB
- *************************************************************************/
-// Updated function: now if dataObj equals futuresFullData (i.e. FUTURES instruments), the TradingView tab is removed.
-function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
-  const trendScoreContainer = document.getElementById('block3-trendscore');
-  trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
-  setTimeout(() => {
-    const info = dataObj[instrumentName];
-    trendScoreContainer.innerHTML = '';
-    if (!info) {
-      trendScoreContainer.textContent = "No data available for " + instrumentName;
-      if (!(instrumentName === "CAC 40" || instrumentName === "FTSE MIB")) { tradingViewUpdater(instrumentName); }
-      showBlock3Tab("trendscore");
-      return;
-    }
-    const table = document.createElement('table');
-    for (let i = 0; i < rowCount; i++) {
-      const tr = document.createElement('tr');
-      const td1 = document.createElement('td');
-      td1.textContent = leftLabelArr[i] || "";
-      tr.appendChild(td1);
-      const td2 = document.createElement('td');
-      if (i === 3) {
-        let gapVal = info.summaryLeft[i];
-        td2.textContent = (gapVal === "-" || parseFloat(gapVal) === 0) ? "0%" : gapVal;
-      } else {
-        td2.textContent = info.summaryLeft[i] || "";
-      }
-      tr.appendChild(td2);
-      const td3 = document.createElement('td');
-      td3.textContent = rightLabelArr[i] || "";
-      tr.appendChild(td3);
-      const td4 = document.createElement('td');
-      td4.textContent = info.summaryRight[i] || "";
-      tr.appendChild(td4);
-      table.appendChild(tr);
-    }
-    trendScoreContainer.appendChild(table);
-    // If dataObj is for FUTURES (or instrument is CAC 40 or FTSE MIB), remove the TradingView tab.
-    if (dataObj === futuresFullData || instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
-      document.getElementById("block3-tabs").style.display = "none";
-      document.getElementById("block3-content").style.height = "100%";
-      document.getElementById("block3-tradingview").innerHTML = '';
-      table.style.height = "100%";
-      const rows = table.getElementsByTagName("tr");
-      const numRows = rows.length;
-      for (let i = 0; i < numRows; i++) { rows[i].style.height = (100 / numRows) + "%"; }
-    } else {
-      document.getElementById("block3-tabs").style.display = "flex";
-      document.getElementById("block3-content").style.height = "calc(100% - 30px)";
-      tradingViewUpdater(instrumentName);
-    }
-    showBlock3Tab("trendscore");
-  }, 300);
-}
-function updateBlock3(instrumentName) { updateBlock3Generic(instrumentName, stocksFullData, 9, leftLabels, rightLabels, updateBlock3TradingView); }
-function updateBlock3ETF(instrumentName) { updateBlock3Generic(instrumentName, etfFullData, 8, etfLeftLabels, etfRightLabels, updateBlock3TradingViewETF); }
-function updateBlock3Futures(instrumentName) { updateBlock3Generic(instrumentName, futuresFullData, 7, futuresLeftLabels, futuresRightLabels, updateBlock3TradingViewFutures); }
-function updateBlock3FX(instrumentName) { updateBlock3Generic(instrumentName, fxFullData, 7, fxLeftLabels, fxRightLabels, updateBlock3TradingViewFX); }
-
-function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
-  const info = dataObj[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const tvContainer = document.getElementById('block3-tradingview');
-  tvContainer.innerHTML = '';
-  const widgetDiv = document.createElement('div');
-  widgetDiv.className = "tradingview-widget-container";
-  widgetDiv.innerHTML = `
-    <div class="tradingview-widget-container__widget"></div>
-    <div class="tradingview-widget-copyright">
-      <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
-    </div>
-  `;
-  tvContainer.appendChild(widgetDiv);
-  const script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-  script.async = true;
-  script.textContent = `{
-    "interval": "1D",
-    "width": "100%",
-    "isTransparent": true,
-    "height": "100%",
-    "symbol": "${symbol}",
-    "showIntervalTabs": true,
-    "displayMode": "single",
-    "locale": "en",
-    "colorTheme": "dark"
-  }`;
-  widgetDiv.appendChild(script);
-}
-function updateBlock3TradingView(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, stocksFullData); }
-function updateBlock3TradingViewETF(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, etfFullData); }
-function updateBlock3TradingViewFutures(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, futuresFullData); }
-function updateBlock3TradingViewFX(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, fxFullData); }
-
-let currentInstrument = "AMAZON";
-
-/*************************************************************************
  * MAIN EVENT HANDLERS & INITIALIZATION
  *************************************************************************/
+let currentInstrument = "AMAZON";
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOM fully loaded – starting sidebar generation");
   generateSidebarContent();
