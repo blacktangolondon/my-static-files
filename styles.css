@@ -1,13 +1,10 @@
-/* Set html and body to full height and remove default margin */
+/* Set html and body to full height and background */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
-  /* Use flex layout to place sidebar and main content side by side */
-  display: flex;
-  flex-direction: row;
 }
 
 /* General Reset */
@@ -45,6 +42,7 @@ html, body {
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease;
+  font-family: Arial, sans-serif;
   font-size: 11px;
   position: relative;
   padding-bottom: 10px;
@@ -58,7 +56,7 @@ html, body {
 #collapse-btn:hover {
   background-color: #556677;
 }
-/* Search box styling */
+/* New search box styling */
 #sidebar-search-container {
   position: relative;
   margin: 10px;
@@ -87,26 +85,26 @@ html, body {
   padding: 10px;
   cursor: pointer;
 }
-.sub-list li:nth-child(odd) { 
-  background-color: #001122; 
+.sub-list li:nth-child(odd) {
+  background-color: #001122;
 }
-.sub-list li:nth-child(even) { 
-  background-color: #002244; 
+.sub-list li:nth-child(even) {
+  background-color: #002244;
 }
-#sidebar li.selected { 
-  color: #FFA500; 
+#sidebar li.selected {
+  color: #FFA500;
 }
-#sidebar ul li:not(.expandable):hover { 
-  background-color: #334455; 
+#sidebar ul li:not(.expandable):hover {
+  background-color: #334455;
 }
-.expandable:hover { 
-  background-color: transparent; 
+.expandable:hover {
+  background-color: transparent;
 }
-.expandable > .toggle-btn:hover { 
-  background-color: #334455; 
+.expandable > .toggle-btn:hover {
+  background-color: #334455;
 }
-.sub-list li:not(.expandable):hover { 
-  background-color: #334455; 
+.sub-list li:not(.expandable):hover {
+  background-color: #334455;
 }
 .expandable > .toggle-btn {
   cursor: pointer;
@@ -124,26 +122,23 @@ html, body {
 
 /* Main Content Styling (Dashboard) */
 #main-content {
-  /* Let main content fill all space to the right of sidebar */
-  flex-grow: 1;
-  width: calc(100% - 250px);
+  flex: 1; 
   background-color: #001122;
   padding: 20px;
-  /* Define a grid with 2 columns and 2 rows (fixed heights) */
   display: grid;
+  /* Define 2 columns and 2 rows that will equally share the available space */
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 300px 300px;
+  grid-template-rows: 1fr 1fr;
   gap: 20px;
-  /* Center the grid within the container */
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  /* Use stretch so that grid items fill their cells from the start */
+  justify-items: stretch;
+  align-items: stretch;
 }
 
 /* Portfolio Builder Template */
 #portfolio-builder-template {
-  flex-grow: 1;
-  width: 100%;
+  flex: 1;
+  width: 90%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -153,8 +148,8 @@ html, body {
 
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
-  flex-grow: 1;
-  width: 100%;
+  flex: 1;
+  width: 90%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -169,7 +164,7 @@ html, body {
   height: 100%;
 }
 
-/* Dashboard Blocks (the 4 blocks) */
+/* Dashboard Blocks */
 #block1, #block2, #block3, #block4 {
   width: 100%;
   height: 100%;
@@ -182,9 +177,11 @@ html, body {
   padding: 10px;
 }
 #block3, #block4 {
+  font-family: Arial, sans-serif;
   font-size: 14px;
 }
 #block3 table, #block3 th, #block3 td {
+  font-family: Arial, sans-serif;
   font-size: 14px;
 }
 /* Block3 trendscore table */
@@ -203,11 +200,11 @@ html, body {
 #block3-trendscore th:nth-child(2), #block3-trendscore td:nth-child(2) {
   border-right: 1px solid #444444;
 }
-#block3-trendscore tr:nth-child(odd) { 
-  background-color: #001122; 
+#block3-trendscore tr:nth-child(odd) {
+  background-color: #001122;
 }
-#block3-trendscore tr:nth-child(even) { 
-  background-color: #002244; 
+#block3-trendscore tr:nth-child(even) {
+  background-color: #002244;
 }
 #block3-tabs {
   display: flex;
@@ -221,6 +218,7 @@ html, body {
   border: none;
   cursor: pointer;
   font-size: 10px;
+  font-family: Arial, sans-serif;
 }
 #block3-tabs button:hover {
   background: #556677;
@@ -410,7 +408,7 @@ html, body {
   font-weight: bold;
 }
 #portfolio-results tr:nth-child(even) {
-  background-color: rgba(255,165,0,0.1);
+  background-color: rgba(255, 165, 0, 0.1);
 }
 
 /* Reduce font size for trendscore table */
@@ -478,14 +476,14 @@ html, body {
 .thematic-portfolio-section {
   border: 1px solid #112233;
   border-radius: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 30px;  /* Increased margin-bottom for better separation */
   padding: 20px;
 }
 .thematic-portfolio-section h2 {
   color: #FFA500;
   margin-bottom: 10px;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 22px;  /* Increased font size */
+  font-weight: bold;  /* Enhanced font weight */
   border-bottom: 1px solid #112233;
   padding-bottom: 5px;
 }
@@ -499,7 +497,7 @@ html, body {
 }
 .thematic-portfolio-table th,
 .thematic-portfolio-table td {
-  padding: 14px;
+  padding: 14px;  /* Increased cell padding */
   text-align: center;
   border: 1px solid #112233;
   color: white;
@@ -510,11 +508,11 @@ html, body {
   font-weight: bold;
 }
 .thematic-portfolio-table tr:nth-child(even) {
-  background-color: rgba(255,165,0,0.1);
+  background-color: rgba(255, 165, 0, 0.1);
 }
 /* Container for charts below each table */
 .portfolio-charts {
-  margin-top: 25px;
+  margin-top: 25px;  /* Increased margin between table and charts */
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -525,10 +523,10 @@ html, body {
   border-radius: 4px;
   padding: 10px;
   flex: 1 1 300px;
-  max-height: 300px;
+  max-height: 300px;  /* Limit height so pie charts don't cover entire page */
 }
 .portfolio-chart canvas {
-  max-height: 250px;
+  max-height: 250px;  /* Further control canvas height */
 }
 
 /* Thematic Portfolio Tab Navigation */
@@ -577,7 +575,7 @@ html, body {
 
 /* Responsive Adjustments for Mobile */
 @media screen and (max-width: 768px) {
-  html, body {
+  body {
     flex-direction: column;
   }
   #sidebar {
@@ -587,13 +585,15 @@ html, body {
   }
   #main-content {
     width: 100%;
+    max-width: 100%;
     padding: 10px;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: 10px;
   }
 }
 @media screen and (max-width: 480px) {
-  html, body {
+  body {
     font-size: 14px;
   }
   #sidebar {
@@ -604,13 +604,13 @@ html, body {
     padding: 5px;
     gap: 5px;
   }
-  #block2 {
-    padding: 5px;
-  }
+  /* Reduce padding on blocks */
+  #block2 { padding: 5px; }
   .external-fullscreen-btn {
     padding: 2px 4px;
     font-size: 12px;
   }
+  /* Adjust tables for readability */
   table, th, td {
     font-size: 10px;
   }
