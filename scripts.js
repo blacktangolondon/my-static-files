@@ -1920,59 +1920,10 @@ function showBlock3Tab(tabName) {
   }
 }
 
-function updateSymbolOverviewGeneric(instrumentName, dataObj) {
-  const info = dataObj[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block2 = document.getElementById("block2");
-  const container = block2.querySelector("#symbol-info-container");
-  container.innerHTML = `<div class="tradingview-widget-container__widget"></div>`;
-  const overviewScript = document.createElement('script');
-  overviewScript.type = "text/javascript";
-  overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
-  overviewScript.async = true;
-  overviewScript.textContent = `{
-    "symbols": [
-      [ "${symbol}|1D" ]
-    ],
-    "chartOnly": false,
-    "width": "100%",
-    "height": "100%",
-    "locale": "en",
-    "colorTheme": "dark",
-    "autosize": true,
-    "showVolume": false,
-    "showMA": false,
-    "hideDateRanges": false,
-    "hideMarketStatus": false,
-    "hideSymbolLogo": false,
-    "scalePosition": "right",
-    "scaleMode": "Normal",
-    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
-    "fontSize": "10",
-    "noTimeScale": false,
-    "valuesTracking": "1",
-    "changeMode": "price-and-percent",
-    "chartType": "area",
-    "maLineColor": "#2962FF",
-    "maLineWidth": 1,
-    "maLength": 9,
-    "headerFontSize": "medium",
-    "backgroundColor": "rgba(19, 23, 34, 0)",
-    "widgetFontColor": "rgba(255, 152, 0, 1)",
-    "lineWidth": 2,
-    "lineType": 0,
-    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
-  }`;
-  container.appendChild(overviewScript);
-}
-function updateSymbolOverview(instrumentName) { updateSymbolOverviewGeneric(instrumentName, stocksFullData); }
-function updateSymbolOverviewETF(instrumentName) { updateSymbolOverviewGeneric(instrumentName, etfFullData); }
-function updateSymbolOverviewFutures(instrumentName) { updateSymbolOverviewGeneric(instrumentName, futuresFullData); }
-function updateSymbolOverviewFX(instrumentName) { updateSymbolOverviewGeneric(instrumentName, fxFullData); }
-
 /*************************************************************************
  * BLOCK3: TRENDSCORE & TradingView TAB
  *************************************************************************/
+// Updated function: now if dataObj equals futuresFullData (i.e. FUTURES instruments), the TradingView tab is removed.
 function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
   trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
@@ -2008,7 +1959,8 @@ function updateBlock3Generic(instrumentName, dataObj, rowCount, leftLabelArr, ri
       table.appendChild(tr);
     }
     trendScoreContainer.appendChild(table);
-    if (instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
+    // If dataObj is for FUTURES (or instrument is CAC 40 or FTSE MIB), remove the TradingView tab.
+    if (dataObj === futuresFullData || instrumentName === "CAC 40" || instrumentName === "FTSE MIB") {
       document.getElementById("block3-tabs").style.display = "none";
       document.getElementById("block3-content").style.height = "100%";
       document.getElementById("block3-tradingview").innerHTML = '';
