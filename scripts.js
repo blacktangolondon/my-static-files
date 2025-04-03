@@ -1554,11 +1554,12 @@ function loadThematicPortfolio() {
   });
   
   // Render Charts:
-  // STOCKS
-  renderPortfolio1Charts(portfolio1Data);
-  renderPortfolio2Charts(portfolio2Data);
-  renderPortfolio3Charts(portfolio3Data);
-  renderPortfolio4Charts(portfolio4Data);
+// STOCKS (using geographical distribution for the pie charts)
+renderPortfolio1Charts(portfolio1Data, "portfolio1_bar", "portfolio1_pie", computeGeoDistribution);
+renderPortfolio2Charts(portfolio2Data, "portfolio2_bar", "portfolio2_pie", computeGeoDistribution);
+renderPortfolio3Charts(portfolio3Data, "portfolio3_bar", "portfolio3_pie", computeGeoDistribution);
+renderPortfolio4Charts(portfolio4Data); // Update if needed
+
   // ETFS (using computeSectorDistribution)
   renderPortfolio1Charts(etfPortfolio1Data, 'etf_portfolio1_bar', 'etf_portfolio1_pie', computeSectorDistribution);
   renderPortfolio2Charts(etfPortfolio2Data, 'etf_portfolio2_bar', 'etf_portfolio2_pie', computeSectorDistribution);
