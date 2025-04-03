@@ -1,12 +1,13 @@
-/* Set html and body to full viewport height and remove default margin/padding */
+/* Set html and body to full height and background */
 html, body {
-  height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
-  display: flex;           /* use flexbox to position sidebar and main content side-by-side */
-  overflow: hidden;        /* prevent extra scrollbars on html/body */
+  /* Make the body a flex container with no extra spacing */
+  display: flex;
+  align-items: stretch;
 }
 
 /* General Reset */
@@ -40,10 +41,11 @@ html, body {
 #sidebar {
   background-color: #001122;
   color: white;
-  width: 250px;           /* fixed width */
+  width: 13.33%;
+  min-width: 250px;
   height: 100vh;
   overflow-y: auto;
-  flex-shrink: 0;         /* do not allow the sidebar to shrink */
+  transition: width 0.3s ease;
   font-size: 11px;
   position: relative;
   padding-bottom: 10px;
@@ -57,7 +59,7 @@ html, body {
 #collapse-btn:hover {
   background-color: #556677;
 }
-/* New search box styling – replaced the single input with a container */
+/* Search box styling */
 #sidebar-search-container {
   position: relative;
   margin: 10px;
@@ -122,25 +124,26 @@ html, body {
 }
 
 /* Main Content Styling (Dashboard) */
-/* This container now fills the remaining space next to the sidebar */
 #main-content {
-  flex-grow: 1;
-  height: 100vh;
+  flex: 1;  /* Fill the remaining space next to the sidebar */
+  /* Remove fixed width so it fills available area */
+  width: auto;
   background-color: #001122;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr;  /* two columns */
-  grid-template-rows: 1fr 1fr;     /* two rows = 4 blocks */
+  /* Create a 2x2 grid for the 4 blocks */
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(250px, 1fr);
   gap: 20px;
-  justify-items: stretch;
-  align-items: stretch;
-  overflow: auto;
+  /* Center grid items within their cells */
+  justify-items: center;
+  align-items: center;
 }
 
 /* Portfolio Builder Template */
 #portfolio-builder-template {
-  flex-grow: 1;
-  width: 80%;
+  flex: 1;
+  width: 100%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -150,8 +153,8 @@ html, body {
 
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
-  flex-grow: 1;
-  width: 80%;
+  flex: 1;
+  width: 100%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -172,8 +175,8 @@ html, body {
   height: 100%;
   background-color: #001122;
   border: 1px solid #444444;
-  overflow: hidden;
-  /* remove extra padding here to let the block fill its grid cell */
+  padding: 0;
+  overflow: visible;
 }
 #block2 {
   padding: 10px;
@@ -574,12 +577,12 @@ html, body {
 
 /* Responsive Adjustments for Mobile */
 @media screen and (max-width: 768px) {
-  html, body {
+  body {
     flex-direction: column;
-    height: auto;
   }
   #sidebar {
     width: 100%;
+    min-width: unset;
     height: auto;
   }
   #main-content {
@@ -592,7 +595,7 @@ html, body {
   }
 }
 @media screen and (max-width: 480px) {
-  html, body {
+  body {
     font-size: 14px;
   }
   #sidebar {
