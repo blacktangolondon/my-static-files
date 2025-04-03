@@ -836,7 +836,8 @@ function loadThematicPortfolio() {
         trend: info.summaryLeft[1],
         approach: info.summaryLeft[2],
         gap: parseGap(info.summaryLeft[3]),
-        keyArea: info.summaryLeft[4]
+        keyArea: info.summaryLeft[4],
+        region: info.region
       });
     }
   }
