@@ -5,9 +5,6 @@ html, body {
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
-  /* Make the body a flex container with no extra spacing */
-  display: flex;
-  align-items: stretch;
 }
 
 /* General Reset */
@@ -59,7 +56,7 @@ html, body {
 #collapse-btn:hover {
   background-color: #556677;
 }
-/* Search box styling */
+/* New search box styling – replaced the single input with a container */
 #sidebar-search-container {
   position: relative;
   margin: 10px;
@@ -124,26 +121,26 @@ html, body {
 }
 
 /* Main Content Styling (Dashboard) */
+/* We remove the fixed width and max-width so that main-content fills the available space */
 #main-content {
-  flex: 1;  /* Fill the remaining space next to the sidebar */
-  /* Remove fixed width so it fills available area */
-  width: auto;
+  flex-grow: 1;
+  /* Use full remaining width minus sidebar’s min-width.
+     Alternatively, you can use width: calc(100% - 250px); if sidebar is fixed at 250px. */
+  width: calc(100% - 250px);
   background-color: #001122;
   padding: 20px;
   display: grid;
-  /* Create a 2x2 grid for the 4 blocks */
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(250px, 1fr);
+  grid-template-columns: 1fr 1fr;  /* Two columns for the four blocks */
+  grid-template-rows: 1fr 1fr;      /* Two rows for the four blocks */
   gap: 20px;
-  /* Center grid items within their cells */
-  justify-items: center;
-  align-items: center;
+  justify-items: stretch;
+  align-items: stretch;
 }
 
 /* Portfolio Builder Template */
 #portfolio-builder-template {
-  flex: 1;
-  width: 100%;
+  flex-grow: 1;
+  width: calc(100% - 250px);
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -153,8 +150,8 @@ html, body {
 
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
-  flex: 1;
-  width: 100%;
+  flex-grow: 1;
+  width: calc(100% - 250px);
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -316,7 +313,7 @@ html, body {
 
 /* Portfolio Builder Page Styles */
 #portfolio-builder-page {
-  width: 90%;
+  width: calc(100% - 250px);
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
