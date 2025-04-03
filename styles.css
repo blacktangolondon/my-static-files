@@ -1,6 +1,6 @@
 /* General Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { display: flex; font-family: Arial, sans-serif; }
+body { display: flex; font-family: Arial, sans-serif; background-color: #001122; }
 
 /* Loading message style */
 .loading-message {
