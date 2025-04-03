@@ -38,7 +38,7 @@ html, body {
 #sidebar {
   background-color: #001122;
   color: white;
-  width: 250px; /* fixed width */
+  width: 250px;  /* fixed width */
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease;
@@ -122,15 +122,17 @@ html, body {
 
 /* Main Content Styling (Dashboard) */
 #main-content {
-  flex: 1; 
+  flex: 1;  
   background-color: #001122;
   padding: 20px;
   display: grid;
-  /* Define 2 columns and 2 rows that will equally share the available space */
+  /* Use two equal columns and two equal rows so the four blocks appear in their final shape immediately */
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 20px;
-  /* Use stretch so that grid items fill their cells from the start */
+  /* Make sure the main content always fills the viewport height */
+  min-height: 100vh;
+  /* Center grid items in their cells */
   justify-items: stretch;
   align-items: stretch;
 }
@@ -476,14 +478,14 @@ html, body {
 .thematic-portfolio-section {
   border: 1px solid #112233;
   border-radius: 8px;
-  margin-bottom: 30px;  /* Increased margin-bottom for better separation */
+  margin-bottom: 30px;
   padding: 20px;
 }
 .thematic-portfolio-section h2 {
   color: #FFA500;
   margin-bottom: 10px;
-  font-size: 22px;  /* Increased font size */
-  font-weight: bold;  /* Enhanced font weight */
+  font-size: 22px;
+  font-weight: bold;
   border-bottom: 1px solid #112233;
   padding-bottom: 5px;
 }
@@ -497,7 +499,7 @@ html, body {
 }
 .thematic-portfolio-table th,
 .thematic-portfolio-table td {
-  padding: 14px;  /* Increased cell padding */
+  padding: 14px;
   text-align: center;
   border: 1px solid #112233;
   color: white;
@@ -512,7 +514,7 @@ html, body {
 }
 /* Container for charts below each table */
 .portfolio-charts {
-  margin-top: 25px;  /* Increased margin between table and charts */
+  margin-top: 25px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -523,10 +525,10 @@ html, body {
   border-radius: 4px;
   padding: 10px;
   flex: 1 1 300px;
-  max-height: 300px;  /* Limit height so pie charts don't cover entire page */
+  max-height: 300px;
 }
 .portfolio-chart canvas {
-  max-height: 250px;  /* Further control canvas height */
+  max-height: 250px;
 }
 
 /* Thematic Portfolio Tab Navigation */
@@ -604,13 +606,13 @@ html, body {
     padding: 5px;
     gap: 5px;
   }
-  /* Reduce padding on blocks */
-  #block2 { padding: 5px; }
+  #block2 {
+    padding: 5px;
+  }
   .external-fullscreen-btn {
     padding: 2px 4px;
     font-size: 12px;
   }
-  /* Adjust tables for readability */
   table, th, td {
     font-size: 10px;
   }
