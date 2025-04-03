@@ -161,7 +161,7 @@ var portfolioFilters = [];
 function loadPortfolioBuilder() {
   portfolioFilters = [];
   var builderContainer = document.getElementById("portfolio-builder-template");
-  builderContainer.innerHTML = 
+  builderContainer.innerHTML = `
     <div id="portfolio-builder-page">
       <div id="portfolio-builder-container">
         <div id="portfolio_builder1">
@@ -179,7 +179,7 @@ function loadPortfolioBuilder() {
         </div>
       </div>
     </div>
-  ;
+  `;
   document.getElementById("add-filter-btn").addEventListener("click", openFilterSelector);
   document.getElementById("generate-portfolio-btn").addEventListener("click", generatePortfolioNew);
 }
@@ -392,12 +392,12 @@ function generatePortfolioNew() {
     html += "<table id='portfolio-table'><thead><tr>";
     html += "<th>Instrument</th>";
     userFilters.forEach(filter => {
-      html += <th>${filter.filterName}</th>;
+      html += `<th>${filter.filterName}</th>`;
     });
     html += "</tr></thead><tbody>";
     results.forEach(function(r) {
-      html += <tr>;
-      html += <td>${r.instrument}</td>;
+      html += `<tr>`;
+      html += `<td>${r.instrument}</td>`;
       userFilters.forEach(function(filter) {
         var map = mapping[filter.filterName];
         var field = "";
@@ -419,9 +419,9 @@ function generatePortfolioNew() {
             else if (filter.filterName === "SHORT TERM - TECH") field = r.shortTech;
           }
         }
-        html += <td>${field}</td>;
+        html += `<td>${field}</td>`;
       });
-      html += </tr>;
+      html += `</tr>`;
     });
     html += "</tbody></table>";
   }
@@ -847,14 +847,14 @@ function loadThematicPortfolio() {
   portfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var portfolio1Rows = "";
   portfolio1Data.forEach(function(item) {
-    portfolio1Rows += <tr>
+    portfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.trend}</td>
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var portfolio2Data = [];
@@ -881,7 +881,7 @@ function loadThematicPortfolio() {
   portfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var portfolio2Rows = "";
   portfolio2Data.forEach(function(item) {
-    portfolio2Rows += <tr>
+    portfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.correlation}</td>
@@ -889,7 +889,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var portfolio3Data = [];
@@ -916,7 +916,7 @@ function loadThematicPortfolio() {
   portfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var portfolio3Rows = "";
   portfolio3Data.forEach(function(item) {
-    portfolio3Rows += <tr>
+    portfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.volatility}</td>
@@ -924,7 +924,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var portfolio4Data = [];
@@ -955,7 +955,7 @@ function loadThematicPortfolio() {
   portfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var portfolio4Rows = "";
   portfolio4Data.forEach(function(item) {
-    portfolio4Rows += <tr>
+    portfolio4Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.bullish}</td>
@@ -965,7 +965,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   // --- Build ETFS Portfolios (mirroring stocks but using etfFullData) ---
@@ -991,14 +991,14 @@ function loadThematicPortfolio() {
   etfPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var etfPortfolio1Rows = "";
   etfPortfolio1Data.forEach(function(item) {
-    etfPortfolio1Rows += <tr>
+    etfPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.trend}</td>
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var etfPortfolio2Data = [];
@@ -1025,7 +1025,7 @@ function loadThematicPortfolio() {
   etfPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var etfPortfolio2Rows = "";
   etfPortfolio2Data.forEach(function(item) {
-    etfPortfolio2Rows += <tr>
+    etfPortfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.correlation}</td>
@@ -1033,7 +1033,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var etfPortfolio3Data = [];
@@ -1060,7 +1060,7 @@ function loadThematicPortfolio() {
   etfPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var etfPortfolio3Rows = "";
   etfPortfolio3Data.forEach(function(item) {
-    etfPortfolio3Rows += <tr>
+    etfPortfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.volatility}</td>
@@ -1068,7 +1068,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var etfPortfolio4Data = [];
@@ -1099,7 +1099,7 @@ function loadThematicPortfolio() {
   etfPortfolio4Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var etfPortfolio4Rows = "";
   etfPortfolio4Data.forEach(function(item) {
-    etfPortfolio4Rows += <tr>
+    etfPortfolio4Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.bullish}</td>
@@ -1109,7 +1109,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   // --- Build FUTURES Portfolios ---
@@ -1137,14 +1137,14 @@ function loadThematicPortfolio() {
   futuresPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var futuresPortfolio1Rows = "";
   futuresPortfolio1Data.forEach(function(item) {
-    futuresPortfolio1Rows += <tr>
+    futuresPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.trend}</td>
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var futuresPortfolio2Data = [];
@@ -1158,7 +1158,7 @@ function loadThematicPortfolio() {
   futuresPortfolio2Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var futuresPortfolio2Rows = "";
   futuresPortfolio2Data.forEach(function(item) {
-    futuresPortfolio2Rows += <tr>
+    futuresPortfolio2Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.correlation}</td>
@@ -1166,7 +1166,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   var futuresPortfolio3Data = [];
@@ -1180,7 +1180,7 @@ function loadThematicPortfolio() {
   futuresPortfolio3Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var futuresPortfolio3Rows = "";
   futuresPortfolio3Data.forEach(function(item) {
-    futuresPortfolio3Rows += <tr>
+    futuresPortfolio3Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.volatility}</td>
@@ -1188,7 +1188,7 @@ function loadThematicPortfolio() {
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   // --- Build FX Portfolios ---
@@ -1216,18 +1216,18 @@ function loadThematicPortfolio() {
   fxPortfolio1Data.sort((a, b) => a.instrument.localeCompare(b.instrument));
   var fxPortfolio1Rows = "";
   fxPortfolio1Data.forEach(function(item) {
-    fxPortfolio1Rows += <tr>
+    fxPortfolio1Rows += `<tr>
       <td>${item.instrument}</td>
       <td>${item.score}</td>
       <td>${item.trend}</td>
       <td>${item.approach}</td>
       <td>${item.gap}%</td>
       <td>${item.keyArea}</td>
-    </tr>;
+    </tr>`;
   });
   
   // --- Build the Final HTML with Tab Navigation ---
-  var finalHtml = 
+  var finalHtml = `
     <div class="thematic-portfolio-nav">
       <nav>
         <button class="portfolio-tab active-tab" data-target="stocks">STOCKS</button>
@@ -1531,7 +1531,7 @@ function loadThematicPortfolio() {
         </div>
       </div>
     </div>
-  ;
+  `;
   
   container.innerHTML = finalHtml;
   
@@ -1543,7 +1543,7 @@ function loadThematicPortfolio() {
       container.querySelectorAll(".portfolio-tab-content").forEach(content => content.classList.remove("active"));
       tab.classList.add("active-tab");
       const target = tab.getAttribute("data-target");
-      const activeContent = container.querySelector(.portfolio-tab-content[data-category="${target}"]);
+      const activeContent = container.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
       if (activeContent) {
         activeContent.classList.add("active");
       }
@@ -1872,14 +1872,14 @@ function updateChartGeneric(instrumentName, dataObj) {
   const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
   const block1 = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
-  container.innerHTML = 
+  container.innerHTML = `
     <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-  ;
+  `;
   var script = document.createElement('script');
   script.type = "text/javascript";
   script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   script.async = true;
-  script.textContent = {
+  script.textContent = `{
     "autosize": true,
     "symbol": "${symbol}",
     "interval": "D",
@@ -1894,7 +1894,7 @@ function updateChartGeneric(instrumentName, dataObj) {
     "details": true,
     "calendar": false,
     "support_host": "https://www.tradingview.com"
-  };
+  }`;
   container.appendChild(script);
 }
 function updateChart(instrumentName) { updateChartGeneric(instrumentName, stocksFullData); }
@@ -1919,78 +1919,6 @@ function showBlock3Tab(tabName) {
     tvDiv.style.display = 'block';
   }
 }
-
-
-/*************************************************************************
- * SYMBOL OVERVIEW UPDATER
- *************************************************************************/
-function updateSymbolOverviewGeneric(instrumentName, dataObj) {
-  const info = dataObj[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block2 = document.getElementById("block2");
-  if (!block2) return;
-  // Ensure there is a container with id "symbol-info-container" inside block2.
-  let container = block2.querySelector("#symbol-info-container");
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "symbol-info-container";
-    block2.appendChild(container);
-  }
-  container.innerHTML = <div class="tradingview-widget-container__widget"></div>;
-  const overviewScript = document.createElement('script');
-  overviewScript.type = "text/javascript";
-  overviewScript.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
-  overviewScript.async = true;
-  overviewScript.textContent = {
-    "symbols": [
-      [ "${symbol}|1D" ]
-    ],
-    "chartOnly": false,
-    "width": "100%",
-    "height": "100%",
-    "locale": "en",
-    "colorTheme": "dark",
-    "autosize": true,
-    "showVolume": false,
-    "showMA": false,
-    "hideDateRanges": false,
-    "hideMarketStatus": false,
-    "hideSymbolLogo": false,
-    "scalePosition": "right",
-    "scaleMode": "Normal",
-    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
-    "fontSize": "10",
-    "noTimeScale": false,
-    "valuesTracking": "1",
-    "changeMode": "price-and-percent",
-    "chartType": "area",
-    "maLineColor": "#2962FF",
-    "maLineWidth": 1,
-    "maLength": 9,
-    "headerFontSize": "medium",
-    "backgroundColor": "rgba(19, 23, 34, 0)",
-    "widgetFontColor": "rgba(255, 152, 0, 1)",
-    "lineWidth": 2,
-    "lineType": 0,
-    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
-  };
-  container.appendChild(overviewScript);
-}
-
-function updateSymbolOverview(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, stocksFullData);
-}
-function updateSymbolOverviewETF(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, etfFullData);
-}
-function updateSymbolOverviewFutures(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, futuresFullData);
-}
-function updateSymbolOverviewFX(instrumentName) {
-  updateSymbolOverviewGeneric(instrumentName, fxFullData);
-}
-
-
 
 /*************************************************************************
  * BLOCK3: TRENDSCORE & TradingView TAB
@@ -2060,18 +1988,18 @@ function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
   tvContainer.innerHTML = '';
   const widgetDiv = document.createElement('div');
   widgetDiv.className = "tradingview-widget-container";
-  widgetDiv.innerHTML = 
+  widgetDiv.innerHTML = `
     <div class="tradingview-widget-container__widget"></div>
     <div class="tradingview-widget-copyright">
       <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
     </div>
-  ;
+  `;
   tvContainer.appendChild(widgetDiv);
   const script = document.createElement('script');
   script.type = "text/javascript";
   script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
   script.async = true;
-  script.textContent = {
+  script.textContent = `{
     "interval": "1D",
     "width": "100%",
     "isTransparent": true,
@@ -2081,7 +2009,7 @@ function updateBlock3TradingViewGeneric(instrumentName, dataObj) {
     "displayMode": "single",
     "locale": "en",
     "colorTheme": "dark"
-  };
+  }`;
   widgetDiv.appendChild(script);
 }
 function updateBlock3TradingView(instrumentName) { updateBlock3TradingViewGeneric(instrumentName, stocksFullData); }
@@ -2170,15 +2098,15 @@ document.addEventListener("DOMContentLoaded", function() {
   document.addEventListener("fullscreenchange", () => {
     const btn = document.getElementById("fullscreen-button");
     if (document.fullscreenElement === null) {
-      btn.innerHTML = <span class="arrow">&#8598;</span>
+      btn.innerHTML = `<span class="arrow">&#8598;</span>
                        <span class="arrow">&#8599;</span><br>
                        <span class="arrow">&#8601;</span>
-                       <span class="arrow">&#8600;</span>;
+                       <span class="arrow">&#8600;</span>`;
     } else {
-      btn.innerHTML = <span class="arrow">&#8598;</span>
+      btn.innerHTML = `<span class="arrow">&#8598;</span>
                        <span class="arrow">&#8599;</span><br>
                        <span class="arrow">&#8601;</span>
-                       <span class="arrow">&#8600;</span>;
+                       <span class="arrow">&#8600;</span>`;
     }
     const sidebarFS = document.getElementById("sidebar-fullscreen");
     if (sidebarFS) {
@@ -2234,7 +2162,7 @@ function generateSidebarContent() {
         categoryItem.classList.add('expandable');
         const toggleBtn = document.createElement('div');
         toggleBtn.classList.add('toggle-btn');
-        toggleBtn.innerHTML = ${displayName} <span>+</span>;
+        toggleBtn.innerHTML = `${displayName} <span>+</span>`;
         categoryItem.textContent = '';
         categoryItem.appendChild(toggleBtn);
         const subList = document.createElement('ul');
@@ -2257,7 +2185,7 @@ function generateSidebarContent() {
       categoryItem.classList.add('expandable');
       const toggleBtn = document.createElement('div');
       toggleBtn.classList.add('toggle-btn');
-      toggleBtn.innerHTML = ${displayName} <span>+</span>;
+      toggleBtn.innerHTML = `${displayName} <span>+</span>`;
       categoryItem.appendChild(toggleBtn);
       const subList = document.createElement('ul');
       subList.classList.add('sub-list');
@@ -2266,7 +2194,7 @@ function generateSidebarContent() {
         subCategoryItem.classList.add('expandable');
         const subToggleBtn = document.createElement('div');
         subToggleBtn.classList.add('toggle-btn');
-        subToggleBtn.innerHTML = ${subCategory} <span>+</span>;
+        subToggleBtn.innerHTML = `${subCategory} <span>+</span>`;
         subCategoryItem.appendChild(subToggleBtn);
         const instrumentList = document.createElement('ul');
         instrumentList.classList.add('sub-list');
