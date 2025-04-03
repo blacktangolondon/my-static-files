@@ -1,14 +1,14 @@
-/* Set html and body to full height and background */
+/* Set html and body to full height and remove default margin */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
-  display: flex;         /* This makes them appear in a row */
-  flex-direction: row;   /* Optional since row is the default, but explicit is better */
+  /* Use flex so that sidebar and main content are side by side */
+  display: flex;
+  flex-direction: row;
 }
-
 
 /* General Reset */
 * {
@@ -41,8 +41,8 @@ html, body {
 #sidebar {
   background-color: #001122;
   color: white;
-  width: 13.33%;
-  min-width: 250px;
+  /* Fixed width (min 250px) */
+  width: 250px;
   height: 100vh;
   overflow-y: auto;
   transition: width 0.3s ease;
@@ -59,7 +59,7 @@ html, body {
 #collapse-btn:hover {
   background-color: #556677;
 }
-/* New search box styling – replaced the single input with a container */
+/* Search box */
 #sidebar-search-container {
   position: relative;
   margin: 10px;
@@ -88,26 +88,26 @@ html, body {
   padding: 10px;
   cursor: pointer;
 }
-.sub-list li:nth-child(odd) {
-  background-color: #001122;
+.sub-list li:nth-child(odd) { 
+  background-color: #001122; 
 }
-.sub-list li:nth-child(even) {
-  background-color: #002244;
+.sub-list li:nth-child(even) { 
+  background-color: #002244; 
 }
-#sidebar li.selected {
-  color: #FFA500;
+#sidebar li.selected { 
+  color: #FFA500; 
 }
-#sidebar ul li:not(.expandable):hover {
-  background-color: #334455;
+#sidebar ul li:not(.expandable):hover { 
+  background-color: #334455; 
 }
-.expandable:hover {
-  background-color: transparent;
+.expandable:hover { 
+  background-color: transparent; 
 }
-.expandable > .toggle-btn:hover {
-  background-color: #334455;
+.expandable > .toggle-btn:hover { 
+  background-color: #334455; 
 }
-.sub-list li:not(.expandable):hover {
-  background-color: #334455;
+.sub-list li:not(.expandable):hover { 
+  background-color: #334455; 
 }
 .expandable > .toggle-btn {
   cursor: pointer;
@@ -124,26 +124,29 @@ html, body {
 }
 
 /* Main Content Styling (Dashboard) */
-/* We remove the fixed width and max-width so that main-content fills the available space */
 #main-content {
+  /* Let main content fill the remaining space next to the sidebar */
   flex-grow: 1;
-  /* Use full remaining width minus sidebar’s min-width.
-     Alternatively, you can use width: calc(100% - 250px); if sidebar is fixed at 250px. */
-  width: calc(100% - 250px);
   background-color: #001122;
   padding: 20px;
+  /* Remove fixed width so it uses the available space */
+  /* Use grid layout for the 4 blocks */
   display: grid;
-  grid-template-columns: 1fr 1fr;  /* Two columns for the four blocks */
-  grid-template-rows: 1fr 1fr;      /* Two rows for the four blocks */
+  grid-template-columns: 1fr 1fr;
+  /* Instead of using a fixed grid-template-rows based on vw, let them be auto-height */
+  grid-auto-rows: minmax(200px, 1fr);
   gap: 20px;
-  justify-items: stretch;
-  align-items: stretch;
+  /* Center items inside each grid cell */
+  justify-items: center;
+  align-items: center;
+  /* Optional: add margin to separate main content from sidebar if needed */
+  /* margin-left: 20px; */
 }
 
 /* Portfolio Builder Template */
 #portfolio-builder-template {
   flex-grow: 1;
-  width: calc(100% - 250px);
+  width: 100%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -154,7 +157,7 @@ html, body {
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
   flex-grow: 1;
-  width: calc(100% - 250px);
+  width: 100%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -178,9 +181,7 @@ html, body {
   padding: 0;
   overflow: visible;
 }
-#block2 {
-  padding: 10px;
-}
+#block2 { padding: 10px; }
 #block3, #block4 {
   font-size: 14px;
 }
@@ -203,11 +204,11 @@ html, body {
 #block3-trendscore th:nth-child(2), #block3-trendscore td:nth-child(2) {
   border-right: 1px solid #444444;
 }
-#block3-trendscore tr:nth-child(odd) {
-  background-color: #001122;
+#block3-trendscore tr:nth-child(odd) { 
+  background-color: #001122; 
 }
-#block3-trendscore tr:nth-child(even) {
-  background-color: #002244;
+#block3-trendscore tr:nth-child(even) { 
+  background-color: #002244; 
 }
 #block3-tabs {
   display: flex;
@@ -316,7 +317,7 @@ html, body {
 
 /* Portfolio Builder Page Styles */
 #portfolio-builder-page {
-  width: calc(100% - 250px);
+  width: 90%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -410,7 +411,7 @@ html, body {
   font-weight: bold;
 }
 #portfolio-results tr:nth-child(even) {
-  background-color: rgba(255, 165, 0, 0.1);
+  background-color: rgba(255,165,0,0.1);
 }
 
 /* Reduce font size for trendscore table */
@@ -510,7 +511,7 @@ html, body {
   font-weight: bold;
 }
 .thematic-portfolio-table tr:nth-child(even) {
-  background-color: rgba(255, 165, 0, 0.1);
+  background-color: rgba(255,165,0,0.1);
 }
 /* Container for charts below each table */
 .portfolio-charts {
@@ -577,7 +578,7 @@ html, body {
 
 /* Responsive Adjustments for Mobile */
 @media screen and (max-width: 768px) {
-  body {
+  html, body {
     flex-direction: column;
   }
   #sidebar {
@@ -587,15 +588,13 @@ html, body {
   }
   #main-content {
     width: 100%;
-    max-width: 100%;
     padding: 10px;
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
     gap: 10px;
   }
 }
 @media screen and (max-width: 480px) {
-  body {
+  html, body {
     font-size: 14px;
   }
   #sidebar {
