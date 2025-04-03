@@ -1,10 +1,12 @@
-/* Set html and body to full height and background */
+/* Set html and body to full viewport height and remove default margin/padding */
 html, body {
-  height: 100vh; /* use full viewport height */
+  height: 100vh;
   margin: 0;
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
+  display: flex;           /* use flexbox to position sidebar and main content side-by-side */
+  overflow: hidden;        /* prevent extra scrollbars on html/body */
 }
 
 /* General Reset */
@@ -38,11 +40,10 @@ html, body {
 #sidebar {
   background-color: #001122;
   color: white;
-  width: 250px;
-  /* fixed width for sidebar */
+  width: 250px;           /* fixed width */
   height: 100vh;
   overflow-y: auto;
-  transition: width 0.3s ease;
+  flex-shrink: 0;         /* do not allow the sidebar to shrink */
   font-size: 11px;
   position: relative;
   padding-bottom: 10px;
@@ -121,26 +122,25 @@ html, body {
 }
 
 /* Main Content Styling (Dashboard) */
+/* This container now fills the remaining space next to the sidebar */
 #main-content {
   flex-grow: 1;
-  /* Use calc() so that the main content takes the remaining horizontal space */
-  width: calc(100vw - 250px);
   height: 100vh;
   background-color: #001122;
   padding: 20px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;  /* two columns */
+  grid-template-rows: 1fr 1fr;     /* two rows = 4 blocks */
   gap: 20px;
-  /* Stretch each grid cell so blocks fill their available area */
   justify-items: stretch;
   align-items: stretch;
+  overflow: auto;
 }
 
 /* Portfolio Builder Template */
 #portfolio-builder-template {
   flex-grow: 1;
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -151,7 +151,7 @@ html, body {
 /* Thematic Portfolio Template */
 #thematic-portfolio-template {
   flex-grow: 1;
-  width: 90%;
+  width: 80%;
   max-width: 1200px;
   margin: 10px auto;
   background: #001122;
@@ -172,8 +172,8 @@ html, body {
   height: 100%;
   background-color: #001122;
   border: 1px solid #444444;
-  padding: 0;
-  overflow: visible;
+  overflow: hidden;
+  /* remove extra padding here to let the block fill its grid cell */
 }
 #block2 {
   padding: 10px;
@@ -574,12 +574,12 @@ html, body {
 
 /* Responsive Adjustments for Mobile */
 @media screen and (max-width: 768px) {
-  body {
+  html, body {
     flex-direction: column;
+    height: auto;
   }
   #sidebar {
     width: 100%;
-    min-width: unset;
     height: auto;
   }
   #main-content {
@@ -592,7 +592,7 @@ html, body {
   }
 }
 @media screen and (max-width: 480px) {
-  body {
+  html, body {
     font-size: 14px;
   }
   #sidebar {
