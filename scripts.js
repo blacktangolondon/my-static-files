@@ -447,6 +447,21 @@ function destroyChartIfExists(canvasId) {
 
 // Distribution Functions
 
+// Geographical distribution for stocks (by region)
+function computeGeoDistribution(portfolioData) {
+  const regionCount = {};
+  portfolioData.forEach(item => {
+    const region = item.region || "Unknown";
+    regionCount[region] = (regionCount[region] || 0) + 1;
+  });
+  const total = Object.values(regionCount).reduce((sum, value) => sum + value, 0);
+  const labels = Object.keys(regionCount);
+  const dataArr = labels.map(label => Math.round((regionCount[label] / total) * 100));
+  return { labels: labels, data: dataArr };
+}
+
+
+
 // Sector distribution for ETFs
 function computeSectorDistribution(portfolioData) {
   var sectorCount = {};
