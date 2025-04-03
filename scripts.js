@@ -808,6 +808,37 @@ function renderPortfolio1ChartsFX(portfolioData, barCanvasId, pieCanvasId, distr
 // Functions renderPortfolio2ChartsFX and renderPortfolio3ChartsFX can be implemented similarly if needed.
 
 /*************************************************************************
+ * LOAD THEMATIC PORTFOLIO (Portfolio Ideas) country distribution for stocks
+ *************************************************************************/
+
+function computeCountryDistribution(portfolioData) {
+  const countryMapping = {
+    "US": data.STOCKS.US,
+    "ITALY": data.STOCKS.ITALY,
+    "GERMANY": data.STOCKS.GERMANY
+  };
+  const counts = { "US": 0, "ITALY": 0, "GERMANY": 0 };
+  portfolioData.forEach(item => {
+    for (const country in countryMapping) {
+      if (countryMapping[country].includes(item.instrument)) {
+        counts[country]++;
+        break;
+      }
+    }
+  });
+  const total = Object.values(counts).reduce((sum, val) => sum + val, 0);
+  const labels = [];
+  const dataArr = [];
+  for (const country in counts) {
+    if (counts[country] > 0) {
+      labels.push(country);
+      dataArr.push(Math.round((counts[country] / total) * 100));
+    }
+  }
+  return { labels: labels, data: dataArr };
+}
+
+/*************************************************************************
  * LOAD THEMATIC PORTFOLIO (Portfolio Ideas)
  *************************************************************************/
 function loadThematicPortfolio() {
@@ -967,6 +998,145 @@ function loadThematicPortfolio() {
       <td>${item.keyArea}</td>
     </tr>`;
   });
+  
+  // --- (ETC. for ETFs, FUTURES, FX; unchanged) ---
+
+  // --- Build the Final HTML with Tab Navigation ---
+  var finalHtml = `
+    <div class="thematic-portfolio-nav">
+      <nav>
+        <button class="portfolio-tab active-tab" data-target="stocks">STOCKS</button>
+        <button class="portfolio-tab" data-target="etfs">ETFS</button>
+        <button class="portfolio-tab" data-target="futures">FUTURES</button>
+        <button class="portfolio-tab" data-target="fx">FX</button>
+      </nav>
+    </div>
+    <div id="thematic-portfolio-contents">
+      <!-- STOCKS Tab Content -->
+      <div class="portfolio-tab-content active" data-category="stocks">
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio1Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio1_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio1_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW S&P500 CORRELATION</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Correlation</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio2Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio2_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio2_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING LOW VOLATILITY</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>S&P500 Volatility Ratio</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio3Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio3_bar"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio3_pie"></canvas></div>
+          </div>
+        </div>
+        <div class="thematic-portfolio-section">
+          <h2>TREND FOLLOWING PLUS</h2>
+          <div class="thematic-portfolio-table-container">
+            <table class="thematic-portfolio-table">
+              <thead>
+                <tr>
+                  <th>Stock Name</th>
+                  <th>Score</th>
+                  <th>Bullish Alpha</th>
+                  <th>Bearish Alpha</th>
+                  <th>Alpha Strength</th>
+                  <th>Trend</th>
+                  <th>Approach</th>
+                  <th>Gap to Peak</th>
+                  <th>Key Area</th>
+                </tr>
+              </thead>
+              <tbody>${portfolio4Rows}</tbody>
+            </table>
+          </div>
+          <div class="portfolio-charts">
+            <div class="portfolio-chart"><canvas id="portfolio4_bullish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio4_bearish"></canvas></div>
+            <div class="portfolio-chart"><canvas id="portfolio4_alpha"></canvas></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- (Other tabs for ETFS, FUTURES, FX remain unchanged) -->
+    </div>
+  `;
+  
+  container.innerHTML = finalHtml;
+  
+  // Attach event listeners for tab switching
+  const tabs = container.querySelectorAll(".portfolio-tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", function() {
+      tabs.forEach(t => t.classList.remove("active-tab"));
+      container.querySelectorAll(".portfolio-tab-content").forEach(content => content.classList.remove("active"));
+      tab.classList.add("active-tab");
+      const target = tab.getAttribute("data-target");
+      const activeContent = container.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
+      if (activeContent) {
+        activeContent.classList.add("active");
+      }
+    });
+  });
+  
+  // Render Charts:
+  // STOCKS - now passing the distribution function for country distribution
+  renderPortfolio1Charts(portfolio1Data, 'portfolio1_bar', 'portfolio1_pie', computeCountryDistribution);
+  renderPortfolio2Charts(portfolio2Data, 'portfolio2_bar', 'portfolio2_pie', computeCountryDistribution);
+  renderPortfolio3Charts(portfolio3Data, 'portfolio3_bar', 'portfolio3_pie', computeCountryDistribution);
+  renderPortfolio4Charts(portfolio4Data);
   
   // --- Build ETFS Portfolios (mirroring stocks but using etfFullData) ---
   var etfPortfolio1Data = [];
