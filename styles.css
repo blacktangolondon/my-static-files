@@ -131,10 +131,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   overflow: visible;
 }
 #block2 { padding: 10px; }
-#block3, #block4 { font-family: Arial, sans-serif; font-size: 14px; }
+#block3, #block4 { font-family: Arial, sans-serif; font-size: 12px; }
 #block3 table, #block3 th, #block3 td {
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
 }
 /* Block3 trendscore table */
 #block3-trendscore table {
