@@ -1711,9 +1711,11 @@ fetch(stocksFullDataCSVUrl)
         const val = lines[r] && lines[r][col] ? lines[r][col].trim() : "";
         summaryRight.push(val);
       }
-      const tvSymbol = (lines[119] && lines[119][col]) ? lines[119][col].trim() : "";
-      stocksFullData[instrumentName] = { tvSymbol, summaryLeft, summaryRight };
-      stockPrices[instrumentName] = prices;
+const tvSymbol = (lines[119] && lines[119][col]) ? lines[119][col].trim() : "";
+const region = (lines[120] && lines[120][col]) ? lines[120][col].trim() : "Unknown";
+stocksFullData[instrumentName] = { tvSymbol, summaryLeft, summaryRight, region };
+stockPrices[instrumentName] = prices;
+
     }
     stocksCorrelationDataLoaded = true;
     if (currentInstrument === "AMAZON") {
