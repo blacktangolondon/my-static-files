@@ -5,7 +5,10 @@ html, body {
   padding: 0;
   background-color: #001122;
   font-family: Arial, sans-serif;
+  display: flex;         /* This makes them appear in a row */
+  flex-direction: row;   /* Optional since row is the default, but explicit is better */
 }
+
 
 /* General Reset */
 * {
