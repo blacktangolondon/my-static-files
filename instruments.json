@@ -1,6 +1,7 @@
 	
 0	
 ticker	"AMZN"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -29,6 +30,7 @@ pe_ratio	33.43
 eps	5.53
 1	
 ticker	"AMD"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -57,6 +59,7 @@ pe_ratio	93.4
 eps	1.0JS:1
 2	
 ticker	"AAL"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -85,6 +88,7 @@ pe_ratio	7.8
 eps	1.24
 3	
 ticker	"AAPL"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -113,6 +117,7 @@ pe_ratio	31.45
 eps	6.3
 4	
 ticker	"T"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -141,6 +146,7 @@ pe_ratio	17.98
 eps	1.49
 5	
 ticker	"BAC"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -169,6 +175,7 @@ pe_ratio	11.2
 eps	3.21
 6	
 ticker	"KO"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -197,6 +204,7 @@ pe_ratio	29.04
 eps	2.46
 7	
 ticker	"XOM"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -225,6 +233,7 @@ pe_ratio	13.16
 eps	7.84
 8	
 ticker	"F"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -253,6 +262,7 @@ pe_ratio	6.39
 eps	1.46
 9	
 ticker	"GM"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -281,6 +291,7 @@ pe_ratio	6.85
 eps	6.37
 10	
 ticker	"GOOG"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -309,6 +320,7 @@ pe_ratio	19.85
 eps	8.03
 11	
 ticker	"INTC"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -337,6 +349,7 @@ pe_ratio	null
 eps	-4.38
 12	
 ticker	"META"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -365,6 +378,7 @@ pe_ratio	22.78
 eps	23.86
 13	
 ticker	"MSFT"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -393,6 +407,7 @@ pe_ratio	31.35
 eps	12.39
 14	
 ticker	"NVDA"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -421,6 +436,7 @@ pe_ratio	37.73
 eps	2.94
 15	
 ticker	"PFE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -449,6 +465,7 @@ pe_ratio	15.54
 eps	1.41
 16	
 ticker	"TSLA"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -477,6 +494,7 @@ pe_ratio	123.68
 eps	2.04
 17	
 ticker	"WBD"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -505,6 +523,7 @@ pe_ratio	null
 eps	-4.62
 18	
 ticker	"RACE.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -533,6 +552,7 @@ pe_ratio	43.66
 eps	8.48
 19	
 ticker	"ENEL.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -561,6 +581,7 @@ pe_ratio	10.44
 eps	0.67
 20	
 ticker	"ISP.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -589,6 +610,7 @@ pe_ratio	8.59
 eps	0.48
 21	
 ticker	"STLAM.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -617,6 +639,7 @@ pe_ratio	4.17
 eps	1.84
 22	
 ticker	"ENI.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -645,6 +668,7 @@ pe_ratio	14.74
 eps	0.78
 23	
 ticker	"G.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -673,6 +697,7 @@ pe_ratio	11.71
 eps	2.47
 24	
 ticker	"STMMI.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -701,6 +726,7 @@ pe_ratio	11.95
 eps	1.47
 25	
 ticker	"TEN.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -729,6 +755,7 @@ pe_ratio	8.57
 eps	1.61
 26	
 ticker	"MONC.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	-25
@@ -736,8 +763,8 @@ momentum_score	25
 slope_score	-25
 future_projection_score	-25
 secondary_score	-50
-fundamental_score	25
-final_score	-25
+fundamental_score	-25
+final_score	-75
 trend	"NEUTRAL"
 approach	"WAIT"
 gap_to_peak	22.11
@@ -749,14 +776,15 @@ sp500_volatility_ratio	2.22
 bullish_alpha	1.83
 bearish_alpha	1.27
 alpha_strength	1.7
-micro	"LONG TERM BULLISH"
+micro	"LONG TERM BEARISH"
 math	"MEDIUM TERM BEARISH"
 stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM NEUTRAL"
-pe_ratio	22.45
-eps	2.36
+pe_ratio	null
+eps	null
 27	
 ticker	"PST.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -764,10 +792,10 @@ momentum_score	25
 slope_score	25
 future_projection_score	25
 secondary_score	75
-fundamental_score	25
-final_score	100
-trend	"LONG"
-approach	"BUY THE DIPS"
+fundamental_score	-25
+final_score	50
+trend	"NEUTRAL"
+approach	"WAIT"
 gap_to_peak	5.4
 key_area	"15.08 / 17.44"
 one_year_high	16.66
@@ -777,14 +805,15 @@ sp500_volatility_ratio	1.33
 bullish_alpha	0.07
 bearish_alpha	-0.33
 alpha_strength	1.2
-micro	"LONG TERM BULLISH"
+micro	"LONG TERM BEARISH"
 math	"MEDIUM TERM BULLISH"
 stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BULLISH"
-pe_ratio	10.23
-eps	1.54
+pe_ratio	null
+eps	null
 28	
 ticker	"TRN.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -813,6 +842,7 @@ pe_ratio	15.48
 eps	0.52
 29	
 ticker	"PRY.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -841,6 +871,7 @@ pe_ratio	17.17
 eps	2.52
 30	
 ticker	"SRG.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -869,6 +900,7 @@ pe_ratio	12.2
 eps	0.38
 31	
 ticker	"LDO.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -897,6 +929,7 @@ pe_ratio	22.88
 eps	1.86
 32	
 ticker	"MB.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -925,6 +958,7 @@ pe_ratio	9.07
 eps	1.6
 33	
 ticker	"CPR.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -953,6 +987,7 @@ pe_ratio	32.54
 eps	0.17
 34	
 ticker	"BAMI.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -981,6 +1016,7 @@ pe_ratio	6.73
 eps	1.27
 35	
 ticker	"FBK.MI"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -1009,6 +1045,7 @@ pe_ratio	15.39
 eps	1.07
 36	
 ticker	"UCG.MI"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1037,6 +1074,7 @@ pe_ratio	8.01
 eps	5.78
 37	
 ticker	"ADS.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1065,6 +1103,7 @@ pe_ratio	46.3
 eps	4.23
 38	
 ticker	"AIR.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1093,6 +1132,7 @@ pe_ratio	25.21
 eps	5.35
 39	
 ticker	"ALV.DE"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1121,6 +1161,7 @@ pe_ratio	13.02
 eps	25.19
 40	
 ticker	"BAS.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1149,6 +1190,7 @@ pe_ratio	28.1
 eps	1.45
 41	
 ticker	"BAYN.DE"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	-25
@@ -1177,6 +1219,7 @@ pe_ratio	null
 eps	-2.6
 42	
 ticker	"BMW.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1205,6 +1248,7 @@ pe_ratio	5.71
 eps	11.62
 43	
 ticker	"CBK.DE"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1233,6 +1277,7 @@ pe_ratio	10.46
 eps	2.08
 44	
 ticker	"CON.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1261,6 +1306,7 @@ pe_ratio	10.46
 eps	5.84
 45	
 ticker	"DB1.DE"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1289,6 +1335,7 @@ pe_ratio	25.06
 eps	10.59
 46	
 ticker	"DBK.DE"
+asset_class	"equity"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1317,6 +1364,7 @@ pe_ratio	14.09
 eps	1.37
 47	
 ticker	"DHL.DE"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	-25
@@ -1345,6 +1393,7 @@ pe_ratio	12.16
 eps	2.81
 48	
 ticker	"HEN.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1373,6 +1422,7 @@ pe_ratio	12.63
 eps	4.78
 49	
 ticker	"MBG.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1401,6 +1451,7 @@ pe_ratio	4.73
 eps	10.19
 50	
 ticker	"MRK.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1429,6 +1480,7 @@ pe_ratio	18.04
 eps	6.39
 51	
 ticker	"P911.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1457,6 +1509,7 @@ pe_ratio	11.07
 eps	3.94
 52	
 ticker	"SAP.DE"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -1485,6 +1538,7 @@ pe_ratio	84.83
 eps	2.65
 53	
 ticker	"VOW3.DE"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1513,6 +1567,7 @@ pe_ratio	4.0JS:4
 eps	21.36
 54	
 ticker	"ZAL.DE"
+asset_class	"equity"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -1541,6 +1596,7 @@ pe_ratio	33.16
 eps	0.96
 55	
 ticker	"AIAI.MI"
+asset_class	"equity"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1569,6 +1625,7 @@ pe_ratio	null
 eps	null
 56	
 ticker	"BOTZ.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1595,6 +1652,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 57	
 ticker	"WTAI.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1621,6 +1679,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 58	
 ticker	"LITU.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1647,6 +1706,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 59	
 ticker	"BATT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1673,6 +1733,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 60	
 ticker	"VOLT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1699,6 +1760,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 61	
 ticker	"GNOM.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1725,6 +1787,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 62	
 ticker	"SBIO.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1751,6 +1814,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 63	
 ticker	"2B70.DE"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1777,6 +1841,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 64	
 ticker	"WDNA.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1803,6 +1868,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 65	
 ticker	"SEGA.MI"
+asset_class	"etf"
 tech_score	25
 ma21_score	25
 ma100_score	25
@@ -1829,6 +1895,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BULLISH"
 66	
 ticker	"CSBGU7.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1855,6 +1922,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 67	
 ticker	"VUCP.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1881,6 +1949,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 68	
 ticker	"CMOD.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1907,6 +1976,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 69	
 ticker	"WEAT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1933,6 +2003,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 70	
 ticker	"COFF.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -1959,6 +2030,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 71	
 ticker	"CORN.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -1985,6 +2057,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 72	
 ticker	"NGAS.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	-25
@@ -2011,6 +2084,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM NEUTRAL"
 73	
 ticker	"SUGA.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2037,6 +2111,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 74	
 ticker	"COTN.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2063,6 +2138,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 75	
 ticker	"CRUD.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2089,6 +2165,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 76	
 ticker	"COPA.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2115,6 +2192,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 77	
 ticker	"ALUM.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2141,6 +2219,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 78	
 ticker	"NICK.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2167,6 +2246,7 @@ stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM BEARISH"
 79	
 ticker	"CEU.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2193,6 +2273,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 80	
 ticker	"LCEU.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2219,6 +2300,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 81	
 ticker	"JPCT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2245,6 +2327,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 82	
 ticker	"RIEU.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2271,6 +2354,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 83	
 ticker	"MTAV.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2297,6 +2381,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 84	
 ticker	"FEDF.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2323,6 +2408,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 85	
 ticker	"MINT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2349,6 +2435,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 86	
 ticker	"XFFE.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2375,6 +2462,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 87	
 ticker	"RBOT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2401,6 +2489,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 88	
 ticker	"ROBO.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2427,6 +2516,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 89	
 ticker	"2B7F.DE"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2453,6 +2543,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 90	
 ticker	"SMH.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2479,6 +2570,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 91	
 ticker	"SEME.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2505,6 +2597,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 92	
 ticker	"CHIP.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2531,6 +2624,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 93	
 ticker	"HNSC.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2557,6 +2651,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 94	
 ticker	"IWDE.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2583,6 +2678,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 95	
 ticker	"IUSE.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2609,6 +2705,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 96	
 ticker	"ANX.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2635,6 +2732,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 97	
 ticker	"EMKT.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2661,6 +2759,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 98	
 ticker	"XXSC.MI"
+asset_class	"etf"
 tech_score	-25
 ma21_score	-25
 ma100_score	-25
@@ -2687,6 +2786,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BEARISH"
 99	
 ticker	"IMEU.MI"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -2713,6 +2813,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 100	
 ticker	"SPY"
+asset_class	"etf"
 tech_score	0
 ma21_score	-25
 ma100_score	25
@@ -3223,6 +3324,7 @@ stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM NEUTRAL"
 123	
 ticker	"FTSEMIB.MI"
+asset_class	"index"
 tech_score	0
 ma21_score	-25
 ma100_score	25
