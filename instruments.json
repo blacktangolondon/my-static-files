@@ -763,8 +763,8 @@ momentum_score	25
 slope_score	-25
 future_projection_score	-25
 secondary_score	-50
-fundamental_score	-25
-final_score	-75
+fundamental_score	25
+final_score	-25
 trend	"NEUTRAL"
 approach	"WAIT"
 gap_to_peak	22.11
@@ -776,12 +776,12 @@ sp500_volatility_ratio	2.22
 bullish_alpha	1.83
 bearish_alpha	1.27
 alpha_strength	1.7
-micro	"LONG TERM BEARISH"
+micro	"LONG TERM BULLISH"
 math	"MEDIUM TERM BEARISH"
 stats	"MEDIUM TERM BEARISH"
 tech	"SHORT TERM NEUTRAL"
-pe_ratio	null
-eps	null
+pe_ratio	22.45
+eps	2.36
 27	
 ticker	"PST.MI"
 asset_class	"equity"
@@ -792,10 +792,10 @@ momentum_score	25
 slope_score	25
 future_projection_score	25
 secondary_score	75
-fundamental_score	-25
-final_score	50
-trend	"NEUTRAL"
-approach	"WAIT"
+fundamental_score	25
+final_score	100
+trend	"LONG"
+approach	"BUY THE DIPS"
 gap_to_peak	5.4
 key_area	"15.08 / 17.44"
 one_year_high	16.66
@@ -805,12 +805,12 @@ sp500_volatility_ratio	1.33
 bullish_alpha	0.07
 bearish_alpha	-0.33
 alpha_strength	1.2
-micro	"LONG TERM BEARISH"
+micro	"LONG TERM BULLISH"
 math	"MEDIUM TERM BULLISH"
 stats	"MEDIUM TERM BULLISH"
 tech	"SHORT TERM BULLISH"
-pe_ratio	null
-eps	null
+pe_ratio	10.23
+eps	1.54
 28	
 ticker	"TRN.MI"
 asset_class	"equity"
