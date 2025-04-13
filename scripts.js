@@ -128,6 +128,11 @@ function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
+function updateSymbolOverview(instrumentName) {
+  console.log("updateSymbolOverview non è ancora stata implementata. Ricevuto:", instrumentName);
+}
+
+
 /*************************************************************************
  * JSON DATA LOADING & MAPPING FUNCTIONS
  *************************************************************************/
